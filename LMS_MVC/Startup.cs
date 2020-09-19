@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace LMS_MVC
 {
-    public class Startup
+    public class Startup//1
     {
         public Startup(IConfiguration configuration)//1
         {
