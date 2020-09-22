@@ -1,0 +1,643 @@
+﻿
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>仪表盘</h1>
+
+<script src="~/echarts.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            box-sizing: border-box;
+        } 
+
+        .wrap {
+            height: 180%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #F3F5F8;
+            padding: 0 25px;
+        }
+
+        .je {
+            width: 100%;
+            height: 155px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .je li {
+                width: 24%;
+                height: 155px;
+                background: #fff;
+                border-radius: 15px;
+            }
+
+                .je li h5 {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 15px;
+                    color: #ccc;
+                    font-weight: normal;
+                    padding: 30px;
+                }
+
+                .je li p {
+                    font-size: 20px;
+                    font-weight: bold;
+                    padding-left: 30px;
+                }
+
+        .input {
+            width: 100%;
+            background: #fff;
+            height: 95px;
+            margin-top: 35px;
+            border-radius: 15px;
+        }
+
+        .inputs {
+            margin-left: 40px;
+            line-height: 95px;
+        }
+
+            .inputs span {
+                font-size: 18px;
+            }
+
+            .inputs select {
+                height: 48px;
+                width: 230px;
+                color: #ccc;
+                border-color: #ccc;
+            }
+
+        .box {
+            width: 100%;
+            height: 575px;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        .left {
+            width: 49%;
+        }
+
+        .top {
+            height: 45%;
+            width: 100%;
+            background: #fff;
+            border-radius: 15px;
+        }
+
+            .top h3 {
+                font-size: 20px;
+                padding-left: 15px;
+                border-bottom: 1px solid #ccc;
+                line-height: 55px;
+                font-weight: normal;
+            }
+
+        .zl {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 65px;
+        }
+
+            .zl li {
+                width: 25%;
+                height: 70px;
+                margin-right: 22px;
+            }
+
+                .zl li h5 {
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin-top: 20px;
+                    margin-right: 10px;
+                }
+
+        .bottom {
+            height: 45%;
+            width: 100%;
+            background: #fff;
+            border-radius: 15px;
+        }
+
+            .bottom h3 {
+                font-size: 15px;
+                padding-left: 15px;
+                border-bottom: 1px solid #ccc;
+                line-height: 55px;
+                font-weight: normal;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 25px;
+            }
+
+                .bottom h3 b {
+                    color: blue;
+                    font-weight: normal;
+                }
+
+                .bottom h3 input {
+                    height: 30px;
+                    width: 225px;
+                }
+
+        .dls {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        dl dd h6 {
+            font-size: 15px;
+            margin: 25px 0;
+        }
+
+        .right {
+            width: 50%;
+            height: 90%;
+            background: #fff;
+            border-radius: 15px;
+        }
+
+            .right h6 {
+                font-size: 15px;
+                padding-left: 15px;
+                border-bottom: 1px solid #ccc;
+                line-height: 50px;
+                font-weight: normal;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 25px;
+            }
+
+                .right h6 b {
+                    color: blue;
+                    font-weight: normal;
+                }
+
+                .right h6 input {
+                    height: 30px;
+                    width: 225px;
+                }
+
+            .right dl {
+                display: flex;
+                margin: 140px 140px;
+                text-align: center;
+            }
+
+                .right dl dt p {
+                    font-size: 10px;
+                    margin-right: 130px;
+                }
+
+                .right dl dt h6 {
+                    font-size: 15px;
+                    margin-top: 30px;
+                    margin-right: 130px;
+                }
+
+                .right dl dd {
+                    margin-left: 20px;
+                    margin-top: -50px;
+                }
+
+                    .right dl dd p {
+                        line-height: 20px;
+                        font-size: 15px;
+                        /* margin-right: 300px;*/
+                    }
+
+        .bottom1 {
+            height: 45%;
+            width: 100%;
+            background: #fff;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+
+        .zxc {
+            height: 45%;
+            width: 50%;
+            background: #fff;
+            border-radius: 15px;
+            margin-top: 15px;
+            float: left;
+        }
+
+        .asd {
+            height: 45%;
+            width: 49%;
+            background: #fff;
+            border-radius: 15px;
+            margin-top: 15px;
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="je">
+            <li>
+                <h5>
+                    <span style="text-align:right">实际放款总金额（元）</span>
+                    @*<b>&gt;</b>*@
+                </h5>
+                <p id="zxc"></p>
+            </li>
+            <li>
+                <h5>
+                    <span>回款总金额（元）</span>
+                    @*<b>&gt;</b>*@
+                </h5>
+                <p>￥1000000.00</p>
+            </li>
+            <li>
+                <h5>
+                    <span>资产总金额（元）</span>
+                    @*<b>&gt;</b>*@
+                </h5>
+                <p>￥1000000.00</p>
+            </li>
+            <li>
+                <h5>
+                    <span>总盈亏（元）</span>
+                    @*<b>&gt;</b>*@
+                </h5>
+                <p>￥1000000.00</p>
+            </li>
+        </ul>
+        @*<div class="input">
+                <div class="inputs">
+                    <span>按渠道筛选</span>
+                    <select name="" id="">
+                        <option value="">
+                            全部渠道
+                        </option>
+                    </select>
+                </div>
+            </div>*@
+        <div class="box">
+            <div class="left">
+                <div class="top">
+                    <h3>当前待处理</h3>
+                    <ul class="zl">
+                        <li>
+                            <p>填写资料</p>
+                            <h6>6单</h6>
+                        </li>
+                        <li>
+                            <p style="color: #53C282;">等待审核</p>
+                            <h6>1单</h6>
+                        </li>
+                        <li>
+                            <p style="color: #36CBCB;">待签署合同</p>
+                            <h6>1单</h6>
+                        </li>
+                        <li>
+                            <p style="color: #F2637B;">待放款</p>
+                            <h6>0单</h6>
+                        </li>
+                        <li>
+                            <p>放款中</p>
+                            <h6>0单</h6>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bottom">
+                    <h3>
+                        <span>账单</span>
+                        <p>
+                            昨日|<b>今日</b>
+                            <input type="date">
+                        </p>
+                    </h3>
+                    <div class="dls">
+                        <dl>
+                            <dt>
+                                应回款
+                            </dt>
+                            <dd>
+                                <h6>6笔</h6>
+                                <p>￥1000.00</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt style="color: #F57B7B;">
+                                待回款
+                            </dt>
+                            <dd>
+                                <h6>1笔</h6>
+                                <p>￥100.00</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt style="color: #53C2A2;">
+                                已回款
+                            </dt>
+                            <dd>
+                                <h6>0笔</h6>
+                                <p>￥0.00</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <h6>
+                    <span>回款统计</span>
+                    <p>
+                        昨日|<b>今日</b>
+                        <input type="date">
+                    </p>
+                </h6>
+                <dl>
+                    <dt>
+                        <p>总回款金额</p>
+                        <h6>￥10000.00</h6>
+                    </dt>
+                    <dd>
+                        <p><b style="color: #3080FE;">♦</b>当日还款|18% ￥5000.00 4笔</p>
+                        <p><b style="color: #36CBCB;">♦</b>逾期还款|0% ￥0 0笔</p>
+                        <p><b style="color: #F2637B;">♦</b>提前还款|0% ￥0 0笔</p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="bottom1">
+            <h6 style="margin-top: 15px;">
+                <a style="margin-left:20px">放款</a>
+                @*&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;*@
+                <a style="margin-left:700px">按日|按周|按月</a>
+                <input type="date">
+            </h6>
+            <div id="main" style="width: 800px;height:400px;"></div>
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+
+                // 指定图表的配置项和数据
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['放款订单笔数', '实际放款金额', '放款订单金额']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'category',
+                            axisTick: {
+                                show: false
+                            },
+                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '放款订单笔数',
+                            type: 'bar',
+                            label: {
+                                show: true,
+                                position: 'inside'
+                            },
+                            data: [70000, 60000, 50000,40000, 30000, 20000, 10000]
+                        },
+                        {
+                            name: '实际放款金额',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                show: true
+                            },
+                            data: [70000, 60000, 50000, 40000, 30000, 20000, 10000]
+                        },
+                        {
+                            name: '放款订单金额',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                show: true,
+                                position: 'left'
+                            },
+                            data: [70000, 60000, 50000, 40000, 30000, 20000, 10000]
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            </script>
+        </div>
+        <div>
+            <div class="zxc">
+                <h6 style="margin-top: 15px;">
+                    <a style="margin-left:20px">申请转化</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                    昨日|<a>今日</a>
+                    <input type="date">
+                </h6>
+                <div id="main1" style="width:500px;height:392px;"></div>
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('main1'));
+                    var option = {
+                        title: {
+                            //text: '申请转化',
+                            //subtext: '纯属虚构'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br />{b} : {c}%"
+                        },
+                        toolbox: {
+                            feature: {
+                                dataView: { readOnly: false },
+                                restore: {},
+                                saveAsImage: {}
+                            }
+                        },
+                        legend: {
+                            data: ['创建申请', '提交申请', '审核通过', '放款完成']
+                        },
+                        series: [
+                            {
+                                name: '预期',
+                                type: 'funnel',
+                                left: '10%',
+                                width: '70%',
+                                label: {
+                                    formatter: '{b}预期'
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                itemStyle: {
+                                    opacity: 0.7
+                                },
+                                emphasis: {
+                                    label: {
+                                        position: 'inside',
+                                        formatter: '{b}预期: {c}%'
+                                    }
+                                },
+                                data: [
+                                    { value: 20, name: '放款完成' },
+                                    { value: 40, name: '审核通过' },
+                                    { value: 60, name: '提交申请' },
+                                    { value: 100, name: '提交申请' },
+                                ]
+                            },
+                            {
+                                name: '实际',
+                                type: 'funnel',
+                                left: '10%',
+                                width: '70%',
+                                maxSize: '70%',
+                                label: {
+                                    position: 'inside',
+                                    formatter: '{c}%',
+                                    color: '#fff'
+                                },
+                                itemStyle: {
+                                    opacity: 0.5,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                emphasis: {
+                                    label: {
+                                        position: 'inside',
+                                        formatter: '{b}实际: {c}%'
+                                    }
+                                },
+                                data: [
+                                    { value: 0, name: '提交申请' },
+                                    { value: 0, name: '提交申请' },
+                                    { value: 0, name: '审核通过' },
+                                    { value: 100, name: '放款完成' },
+                                ]
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                </script>
+            </div>
+
+            <div class="asd">
+                <h6 style="margin-top: 15px;margin-left: 20px">贷后</h6>
+                <div id="main2" style="width: 500px;height:400px;"></div>
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('main2'));
+                    var option = {
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b}: {c} ({d}%)'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 10,
+                            data: ['已还款', '还款中', '已逾期']
+                        },
+                        series: [
+                            {
+                                name: '访问来源',
+                                type: 'pie',
+                                radius: ['50%', '70%'],
+                                avoidLabelOverlap: false,
+                                label: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: '30',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                data: [
+                                    { value: 335, name: '还款中' },
+                                    { value: 310, name: '已还款' },
+                                    { value: 135, name: '已逾期' },
+                                ]
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            show();
+        });
+        var as = 0;
+        function show() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+
+                    $(d).each(function () {
+                        as += this.dFMoney;
+                    })
+                    $("#zxc").text(as);
+                }
+            }
+
+
+    </script>
+}
+
+
+

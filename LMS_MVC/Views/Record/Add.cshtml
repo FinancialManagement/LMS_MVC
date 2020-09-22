@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+
+<h1>催收记录添加</h1>
+
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<script src="~/layui-v2.5.6/layui/layui.all.js"></script>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<link href="~/layui-v2.5.6/layui/css/modules/laydate/default/laydate.css" rel="stylesheet" />
+
+
+<div id="app">
+    <table class="table table-bordered">
+        <tr>
+            <td>内容:</td>
+            <td><input type="text" v-model="obj.Content" /></td>
+        </tr>
+        <tr>
+            <td>记录时间:</td>
+            <td><input type="date" v-model="obj.RecordTime" /></td>
+        </tr>
+        <tr>
+            <td>操作人员:</td>
+            <td><input type="text" v-model="obj.Operator" /></td>
+        </tr>
+        <tr>
+            <td><input id="Button1" type="button" v-on:click="Add" value="添加" /></td>
+            <td><input id="Button1" type="button" value="button" /></td>
+        </tr>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    //添加
+    var data = {
+        obj: {
+            Content: '',
+            RecordTime:new Date(),
+            Operator:'',
+        },
+    };
+   var vm= new Vue({
+        el: '#app',
+       data,
+        methods: {
+            Add() {
+                var m = JSON.stringify(this.obj);
+                axios.post("http://localhost:51166/api/Record/Add","m="+m)
+                    .then(function (response) {
+                        if (response.data > 0) {
+                            alert("添加成功");
+                            location.href = '/Collection/Show';
+                        }
+                        else {
+                            alert('添加失败!');
+                        }
+                    })
+            }
+        },
+  
+
+   })
+</script>
+
+
+

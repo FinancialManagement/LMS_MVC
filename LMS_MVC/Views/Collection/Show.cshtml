@@ -1,0 +1,239 @@
+﻿
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h3>催收显示列表</h3>
+
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<script src="~/layui-v2.5.6/layui/layui.all.js"></script>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<link href="~/layui-v2.5.6/layui/css/modules/laydate/default/laydate.css" rel="stylesheet" />
+
+
+
+<div id="app" class="layui-form">
+    客户姓名:<input id="Text1" type="text" v-model="input1" />
+    催收人员:<input id="Text1" type="text" v-model="input2" />
+    <button class="btn-primary" v-on:click="Search">查询</button>
+
+    <button class="btn-primary" v-on:click="Add()">添加</button>
+    <div class="layui-form">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <td>借款订单编号</td>
+                    <td>客户姓名</td>
+                    <td>催收状态</td>
+                    <td>最新催收记录</td>
+                    <td>委派催收时间</td>
+                    <td>催收人员</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in emps">
+                    <td>{{item.code}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.status==0?"催收中":"已完成"}}</td>
+                    <td>{{item.record}}</td>
+                    <td>{{item.recordTime}}</td>
+                    <td>{{item.collector}}</td>
+                    <td>
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" v-on:click="Asdf">查看</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail"  data-toggle="modal" data-target="#myModal">添加记录</a>
+                        @*<a class="layui-btn layui-btn-danger layui-btn-xs" v-on:click="Dele(item.id)">删除</a>*@
+                        @*<a class="layui-btn layui-btn-xs" v-on:click="Upda(item)">编辑</a>*@
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <table class="table table-bordered" style="text-align:center">
+        <tr>
+            <td>总共<span>{{totalCount}}</span>条记录</td>
+            <td>总共<span v-model="totalPage">{{totalPage}}</span>页</td>
+            <td>当前第<span v-model="currentPage">{{currentPage}}</span>页</td>
+            <td><a href="#" v-on:click="a" class="layui-btn layui-btn-xs">首页</a></td>
+            <td><a href="#" v-on:click="b" class="layui-btn layui-btn-xs">上一页</a></td>
+            <td><a href="#" v-on:click="c" class="layui-btn layui-btn-xs">下一页</a></td>
+            <td><a href="#" v-on:click="d" class="layui-btn layui-btn-xs">尾页</a></td>
+        </tr>
+    </table>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">添加催收记录</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;&nbsp;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">内容</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.Content">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:100px">记录时间</label>
+                        <div class="layui-input-block">
+                            <input type="date" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.RecordTime">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:100px">操作人员</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.Operator">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" data-dismiss="modal">关 闭</button>
+                    @*<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>*@
+                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" v-on:click="Xiu">确 定</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        //添加
+        var data = {
+            a: {
+                Content: '',
+                RecordTime: new Date(),
+                Operator: '',
+            },
+            emps: '',
+            input1: '',
+            input2: '',
+            currentPage: 1,
+            totalPage: 1,
+            totalCount: 1
+        };
+
+        //显示
+        var vn = new Vue({
+            el: '#app',
+            data,//{
+            //    emps: '',
+            //input1: '',
+            //input2: '',
+            //currentPage: 1,
+            //totalPage: 1,
+            //totalCount: 1}
+            mounted: function () {
+                this.Show();
+            },
+            methods: {
+                Show: function () {
+                    var t = this;
+                    var dqy = this.currentPage
+                    axios({
+                        method: "get",
+                        url: "http://localhost:51166/api/Collection/Show",
+                        params: {
+                            name: this.input1,
+                            collector: this.input2,
+                            pageSize: 4,
+                            currentPage: dqy
+                        }
+                    })
+                        .then(function (i) {
+                            t.emps = i.data.collection;
+                            t.totalPage = i.data.totalPage;
+                            t.totalCount = i.data.totalCount;
+                            t.currentPage = i.data.currentPage;
+                        })
+                        .catch(function () {
+                            console.log(error);
+                        });
+                },
+                a: function () {
+                    this.currentPage = 1;
+                    this.Show();
+                },
+                b: function () {
+                    this.currentPage--;
+                    if (this.currentPage < 1) {
+                        alert("已经是第一页了");
+                        this.currentPage++;
+                    }
+                    this.Show();
+                },
+                c: function () {
+                    this.currentPage++;
+                    if (this.currentPage < this.totalPage) {
+                        alert("已经是最后一页了");
+                        this.currentPage++;
+                    }
+                    this.Show();
+                },
+                d: function () {
+                    this.currentPage = this.totalPage;
+                    this.Show();
+                },
+                Search() {
+                    this.Show(this.input1, this.input2);
+                },//查询
+                Xiu() {
+                    var m = JSON.stringify(this.a);
+                    axios.post("http://localhost:51166/api/Record/Add", "m=" + m)
+                        .then(function (response) {
+                            if (response.data > 0) {
+                                alert("添加成功");
+                                location.href = '/Record/Show';
+                            }
+                            else {
+                                alert('添加失败!');
+                            }
+                        })
+                },
+                Add() { location.href = "/Collection/Add" },//催收添加
+                Asdf() { location.href = "/Record/Show" },//记录
+                //Sdf() { location.href = "/Record/Add" },//催收记录添加
+            },
+            //删除
+            Dele(id) {
+                console.log(id);
+                axios.post('http://localhost:51166/api/Collection/Delete', "id=" + id).then(res => {
+                    if (res.data > 0) {
+                        alert('删除成功!');
+                        location.href = '/Collection/Show';
+                    } else {
+                        alert('删除失败!');
+                    }
+
+                });
+            },
+
+
+        })
+
+            //显示
+            //new Vue({
+            //    el: '#app',
+            //    data: {
+            //        emps: ''
+            //    },
+                //mounted() {
+                //    axios.get('http://localhost:51166/api/Collection/Show')
+                //        .then(response => (this.emps = response.data))
+                //        .catch(function (error) {
+                //            console.log(error);
+                //        });
+                //},
+
+
+    </script>
+}
