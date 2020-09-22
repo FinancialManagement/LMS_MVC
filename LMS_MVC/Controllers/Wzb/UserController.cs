@@ -41,7 +41,7 @@ namespace LMS_MVC.Controllers.Wzb
         }
         public IActionResult XIndex4(int id)
         {
-            ViewBag.id = id;
+            ViewBag.id4 = id;
             return View();
         }
     }

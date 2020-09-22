@@ -68,7 +68,7 @@
                 <td>{{i.sTime}}</td>
                 <td>{{i.sBei}}</td>
                 <td>
-                    <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha()">查看</button>
+                    <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.sId)">查看</button>
                     @*<button type="button" class="layui-btn layui-btn-radius" v-on:click="Del(i.sId)">删除</button>
         <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
                 </td>
@@ -208,7 +208,7 @@
                 this.Show();
             },
             //Add() { location.href = "http://localhost:51490/User/AddIndex" },
-            Cha() { location.href = "/User/AddIndex" },
+            Cha(id) { location.href = "/User/XIndex4?id="+id },
             Del(id) {
                 axios({
                     method: "post",

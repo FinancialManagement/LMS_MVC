@@ -1,45 +1,34 @@
 ﻿
 @{
+    ViewData["Title"] = "XIndex4";
+}
+
+
+@{
     ViewData["Title"] = "XIndex2";
 }
 
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
-<h3>申请资料详情单</h3>
+<h3>客户资料详情单</h3>
 <div id="app">
-    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">申请信息</h3>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">客户信息</h3>
     <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
-        <tr>
-            <td style="width:500px;height:50px"><p>申请编号：<span style="margin-left:20px" id="dno"></span></p></td>
-            <td style="width:500px;height:50px"><p>当前进度：<span style="color:orange" id="SKuan"></span></p></td>
-            <td style="width:500px;height:50px"><p>申请产品：<span style="color:orange">车贷（001）</span></p></td>
-        </tr>
+    <table style="margin-top:30px;margin-left:30px">
         <tr>
             <td style="width:500px;height:50px"><p>客户名称：<span id="SName"></span></p></td>
             <td style="width:500px;height:50px"><p>手机电话：<span id="SPhone"></span></p></td>
             <td style="width:500px;height:50px"><p>身份证号：<span id="SCard"></span></p></td>
         </tr>
-    </table>
-
-    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">借款信息</h3>
-    <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
         <tr>
-            <td style="width:500px;height:50px"><p>贷款金额：<span style="margin-left:20px" id="DFMoney"></span></p></td>
-            <td style="width:500px;height:50px"><p>还款方式：<span>先本后息</span></p></td>
-            <td style="width:500px;height:50px"><p>还款期数：<span>车贷（001）</span></p></td>
-        </tr>
-        <tr>
-            <td style="width:500px;height:50px"><p>贷款用途：<span id="DTu"></span></p></td>
-            <td style="width:500px;height:50px"><p>还款来源：<span id="DHuan"></span></p></td>
-            <td style="width:500px;height:50px"><p>还款保障：<span id="DDan"></span></p></td>
+            <td style="width:500px;height:50px"><p>贷款状态：<span id="SKuan"></span></p></td>
+            <td style="width:500px;height:50px"><p>客户备注：<span id="SBei"></span></p></td>
         </tr>
     </table>
 
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">个人信息</h3>
     <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
+    <table style="margin-top:30px;margin-left:30px">
         <tr>
             <td style="width:500px;height:50px"><p>电子邮箱：<span style="margin-left:20px" id="SEmail"></span></p></td>
             <td style="width:500px;height:50px"><p>民族：<span id="SNation"></span></p></td>
@@ -59,7 +48,7 @@
 
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
     <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
+    <table style="margin-top:30px;margin-left:30px">
         <tr>
             <td style="width:500px;height:50px"><p>工作单位：<span style="margin-left:20px" id="SWorks"></span></p></td>
             <td style="width:500px;height:50px"><p>公司性质：<span>外资企业</span></p></td>
@@ -158,40 +147,15 @@
         el: '#app',
         data,
         mounted: function () {
-            this.Fan(2);
-            this.Fan1(2);
+            this.Fan1(@ViewBag.id4);
 
         },
         methods: {
-            Fan: function (id) {
-                axios({
-                    method: 'get',
-                    url: 'http://localhost:51166/api/User/XFan',
-                    params: { id:id }
-                })
-                    .then(
-                    function (i) {
-                            //t.a.DMoney = i.data.dMoney;
-                            //t.a.DCount = i.data.dCount;
-                            //t.a.DLi = i.data.dLi+"%";
-                            //t.a.DTu = i.data.dTu;
-                            //t.a.DHuan = i.data.dHuan;
-                            //t.a.DDan = i.data.dDan;
-                            //t.a.DName = i.data.dName;
-
-                            $("#dno").text(i.data.dNo);
-                            $("#DFMoney").text(i.data.dMoney);
-                            $("#DTu").text(i.data.dTu);
-                            $("#DHuan").text(i.data.dHuan);
-                            $("#DDan").text(i.data.dDan);
-                        }
-                )
-            },
             Fan1:function(id) {
                 var n = this;
                 axios({
                     method: 'get',
-                    url: 'http://localhost:51166/api/User/XFan1',
+                    url: 'http://localhost:51166/api/User/XFan4',
                     params: { id: id }
                 })
                     .then(
@@ -235,6 +199,15 @@
                             $("#SQFrom").text(i.data.sqFrom);
                             $("#SQPhone").text(i.data.sqPhone);
                             $("#SJian").text(i.data.sJian);
+                            if (i.data.sKuan==1) {
+                                $("#SKuan").text("贷款中");
+                            }
+                            else {
+                                $("#SKuan").text("已还清");
+                            }
+                            
+                            $("#SJian").text(i.data.sJian);
+                            $("#SBei").text(i.data.sBei);
                             if (i.data.sNation==1) {
                                 $("#SNation").text("汉族");
                             }
@@ -246,35 +219,7 @@
                         }
                     )
             },
-            Xiu() {
-                var a = $("#a").val();
-                this.c.SJId=@ViewBag.id;
-                var m = JSON.stringify(this.c);
-                if (a==1) {
-                    axios.post("http://localhost:51166/api/User/Xiu1", "m=" + m)
-                        .then(res => {
-                            if (res.data > 0) {
-                                alert("操作完成");
-                                location.href = '/User/DIndex1';
-                            }
-                            else {
-                                alert("操作失败");
-                            }
-                        })
-                }
-                else {
-                    axios.post("http://localhost:51166/api/User/Xiu2", "m=" + m)
-                        .then(res => {
-                            if (res.data > 0) {
-                                alert("操作完成");
-                                location.href = '/User/DIndex1';
-                            }
-                            else {
-                                alert("操作失败");
-                            }
-                        })
-                }
-            }
         }
     })
 </script>
+
