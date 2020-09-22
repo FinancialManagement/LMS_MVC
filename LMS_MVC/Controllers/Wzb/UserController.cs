@@ -12,5 +12,21 @@ namespace LMS_MVC.Controllers.Wzb
         {
             return View();
         }
+        public IActionResult AddIndex()
+        {
+            return View();
+        }
+        public IActionResult ChaIndex()
+        {
+            return View();
+        }
+        public IActionResult DIndex1()
+        {
+            return View();
+        }
+        public IActionResult XIndex1()
+        {
+            return View();
+        }
     }
 }

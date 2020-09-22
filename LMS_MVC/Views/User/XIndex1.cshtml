@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewData["Title"] = "XIndex1";
+}
+
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<h3>借贷审核</h3>
+<div id="app">
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">审核状态</h3>
+    <hr style="color:gainsboro" />
+    <table style="margin-top:30px">
+        <tr>
+            <td style="width:500px;height:50px"><p>贷款编号：<span style="margin-left:20px" id="dno"></span></p></td>
+            <td style="width:500px;height:50px"><p>当前进度：<span style="color:orange">初审</span></p></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:500px;height:50px"><p>操作员：</p></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:500px;height:50px"><p>初审意见</p></td>
+        </tr>
+    </table>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">申请信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">产品名称</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly"/></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:28px">贷款金额</span><input id="Text2" type="text" v-model="a.DMoney" style="width:300px;height:40px;margin-left:30px" readonly="readonly"/></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">还款方式</span><input value="先息后本" id="Text1" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:52px">期数</span><input id="Text2" type="text" v-model="a.DCount" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">借款利率</span><input id="Text1" type="text" v-model="a.DLi" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">罚息计算方式</span><input value="无罚息费" id="Text2" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+    </table>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">借款信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">贷款金额</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" v-model="a.DMoney"/></td>
+            <td style="width:500px"><span style="margin-left:50px">还款方式</span><input id="Text2" type="text" value="先本后息" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">分期期数</span><input id="Text1" type="text" v-model="a.DCount" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">贷款用途</span><input id="Text2" type="text" v-model="a.DTu" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">还款来源</span><input id="Text1" type="text" v-model="a.DHuan" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">还款保障</span><input id="Text2" type="text" v-model="a.DDan" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+    </table>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">个人信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px;margin-right:30px">电子邮箱</span><input v-model="b.SEmail" id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:74px">民族</span><input id="Text2" type="text" v-model="b.SNation" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;margin-right:60px">学历</span><input id="Text1" type="text" v-model="b.SXueli" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:50px">移动电话</span><input id="Text2" type="text" v-model="b.SPhone" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">户口所在地区</span><input id="Text1" type="text" v-model="b.SSFrom" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">户口所在详细地址</span><input id="Text2" type="text" v-model="b.SXFrom" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;margin-right:30px">健康状况</span><input id="Text1" type="text" v-model="b.SJian" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+    </table>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">身份证正面照</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <div>
+        <img style="width:300px;height:100px;margin-left:30px" id="img1"/>
+    </div>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px;">身份证反面照</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <div>
+        <img style="width:300px;height:100px;margin-left:30px" id="img2"/>
+    </div>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">工作单位</span><input v-model="b.SWorks" id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">企业地址</span><input id="Text2" type="text" v-model="b.SQFrom" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;margin-right:30px">月薪</span><input v-model="b.SMonthly" id="Text1" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">单位电话</span><input id="Text2" type="text" v-model="b.SQPhone" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+    </table>
+    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:1000px;margin-top:30px" data-toggle="modal" data-target="#myModal">进行初审</button>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">初审界面</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="width:100px">搜索选择框</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px">
+                                <option value="">审核结果</option>
+                                <option value="1">通过</option>
+                                <option value="2">驳回</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label" style="width:100px">审核意见</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on:click="Xiu()">提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+<script>
+    var data = {
+        a: {
+            DMoney: '王则波',
+            DCount: "帅",
+            DLi: "www",
+            DTu: '王则波',
+            DHuan: "帅",
+            DDan: "www",
+            DName:''
+        },
+        b: {
+            SEmail: '王则波',
+            SNation: "帅",
+            SXueli: "www",
+            SPhone: '王则波',
+            SSFrom: "帅",
+            SXFrom: "www",
+            SJian: '王则波',
+            SImg1: "帅",
+            SImg2: "www",
+            SWorks: '王则波',
+            SQFrom: "帅",
+            SMonthly: "www",
+            SQPhone: "www",
+        },
+        name:''
+    };
+    new Vue({
+        el: '#app',
+        data,
+        mounted: function () {
+            this.Fan(6);
+            this.Fan1(6);
+            
+        },
+        methods: {
+            Fan: function (id) {
+                var t = this;
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/User/XFan',
+                    params: { id:id }
+                })
+                    .then(
+                    function (i) {
+                            t.a.DMoney = i.data.dMoney;
+                            t.a.DCount = i.data.dCount;
+                            t.a.DLi = i.data.dLi;
+                            t.a.DTu = i.data.dTu;
+                            t.a.DHuan = i.data.dHuan;
+                            t.a.DDan = i.data.dDan;
+                            t.a.DName = i.data.dName;
+                            $("#dno").text(i.data.dNo);
+                        } 
+                )
+            },
+            Fan1:function(id) {
+                var n = this;
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/User/XFan1',
+                    params: { id: id }
+                })
+                    .then(
+                        function (i) {
+                            n.b.SEmail = i.data.sEmail;
+                            n.b.SNation = i.data.sNation;
+                            n.b.SXueli = i.data.sXueli;
+                            n.b.SPhone = i.data.sPhone;
+                            n.b.SSFrom = i.data.sSfrom;
+                            n.b.SXFrom = i.data.sxFrom;
+                            n.b.SJian = i.data.sJian;
+                            n.b.SWorks = i.data.sWorks;
+                            n.b.SQFrom = i.data.sqFrom;
+                            n.b.SMonthly = i.data.sMonthly;
+                            n.b.SQPhone = i.data.sqPhone;
+
+                            $("#img1").attr("src",i.data.sImg1);
+                            $("#img2").attr("src", i.data.sImg2);
+                        }
+                    )
+            }
+        }
+    })
+</script>
+

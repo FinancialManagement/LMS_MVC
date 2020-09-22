@@ -1,8 +1,7 @@
 ﻿
 @{
-    ViewData["Title"] = "KeIndex";
+    ViewData["Title"] = "DIndex1";
 }
-
 
 <script src="~/js/vue.js"></script>
 <script src="~/js/axios.min.js"></script>
@@ -23,20 +22,24 @@
     <table style="margin-top:30px">
         <tr>
             <td style="width:400px">
-                贷款状态：
-                @*<select id="Select1">
+                申请状态：
+                <select id="Select1">
                         <option value="0">全部</option>
                         <option value="1">贷款中</option>
                         <option value="2">未贷款</option>
-                    </select>*@<input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
+                    </select><input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
             </td>
-            <td style="width:400px">备注：<input id="Text6" type="text" v-model="input6" style="width:200px;height:30px;margin-left:28px" /></td>
-            <td>注册时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
+            <td style="width:400px">期数：<select id="Select1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select></td>
+            <td>申请时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
         </tr>
     </table>
 
 
-    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-top:20px;margin-left:1000px" >查询</button>
+    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-top:20px;margin-left:1000px">查询</button>
     <table class="layui-table">
         @*<colgroup>
                 <col width="150">
@@ -46,31 +49,31 @@
             </colgroup>*@
         <thead>
             <tr>
-                <th>序号</th>
-                <th>姓名</th>
-                <th>电话</th>
-                <th>身份证号</th>
-                <th>地址</th>
-                <th>贷款状态</th>
-                <th>注册时间</th>
-                <th>备注</th>
+                <th>订单编号</th>
+                <th>客户姓名</th>
+                <th>申请金额</th>
+                <th>期数</th>
+                <th>利率</th>
+                <th>申请状态</th>
+                <th>提交时间</th>
+                <th>用途</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="i in emps">
-                <td>A-00{{i.sId}}</td>
-                <td>{{i.sName}}</td>
-                <td>{{i.sPhone}}</td>
-                <td>{{i.sCard}}</td>
-                <td>{{i.sSfrom}}...</td>
-                <td>{{i.sKuan==1?"贷款中":"无贷款"}}</td>
-                <td>{{i.sTime}}</td>
-                <td>{{i.sBei}}</td>
+                <td>{{i.dNo}}</td>
+                <td>{{i.dName}}</td>
+                <td>{{i.dMoney}}</td>
+                <td>{{i.dCount}}</td>
+                <td>{{i.dLi}}</td>
+                <td>{{i.dSzt}}</td>
+                <td>{{i.sdTime}}</td>
+                <td>{{i.dTu}}</td>
                 <td>
                     <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha()">查看</button>
                     @*<button type="button" class="layui-btn layui-btn-radius" v-on:click="Del(i.sId)">删除</button>
-        <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
+                        <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
                 </td>
             </tr>
         </tbody>
@@ -86,63 +89,18 @@
             <td><a href="#" v-on:click="d">尾页</a></td>
         </tr>
     </table>
-
-    <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">修改界面</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">数字</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SName">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">操作人</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SPhone">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">内容</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SCard">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" v-on:click="Xiu()">提交更改</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
     </div>
-</div>
-
-
 
 <script>
 
-    var cctv = {
-        a: {
-            SName: 'www',
-            SPhone: "www",
-            SCard: "www"
-        },
-    };
-    var vn=new Vue({
+    var vn = new Vue({
         el: '#app',
         data: {
             emps: '',
             input1: '',
             PageCurrent: 1,
             PageIndex: 1,
-            PageCount:1
+            PageCount: 1
         },
         //mounted() {
         //    axios
@@ -161,12 +119,12 @@
                 var PageSize = 5;
                 axios({
                     method: "get",
-                    url: "http://localhost:51166/api/User/KeShow",
-                    params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent)}
-                    })
+                    url: "http://localhost:51166/api/User/DShow1",
+                    params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent) }
+                })
                     .then(
                         function (i) {
-                            t.emps = i.data.list1,
+                            t.emps = i.data.lmS_Dings,
                                 t.PageCurrent = i.data.pageCurrent,
                                 t.PageIndex = i.data.pageIndex,
                                 t.PageCount = i.data.pageCount
@@ -209,27 +167,8 @@
             },
             //Add() { location.href = "http://localhost:51490/User/AddIndex" },
             Add() { location.href = "/User/AddIndex" },
-            Del(id) {
-                axios({
-                    method: "post",
-                    url: "http://localhost:51166/api/User/Del",
-                    params: { id: id }
-                })
-                    .then(res => {
-                        if (res.data > 0) {
-                            alert("删除成功");
-                        }
-                        else {
-                            alert("删除失败");
-                        }
-                    })
-            },
-            Fan(m) {
-                this.a.SName = m.sName;
-                this.a.SPhone = m.sPhone;
-                this.a.SCard = m.sCard;
-            }
         }
     })
 
 </script>
+
