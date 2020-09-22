@@ -28,8 +28,8 @@
     <hr style="color:gainsboro;margin-left:30px" />
     <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
         <tr>
-            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">产品名称</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly"/></td>
-            <td style="width:500px"><span style="margin-left:50px;margin-right:28px">贷款金额</span><input id="Text2" type="text" v-model="a.DMoney" style="width:300px;height:40px;margin-left:30px" readonly="readonly"/></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">产品名称</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:28px">贷款金额</span><input id="Text2" type="text" v-model="a.DMoney" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
         <tr>
             <td style="width:500px;height:80px"><span style="margin-left:50px">还款方式</span><input value="先息后本" id="Text1" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
@@ -44,7 +44,7 @@
     <hr style="color:gainsboro;margin-left:30px" />
     <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
         <tr>
-            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">贷款金额</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" v-model="a.DMoney"/></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">贷款金额</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" v-model="a.DMoney" /></td>
             <td style="width:500px"><span style="margin-left:50px">还款方式</span><input id="Text2" type="text" value="先本后息" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
         <tr>
@@ -78,12 +78,12 @@
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">身份证正面照</h3>
     <hr style="color:gainsboro;margin-left:30px" />
     <div>
-        <img style="width:300px;height:100px;margin-left:30px" id="img1"/>
+        <img style="width:300px;height:100px;margin-left:30px" id="img1" />
     </div>
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px;">身份证反面照</h3>
     <hr style="color:gainsboro;margin-left:30px" />
     <div>
-        <img style="width:300px;height:100px;margin-left:30px" id="img2"/>
+        <img style="width:300px;height:100px;margin-left:30px" id="img2" />
     </div>
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
     <hr style="color:gainsboro;margin-left:30px" />
@@ -98,7 +98,9 @@
         </tr>
     </table>
     <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:1000px;margin-top:30px" data-toggle="modal" data-target="#myModal">进行初审</button>
-
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+   
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -109,19 +111,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="layui-inline">
-                        <label class="layui-form-label" style="width:100px">搜索选择框</label>
+                        <label class="layui-form-label" style="width:100px">审核结果:</label>
                         <div class="layui-input-inline">
-                            <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px">
-                                <option value="">审核结果</option>
+                            <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px" id="a">
+                                <option value="0">审核结果</option>
                                 <option value="1">通过</option>
                                 <option value="2">驳回</option>
                             </select>
                         </div>
                     </div>
                     <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label" style="width:100px">审核意见</label>
+                        <label class="layui-form-label" style="width:100px">审核意见:</label>
                         <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                            <textarea placeholder="请输入内容" class="layui-textarea" v-model="c.JNei"></textarea>
                         </div>
                     </div>
                 </div>
@@ -160,15 +162,21 @@
             SMonthly: "www",
             SQPhone: "www",
         },
-        name:''
+        name: '',
+        c: {
+            SJId:'',
+            JName:'admin',
+            JNei:'1',
+            JTime:new Date(),
+        }
     };
     new Vue({
         el: '#app',
         data,
         mounted: function () {
-            this.Fan(6);
-            this.Fan1(6);
-            
+            this.Fan(@ViewBag.id);
+            this.Fan1(@ViewBag.id);
+
         },
         methods: {
             Fan: function (id) {
@@ -182,13 +190,13 @@
                     function (i) {
                             t.a.DMoney = i.data.dMoney;
                             t.a.DCount = i.data.dCount;
-                            t.a.DLi = i.data.dLi;
+                            t.a.DLi = i.data.dLi+"%";
                             t.a.DTu = i.data.dTu;
                             t.a.DHuan = i.data.dHuan;
                             t.a.DDan = i.data.dDan;
                             t.a.DName = i.data.dName;
                             $("#dno").text(i.data.dNo);
-                        } 
+                        }
                 )
             },
             Fan1:function(id) {
@@ -201,8 +209,20 @@
                     .then(
                         function (i) {
                             n.b.SEmail = i.data.sEmail;
-                            n.b.SNation = i.data.sNation;
-                            n.b.SXueli = i.data.sXueli;
+                            if (i.data.sNation==1) {
+                                n.b.SNation = "汉族";
+                            }
+                            else {
+                                n.b.SNation = "少数民族";
+                            }
+                            //n.b.SNation = i.data.sNation;
+                            //n.b.SXueli = i.data.sXueli;
+                            if (i.data.sXueli==4) {
+                                n.b.SXueli = "大专";
+                            }
+                            else {
+                                n.b.SXueli = "本科";
+                            }
                             n.b.SPhone = i.data.sPhone;
                             n.b.SSFrom = i.data.sSfrom;
                             n.b.SXFrom = i.data.sxFrom;
@@ -216,6 +236,35 @@
                             $("#img2").attr("src", i.data.sImg2);
                         }
                     )
+            },
+            Xiu() {
+                var a = $("#a").val();
+                this.c.SJId=@ViewBag.id;
+                var m = JSON.stringify(this.c);
+                if (a==1) {
+                    axios.post("http://localhost:51166/api/User/Xiu1", "m=" + m)
+                        .then(res => {
+                            if (res.data > 0) {
+                                alert("操作完成");
+                                location.href = '/User/DIndex1';
+                            }
+                            else {
+                                alert("操作失败");
+                            }
+                        })
+                }
+                else {
+                    axios.post("http://localhost:51166/api/User/Xiu2", "m=" + m)
+                        .then(res => {
+                            if (res.data > 0) {
+                                alert("操作完成");
+                                location.href = '/User/DIndex1';
+                            }
+                            else {
+                                alert("操作失败");
+                            }
+                        })
+                }
             }
         }
     })

@@ -24,11 +24,11 @@
         <tr>
             <td style="width:400px">
                 贷款状态：
-                @*<select id="Select1">
+                <select id="Select1">
                         <option value="0">全部</option>
                         <option value="1">贷款中</option>
                         <option value="2">未贷款</option>
-                    </select>*@<input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
+                    </select><input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
             </td>
             <td style="width:400px">备注：<input id="Text6" type="text" v-model="input6" style="width:200px;height:30px;margin-left:28px" /></td>
             <td>注册时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
@@ -208,7 +208,7 @@
                 this.Show();
             },
             //Add() { location.href = "http://localhost:51490/User/AddIndex" },
-            Add() { location.href = "/User/AddIndex" },
+            Cha() { location.href = "/User/AddIndex" },
             Del(id) {
                 axios({
                     method: "post",

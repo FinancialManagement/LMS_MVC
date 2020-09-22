@@ -19,15 +19,41 @@
             <td>身份证号：<input id="Text3" type="text" v-model="input3" style="width:200px;height:30px" /></td>
         </tr>
     </table>
-    <table style="margin-top:30px">
+    <div style="margin-top:30px">
+        <div style="width:390px;float:left">
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width:100px">申请状态：</label>
+                <div class="layui-input-inline">
+                    <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px">
+                        <option value="">全部</option>
+                        <option value="1">初审中</option>
+                        <option value="2">复审驳回</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="width:390px;float:left">
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width:100px">期数：</label>
+                <div class="layui-input-inline">
+                    <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px">
+                        <option value="">全部</option>
+                        <option value="1">3</option>
+                        <option value="2">6</option>
+                        <option value="2">12</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="width:300px;float:left">
+            申请时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" />
+        </div>
+    </div>
+    @*<table>
         <tr>
-            <td style="width:400px">
-                申请状态：
-                <select id="Select1">
-                        <option value="0">全部</option>
-                        <option value="1">贷款中</option>
-                        <option value="2">未贷款</option>
-                    </select><input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
+            <td>
+                
+                
             </td>
             <td style="width:400px">期数：<select id="Select1">
                     <option>1</option>
@@ -36,7 +62,7 @@
                 </select></td>
             <td>申请时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
         </tr>
-    </table>
+    </table>*@
 
 
     <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-top:20px;margin-left:1000px">查询</button>
@@ -71,7 +97,7 @@
                 <td>{{i.sdTime}}</td>
                 <td>{{i.dTu}}</td>
                 <td>
-                    <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha()">查看</button>
+                    <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.dId)">查看</button>
                     @*<button type="button" class="layui-btn layui-btn-radius" v-on:click="Del(i.sId)">删除</button>
                         <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
                 </td>
@@ -124,7 +150,7 @@
                 })
                     .then(
                         function (i) {
-                            t.emps = i.data.lmS_Dings,
+                                t.emps = i.data.lmS_Dings,
                                 t.PageCurrent = i.data.pageCurrent,
                                 t.PageIndex = i.data.pageIndex,
                                 t.PageCount = i.data.pageCount
@@ -166,7 +192,7 @@
                 this.Show();
             },
             //Add() { location.href = "http://localhost:51490/User/AddIndex" },
-            Add() { location.href = "/User/AddIndex" },
+            Cha(id) { location.href = "/User/XIndex1?id="+id },
         }
     })
 

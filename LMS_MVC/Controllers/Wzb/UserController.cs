@@ -24,8 +24,24 @@ namespace LMS_MVC.Controllers.Wzb
         {
             return View();
         }
-        public IActionResult XIndex1()
+        public IActionResult XIndex1(int id)
         {
+            ViewBag.id = id;
+            return View();
+        }
+        public IActionResult XIndex2(int id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
+        public IActionResult XIndex3(int id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
+        public IActionResult XIndex4(int id)
+        {
+            ViewBag.id = id;
             return View();
         }
     }
