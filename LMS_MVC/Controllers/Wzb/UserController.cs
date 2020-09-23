@@ -8,7 +8,7 @@ namespace LMS_MVC.Controllers.Wzb
 {
     public class UserController : Controller
     {
-        public IActionResult KeIndex() //显示
+        public IActionResult KeIndex() //显示1
         {
             return View();
         }
