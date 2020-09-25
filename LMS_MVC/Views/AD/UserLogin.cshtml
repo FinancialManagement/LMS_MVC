@@ -1,0 +1,333 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+
+    <title>花花乐—原百度金融信贷服务</title>
+    <meta name="keywords" content="百度,金融,百度金融,百度金融官网,金融官网,百度钱包,有钱花,百度理财,百度金融商城,FSG,百度FSG,金融服务事业群组,百度金融服务事业群组,教育贷款,百度教育贷款,教育信贷,百度教育信贷,家装贷款,百度家装贷款,借现金,现金贷,百度现金贷,百度贷款,让人们平等便捷地获取金融服务,实现创业创富的梦想,百度基金,百度股票,百度金融服务" />
+    <meta name="description" content="" />
+
+    <link href="//huoke-cdn-source.duxiaoman.com/v/static/mall/landing/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript">
+            window.global = window.global || {};
+            global.csrf_token = '';
+            global.callUrl = '';
+            var _hmt = _hmt || [];
+            _hmt.push(['_setAccount', '6d86b6ec669df58574dcf37f047445e5']);
+
+            // alog
+            window.alogObjectConfig = {
+                sample: '1', // 配置整体的抽样率（下面各个统计模块的抽样是在此基础上进行的再抽样），https协议的网页必须配置(需要保证抽样后的PV控制在100万以内)，http的可以不配置（默认为1）
+
+                product: '766',  // 必须, DP平台产品线id
+                page: (function () {
+                    var pathName = location.pathname;
+                    var pageId = 'pc_';
+                    var paths = pathName.split('/').filter(function (e) {
+                        return '' !== e
+                    });
+                    var pathLen = paths.length;
+                    if (pathLen > 1 && paths[1] === 'loan'
+                        && ['article', 'activity', 'tool', 'act'].indexOf(paths[0]) < 0) {
+                        paths.shift();
+                    }
+                    // 产品详情页
+                    if (pathLen > 1 && /\d+\.html/ig.test(paths[pathLen - 1])) {
+                        paths[pathLen - 1] = 'detail';
+                    }
+                    if (paths.length <= 0) {
+                        paths.push('home');
+                    }
+                    pageId += paths.join('_');
+
+                    return pageId;
+                }()),  // 必须, DP平台页面id
+                // 性能----------------------------------------------------------------------------------
+                speed: {
+                    sample: '1'   // 抽样率, 0~1，建议使采样的pv控制在100万以内，必须要设定，否则统计不会生效
+                },
+
+                // 访问和点击----------------------------------------------------------------------------
+                monkey: {
+                    sample: '1'   // 抽样率, 0~1  建议使采样的pv控制在50万以内，必须要设定，否则统计不会生效
+                },
+
+                // js异常，配合FIS插件还可以自动加try/catch监控，详见‘帮助文档’--------------------------
+                exception: {
+                    sample: '1'   // 抽样率, 0~1  建议使采样的pv控制在50万以内，必须要设定，否则统计不会生效
+                },
+
+                // 浏览器新特性(H5/CSS3)-----------------------------------------------------------------
+                feature: {
+                    sample: '1'   // 抽样率, 0~1  建议使采样的pv控制在50万以内，必须要设定，否则统计不会生效
+                },
+
+            };
+
+            void function(a,b,c,d,e,f,g){a.alogObjectName=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=a[e].l||+new Date,d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d;var h=!0;if(a.alogObjectConfig&&a.alogObjectConfig.sample){var i=Math.random();a.alogObjectConfig.rand=i,i>a.alogObjectConfig.sample&&(h=!1)}h&&(f=b.createElement(c),f.async=!0,f.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),g=b.getElementsByTagName(c)[0],g.parentNode.insertBefore(f,g))}(window,document,"script","/hunter/alog/alog.min.js","alog"),void function(){function a(){}window.PDC={mark:function(a,b){alog("speed.set",a,b||+new Date),alog.fire&&alog.fire("mark")},init:function(a){alog("speed.set","options",a)},view_start:a,tti:a,page_ready:a}}();
+            void function(n){var o=!1;n.onerror=function(n,e,t,c){var i=!0;return!e&&/^script error/i.test(n)&&(o?i=!1:o=!0),i&&alog("exception.send","exception",{msg:n,js:e,ln:t,col:c}),!1},alog("exception.on","catch",function(n){alog("exception.send","exception",{msg:n.msg,js:n.path,ln:n.ln,method:n.method,flag:"catch"})})}(window);
+    </script>
+
+    <script>
+        window.pageData = {
+            type: "xh",
+            qrUrl: "https%3A%2F%2Ficash.baidu.com%2Fcloan%2Foperation%2Factivity%3FactivityName%3Dspecialbrand%26_pt%3Dpc%26CH%3Dfengchao%26fr%3D7rpMmtiT5%26md_queryword%3D128080890255%26md_createid%3D36580479906%26md_uid%3Dfengchao52%26bd_vid%3D10837504422969785655",
+            ch: "fengchao",
+            pageInfo: JSON.parse('{\x22toppic\x22:{\x22text\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/resource\\\/toppic-xh.png\x22,\x22textcolor\x22:\x22\x22,\x22text2\x22:\x22\x22,\x22text2color\x22:\x22\x22,\x22text3\x22:\x22\x22,\x22text3color\x22:\x22\x22,\x22picurl\x22:\x22\x22},\x22conformity\x22:{\x22tplData\x22:[{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic38.png\x22,\x22period\x22:\x22\\u521a\\u521a\x22,\x22telAmount\x22:\x22\\u7528\\u6237136****4236\\u6210\\u529f\\u501f\\u6b3e11000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic29.png\x22,\x22period\x22:\x22\\u521a\\u521a\x22,\x22telAmount\x22:\x22\\u7528\\u6237133****4813\\u6210\\u529f\\u501f\\u6b3e12500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic35.png\x22,\x22period\x22:\x22\\u521a\\u521a\x22,\x22telAmount\x22:\x22\\u7528\\u6237131****7858\\u6210\\u529f\\u501f\\u6b3e11500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic29.png\x22,\x22period\x22:\x22\\u521a\\u521a\x22,\x22telAmount\x22:\x22\\u7528\\u6237153****6229\\u6210\\u529f\\u501f\\u6b3e18500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic16.png\x22,\x22period\x22:\x221\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237131****5428\\u6210\\u529f\\u501f\\u6b3e5000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic53.png\x22,\x22period\x22:\x222\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237158****2513\\u6210\\u529f\\u501f\\u6b3e15000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic17.png\x22,\x22period\x22:\x222\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237187****4803\\u6210\\u529f\\u501f\\u6b3e15000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic28.png\x22,\x22period\x22:\x223\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237152****6377\\u6210\\u529f\\u501f\\u6b3e6500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic03.png\x22,\x22period\x22:\x223\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237144****3626\\u6210\\u529f\\u501f\\u6b3e17500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic12.png\x22,\x22period\x22:\x223\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237185****9420\\u6210\\u529f\\u501f\\u6b3e18000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic26.png\x22,\x22period\x22:\x223\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237182****3412\\u6210\\u529f\\u501f\\u6b3e15500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic48.png\x22,\x22period\x22:\x223\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237147****8591\\u6210\\u529f\\u501f\\u6b3e19500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic55.png\x22,\x22period\x22:\x223\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237188****1617\\u6210\\u529f\\u501f\\u6b3e6000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic10.png\x22,\x22period\x22:\x224\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237134****1066\\u6210\\u529f\\u501f\\u6b3e19000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic39.png\x22,\x22period\x22:\x224\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237134****6278\\u6210\\u529f\\u501f\\u6b3e8500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic14.png\x22,\x22period\x22:\x224\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237184****3388\\u6210\\u529f\\u501f\\u6b3e8000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic21.png\x22,\x22period\x22:\x224\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237153****7368\\u6210\\u529f\\u501f\\u6b3e18500\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic46.png\x22,\x22period\x22:\x224\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237184****8796\\u6210\\u529f\\u501f\\u6b3e13000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic24.png\x22,\x22period\x22:\x225\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237184****4186\\u6210\\u529f\\u501f\\u6b3e7000\\u5143\x22},{\x22portrait\x22:\x22https:\\\/\\\/co.baifubao.com\\\/content\\\/umoney\\\/huoke\\\/a\\\/002\\\/userpic\\\/userpic08.png\x22,\x22period\x22:\x225\\u5206\\u949f\\u524d\x22,\x22telAmount\x22:\x22\\u7528\\u6237189****5803\\u6210\\u529f\\u501f\\u6b3e19500\\u5143\x22}],\x22tplType\x22:\x22teltpl\x22,\x22textcolor\x22:\x22\x22,\x22text2\x22:\x22\x22,\x22text2color\x22:\x22\x22,\x22text3\x22:\x22\x22,\x22text3color\x22:\x22\x22,\x22picurl\x22:\x22\x22}}')
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="//huoke-cdn-source.duxiaoman.com/v/static/mall/common/pkg/common_25ffdb4.css" />
+    <link rel="stylesheet" type="text/css" href="//huoke-cdn-source.duxiaoman.com/v/static/mall/landing/css/swiper.min_5a8292b.css" />
+    <link rel="stylesheet" type="text/css" href="//huoke-cdn-source.duxiaoman.com/v/static/mall/landing/pkg/appdownload_7a545be.css" />
+</head>
+<body>
+
+    <div class="appdownload bg-white">
+        <div class="app-top">
+            <div class="logo-wrap">
+                <a href="javascript:;" class="logo "></a>
+            </div>
+            <div class="app-top-con">
+                <div class="top-pic xh "></div>
+                <div class="qr-code-box">
+                    <div class="swiper-container conformity" id="conformity">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic38.png">
+                                <span class="text ">用户136****4236成功借款11000元</span>
+                                <span class="period">刚刚</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic29.png">
+                                <span class="text ">用户133****4813成功借款12500元</span>
+                                <span class="period">刚刚</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic35.png">
+                                <span class="text ">用户131****7858成功借款11500元</span>
+                                <span class="period">刚刚</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic29.png">
+                                <span class="text ">用户153****6229成功借款18500元</span>
+                                <span class="period">刚刚</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic16.png">
+                                <span class="text ">用户131****5428成功借款5000元</span>
+                                <span class="period">1分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic53.png">
+                                <span class="text ">用户158****2513成功借款15000元</span>
+                                <span class="period">2分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic17.png">
+                                <span class="text ">用户187****4803成功借款15000元</span>
+                                <span class="period">2分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic28.png">
+                                <span class="text ">用户152****6377成功借款6500元</span>
+                                <span class="period">3分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic03.png">
+                                <span class="text ">用户144****3626成功借款17500元</span>
+                                <span class="period">3分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic12.png">
+                                <span class="text ">用户185****9420成功借款18000元</span>
+                                <span class="period">3分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic26.png">
+                                <span class="text ">用户182****3412成功借款15500元</span>
+                                <span class="period">3分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic48.png">
+                                <span class="text ">用户147****8591成功借款19500元</span>
+                                <span class="period">3分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic55.png">
+                                <span class="text ">用户188****1617成功借款6000元</span>
+                                <span class="period">3分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic10.png">
+                                <span class="text ">用户134****1066成功借款19000元</span>
+                                <span class="period">4分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic39.png">
+                                <span class="text ">用户134****6278成功借款8500元</span>
+                                <span class="period">4分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic14.png">
+                                <span class="text ">用户184****3388成功借款8000元</span>
+                                <span class="period">4分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic21.png">
+                                <span class="text ">用户153****7368成功借款18500元</span>
+                                <span class="period">4分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic46.png">
+                                <span class="text ">用户184****8796成功借款13000元</span>
+                                <span class="period">4分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic24.png">
+                                <span class="text ">用户184****4186成功借款7000元</span>
+                                <span class="period">5分钟前</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <img alt="" class="portrait" src="https://co.baifubao.com/content/umoney/huoke/a/002/userpic/userpic08.png">
+                                <span class="text ">用户189****5803成功借款19500元</span>
+                                <span class="period">5分钟前</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="desc">用户登录</p>
+                    <div class="qr-wrap">
+                        <table>
+                            <tr>
+                                <td>用户名:<input id="Text1" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td>密码:<input id="Text" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td><input id="Button1" type="button" value="登录" class="btn btn-outline-info" style="text-align: center"/></td>
+                            </tr>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="content ">
+            <div class="icash-category cat-xh"></div>
+            <div class="icash-process">
+                <div class="icash-title">
+                    <h3>
+                        <p class="en"><img src="https://co.baifubao.com/content/resource/umoney/Borrowingprocess.png" alt="BORROWING PROCESS"></p>
+                        <p class="cn">借款流程</p>
+                    </h3>
+                    <div class="rects">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                    <div class="desc">
+                        <p>用钱<br>就找有钱花</p>
+                    </div>
+                </div><div class="icash-steps">
+                    <div class="step"><div class="icon"><img src="https://co.baifubao.com/content/resource/umoney/step1.png" alt="线上申请"></div><h4>线上申请</h4><p>无抵押无担保，<br>全部流程在线完成</p></div><div class="step"><div class="icon"><img src="https://co.baifubao.com/content/resource/umoney/step2.png" alt="填写资料"></div><h4>填写资料</h4><p>只需身份证/银行卡<br>即可轻松贷款</p></div><div class="bar bar-1"></div><div class="step"><div class="icon"><img src="https://co.baifubao.com/content/resource/umoney/step3.png" alt="获得额度"></div><h4>获得额度</h4><p>最快30秒审批，<br>最高20万元额度</p></div><div class="bar bar-2"></div><div class="step"><div class="icon"><img src="https://co.baifubao.com/content/resource/umoney/step4.png" alt="实时到账"></div><h4>实时到账</h4><p>最快3分钟到账，<br>灵活借款，息费透明</p></div><div class="bar bar-3"></div>
+                </div>
+            </div><div class="icash-faqs">
+                <div class="icash-title">
+                    <h3>
+                        <p class="en"><img src="https://co.baifubao.com/content/resource/umoney/Questionandanswer.png" alt="QUESTION AND ANSWER"></p>
+                        <p class="cn">贷款问答</p>
+                    </h3>
+                </div><div class="swiper-container" id="faqs">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <h4>
+                                <img src="https://co.baifubao.com/content/resource/umoney/q1.png" alt="q1">
+                                有钱花的申请条件是什么？
+                            </h4>
+                            <p>年龄要求18-55岁之间<br>资料要求：申请过程中需要提供您的二代身份证和本人借记卡。</p>
+                        </div>
+                        <div class="swiper-slide">
+                            <h4>
+                                <img src="https://co.baifubao.com/content/resource/umoney/q2.png" alt="q2">
+                                额度是怎么给出的？
+                            </h4>
+                            <p>有钱花额度是由系统按照多维度评估标准，进行综合评估后自动给出的。</p>
+                        </div>
+                        <div class="swiper-slide">
+                            <h4>
+                                <img src="https://co.baifubao.com/content/resource/umoney/q3.png" alt="q3">
+                                有钱花是如何收费的？
+                            </h4>
+                            <p>收费项包括利息，借款服务费（如有），逾期则收取罚息。具体收费标准以借款页面显示为准，您可以扫描上方二维码进行申请查看。</p>
+                        </div>
+                        <div class="swiper-slide">
+                            <h4>
+                                <img src="https://co.baifubao.com/content/resource/umoney/q4.png" alt="q4">
+                                借款后，如何还款？
+                            </h4>
+                            <p>有钱花支持每月还款日自动扣款，您也可以通过有钱花app进行手动还款。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-buttons">
+                    <div class="swiper-button swiper-button-prev"></div>
+                    <div class="swiper-button swiper-button-next"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer clearfix">
+            <div class="footer-con">
+                <div class="footer-box clearfix">
+                    <div class="foot-left">
+                        <div class="foot-item">
+                            <h4>关于我们<em></em></h4>
+                            <a href="https://www.baifubao.com/">度小满支付</a>
+                            <a href="https://www.duxiaoman.com/">度小满金融</a>
+                            <a href="https://umoney.baidu.com/">有钱花</a>
+                        </div>
+                        <div class="foot-item">
+                            <h4>帮助中心<em></em></h4>
+                            <a href="https://umoney.baidu.com/help#account-and-security">常见问题</a>
+                        </div>
+                    </div>
+                    <div class="foot-right">
+                        <div class="qr-download">
+                            <div class="foot-qr">
+                                <img src="https://www.baifubao.com/o2o/0/qrcode?text=https%3A%2F%2Ficash.baidu.com%2Fcloan%2Foperation%2Factivity%3FactivityName%3Dspecialbrand%26_pt%3Dpc%26CH%3Dfengchao%26fr%3D7rpMmtiT5%26md_queryword%3D128080890255%26md_createid%3D36580479906%26md_uid%3Dfengchao52%26bd_vid%3D10837504422969785655&size=4" alt="查看额度二维码">
+                            </div>
+                        </div>
+                        <div class="service">
+                            <p class="s-text">全国统一客服电话</p>
+                            <p class="tel">95055</p>
+                            <p class="time">周一到周日9:30-21:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="other-about">
+                    <span class="address">地址：上海市奉贤区(国际与区域协同创新中心大厦)  邮编：100193</span>
+                    <span class="fl-right">版权归有钱花所有 Copyright©2020 五组 . All Rights Reserved</span>
+                </div>
+            </div>
+        </div>
+ 
+</body>
+<script type="text/javascript" src="//huoke-cdn-source.duxiaoman.com/v/static/mall/common/pkg/lib_871ca93.js"></script>
+<script type="text/javascript" src="//huoke-cdn-source.duxiaoman.com/v/static/mall/landing/js/swiper.min_0be277e.js"></script>
+<script type="text/javascript" src="//huoke-cdn-source.duxiaoman.com/v/static/mall/landing/pkg/appdownload_40e2a2c.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5e505ca285ce79bff85c113df5d982f9";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</html>
+<!--04498273330162796810092414-->
+<script>var _trace_page_logid = 0449827333;</script>
