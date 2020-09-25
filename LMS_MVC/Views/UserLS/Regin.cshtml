@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Regin";
+}
+
+<h1>Regin</h1>
+
+<div id="addDiv">
+    <table class="table table-bordered">
+        <tr>
+            <td>用户名：</td>
+            <td><input type="text" v-model="obj.UName" /></td>
+        </tr>
+        <tr>
+            <td>密码：</td>
+            <td><input type="password" v-model="obj.UPwd" /></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td><input id="Button1" type="button" v-on:click="Add" value="注册" /></td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    //添加
+    
+    var vm = new Vue({
+        el: '#addDiv',
+        data: {
+            obj: {
+                UName: "",
+                UPwd:""
+            }
+        },
+        methods: {
+            Add:function() {
+                var m = JSON.stringify(this.obj);
+                axios({
+                    method: "post",
+                    url: "http://localhost:51166/api/UserLS/Regin",
+                    params:
+                    {
+                        s: m
+                    }
+                }) .then(response=>{
+                        if (response.data > 0) {
+                            alert("注册成功");
+                            location.href = '/UserLS/Login';
+                        }
+                        else {
+                            alert('注册失败!');
+                        }
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        },
+
+
+    })
+</script>
