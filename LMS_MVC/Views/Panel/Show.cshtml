@@ -19,7 +19,7 @@
             margin: 0;
             list-style: none;
             box-sizing: border-box;
-        } 
+        }
 
         .wrap {
             height: 180%;
@@ -265,28 +265,28 @@
                     <span style="text-align:right">实际放款总金额（元）</span>
                     @*<b>&gt;</b>*@
                 </h5>
-                <p id="zxc"></p>
+                <p id="zxc"><span>￥</span></p>
             </li>
             <li>
                 <h5>
                     <span>回款总金额（元）</span>
                     @*<b>&gt;</b>*@
                 </h5>
-                <p>￥1000000.00</p>
+                <p id="asd"></p>
             </li>
             <li>
                 <h5>
                     <span>资产总金额（元）</span>
                     @*<b>&gt;</b>*@
                 </h5>
-                <p>￥1000000.00</p>
+                <p id="zxc2"><span>￥</span></p>
             </li>
             <li>
                 <h5>
                     <span>总盈亏（元）</span>
                     @*<b>&gt;</b>*@
                 </h5>
-                <p>￥1000000.00</p>
+                <p id="zxc3"><span>￥</span></p>
             </li>
         </ul>
         @*<div class="input">
@@ -310,29 +310,29 @@
                         </li>
                         <li>
                             <p style="color: #53C282;">等待审核</p>
-                            <h6>1单</h6>
+                            <h6>2单</h6>
                         </li>
                         <li>
                             <p style="color: #36CBCB;">待签署合同</p>
-                            <h6>1单</h6>
+                            <h6>3单</h6>
                         </li>
                         <li>
                             <p style="color: #F2637B;">待放款</p>
-                            <h6>0单</h6>
+                            <h6>1单</h6>
                         </li>
                         <li>
                             <p>放款中</p>
-                            <h6>0单</h6>
+                            <h6>2单</h6>
                         </li>
                     </ul>
                 </div>
                 <div class="bottom">
                     <h3>
                         <span>账单</span>
-                        <p>
+                        <a>
                             昨日|<b>今日</b>
                             <input type="date">
-                        </p>
+                        </a>
                     </h3>
                     <div class="dls">
                         <dl>
@@ -349,8 +349,8 @@
                                 待回款
                             </dt>
                             <dd>
-                                <h6>1笔</h6>
-                                <p>￥100.00</p>
+                                <h6>2笔</h6>
+                                <p>￥200.00</p>
                             </dd>
                         </dl>
                         <dl>
@@ -368,20 +368,23 @@
             <div class="right">
                 <h6>
                     <span>回款统计</span>
-                    <p>
+                    <a>
                         昨日|<b>今日</b>
                         <input type="date">
-                    </p>
+                    </a>
                 </h6>
                 <dl>
                     <dt>
-                        <p>总回款金额</p>
-                        <h6>￥10000.00</h6>
+                        <a>总回款金额</a>
+                        <a id="asd4"></a>
                     </dt>
                     <dd>
-                        <p><b style="color: #3080FE;">♦</b>当日还款|18% ￥5000.00 4笔</p>
+                        <p id="zxc5"></p>
+                        <p id="zxc6"></p>
+                        <p id="zxc7"></p>
+                        @*<p><b style="color: #3080FE;">♦</b>当日还款|18% ￥5000.00 4笔</p>
                         <p><b style="color: #36CBCB;">♦</b>逾期还款|0% ￥0 0笔</p>
-                        <p><b style="color: #F2637B;">♦</b>提前还款|0% ￥0 0笔</p>
+                        <p><b style="color: #F2637B;">♦</b>提前还款|0% ￥0 0笔</p>*@
                     </dd>
                 </dl>
             </div>
@@ -437,7 +440,7 @@
                                 show: true,
                                 position: 'inside'
                             },
-                            data: [70000, 60000, 50000,40000, 30000, 20000, 10000]
+                            data: [70000, 60000, 50000, 40000, 30000, 20000, 10000]
                         },
                         {
                             name: '实际放款金额',
@@ -563,6 +566,7 @@
                 <h6 style="margin-top: 15px;margin-left: 20px">贷后</h6>
                 <div id="main2" style="width: 500px;height:400px;"></div>
                 <script type="text/javascript">
+
                     var myChart = echarts.init(document.getElementById('main2'));
                     var option = {
                         tooltip: {
@@ -572,7 +576,7 @@
                         legend: {
                             orient: 'vertical',
                             left: 10,
-                            data: ['已还款', '还款中', '已逾期']
+                            data: ['还款中', '已还款', '已逾期']
                         },
                         series: [
                             {
@@ -626,17 +630,140 @@
                 type: 'get',
                 dataType: 'json',
                 success: function (d) {
-
                     $(d).each(function () {
-                        as += this.dFMoney;
-                    })
-                    $("#zxc").text(as);
+                        as += parseInt(this.dfMoney);                      
+                    });
+                    $("#zxc").text("￥"+as);
                 }
-            }
+            })
+        }
 
+        $(function () {
+            show1();
+        });
+        var as1 = 0;
+        function show1() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/Showget',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as1 += parseInt(this.capital);
+                    });
+                    $("#asd").text("￥" + as1);
+                }
+            })
+        }
 
+        $(function () {
+            show2();
+        });
+        var as2 = 0;
+        function show2() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow1',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as2 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc2").text("￥" + as2);
+                }
+            })
+        }
+
+        $(function () {
+            show3();
+        });
+        var as3 = 0;
+        function show3() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow2',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as3 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc3").text("￥" + as3);
+                }
+            })
+        }
+
+        $(function () {
+            show4();
+        });
+        var as4 = 0;
+        function show4() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/Showget1',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as4 += parseInt(this.capital);
+                    });
+                    $("#asd4").text("￥" + as4);
+                }
+            })
+        }
+
+        $(function () {
+            show5();
+        });
+        var as5 = 0;
+        function show5() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow3',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as5 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc5").text("当日还款|18% ￥" + as5);
+                }
+            })
+        }
+        $(function () {
+            show6();
+        });
+        var as6 = 0;
+        function show6() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow4',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as6 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc6").text("逾期还款 | ￥" + as6);
+                }
+            })
+        }
+        $(function () {
+            show7();
+        });
+        var as7 = 0;
+        function show7() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow5',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as7 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc7").text("提前还款 | ￥" + as7);
+                }
+            })
+        }
     </script>
 }
+
 
 
 

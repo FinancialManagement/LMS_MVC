@@ -12,6 +12,11 @@ namespace LMS_MVC.Controllers.ZMM
         {
             return View();
         }
+        public IActionResult Show1()
+        {
+            return View();
+        }
+
 
 
     }
