@@ -1,7 +1,8 @@
 ﻿
 @{
-    ViewData["Title"] = "XIndex1";
+    ViewData["Title"] = "XIndex3";
 }
+
 
 <script src="~/js/vue.js"></script>
 <script src="~/js/axios.min.js"></script>
@@ -15,13 +16,13 @@
     <table style="margin-top:30px">
         <tr>
             <td style="width:500px;height:50px"><p>贷款编号：<span style="margin-left:20px" id="dno"></span></p></td>
-            <td style="width:500px;height:50px"><p>当前进度：<span style="color:orange">初审</span></p></td>
+            <td style="width:500px;height:50px"><p>当前进度：<span style="color:orange">终审</span></p></td>
         </tr>
         <tr>
-            <td colspan="2" style="width:500px;height:50px"><p>操作员：</p></td>
+            <td colspan="2" style="width:500px;height:50px"><p>操作员：admin</p></td>
         </tr>
         <tr>
-            <td colspan="2" style="width:500px;height:50px"><p>初审意见</p></td>
+            <td colspan="2" style="width:500px;height:50px"><p>风控意见：风控审核无误，可以进行放款</p></td>
         </tr>
     </table>
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">申请信息</h3>
@@ -121,14 +122,14 @@
             </tr>
         </tbody>
     </table>
-
-    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:1000px;margin-top:30px" data-toggle="modal" data-target="#myModal">进行初审</button>
-
+    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:1000px;margin-top:30px" data-toggle="modal" data-target="#myModal">进行放款</button>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
 
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-right:800px">
+        <div class="modal-dialog" style="margin-right:800px">
+            <div class="modal-content" style="width:1000px">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">初审界面</h4>
@@ -137,13 +138,27 @@
                     <div class="layui-inline">
                         <label class="layui-form-label" style="width:100px">审核结果:</label>
                         <div class="layui-input-inline">
-                            <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px" id="a">
+                            <select name="modules" lay-verify="required" lay-search="" style="height:35px;width:250px" id="a">
                                 <option value="0">审核结果</option>
                                 <option value="1">通过</option>
                                 <option value="2">驳回</option>
                             </select>
                         </div>
                     </div>
+                    <table style="margin-top:20px" @*frame="hsides" rules="rows"*@>
+                        <tr>
+                            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">产品名称</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                            <td style="width:500px"><span style="margin-left:50px;margin-right:28px">贷款金额</span><input id="Text2" type="text" v-model="a.DMoney" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width:500px;height:80px"><span style="margin-left:50px">还款方式</span><input value="先息后本" id="Text1" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                            <td style="width:500px"><span style="margin-left:50px;margin-right:52px">期数</span><input id="Text2" type="text" v-model="a.DCount" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width:500px;height:80px"><span style="margin-left:50px">借款利率</span><input id="Text1" type="text" v-model="a.DLi" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                            <td style="width:500px"><span style="margin-left:50px">罚息计算方式</span><input value="无罚息费" id="Text2" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                        </tr>
+                    </table>
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label" style="width:100px">审核意见:</label>
                         <div class="layui-input-block">
@@ -193,15 +208,16 @@
             JNei:'1',
             JTime:new Date(),
         },
-        emps:''
+        emps: ''
     };
     new Vue({
         el: '#app',
         data,
         mounted: function () {
-            this.Fan(@ViewBag.id);
-            this.Fan1(@ViewBag.id);
-            this.Show(@ViewBag.id);
+            this.Fan(@ViewBag.id3);
+            this.Fan1(@ViewBag.id3);
+            this.Show(@ViewBag.id3);
+
         },
         methods: {
             Fan: function (id) {
@@ -262,13 +278,12 @@
                         }
                     )
             },
-            Show: function (id)
-            {
+            Show: function (id) {
                 var t = this;
                 axios({
                     method: "get",
                     url: "http://localhost:51166/api/User/ShouShow",
-                    params: {id:id}
+                    params: { id: id }
                 })
                     .then(
                         function (i) {
@@ -278,14 +293,14 @@
             },
             Xiu() {
                 var a = $("#a").val();
-                this.c.SJId=@ViewBag.id;
+                this.c.SJId=@ViewBag.id3;
                 var m = JSON.stringify(this.c);
                 if (a==1) {
                     axios.post("http://localhost:51166/api/User/Xiu1", "m=" + m)
                         .then(res => {
                             if (res.data > 0) {
                                 alert("操作完成");
-                                location.href = '/User/DIndex2';
+                                location.href = '/User/DIndex3';
                             }
                             else {
                                 alert("操作失败");
@@ -297,7 +312,7 @@
                         .then(res => {
                             if (res.data > 0) {
                                 alert("操作完成");
-                                location.href = '/User/DIndex2';
+                                location.href = '/User/DIndex3';
                             }
                             else {
                                 alert("操作失败");
@@ -308,4 +323,6 @@
         }
     })
 </script>
+
+
 

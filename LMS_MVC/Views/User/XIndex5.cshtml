@@ -1,5 +1,10 @@
 ﻿
 @{
+    ViewData["Title"] = "XIndex5";
+}
+
+
+@{
     ViewData["Title"] = "XIndex4";
 }
 
@@ -10,8 +15,22 @@
 
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
-<h3>客户资料详情单</h3>
+<h3>订单资料详情单</h3>
 <div id="app">
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">订单信息</h3>
+    <hr style="color:gainsboro" />
+    <table style="margin-top:30px;margin-left:30px">
+        <tr>
+            <td style="width:500px;height:50px"><p>订单编号：<span id="s1"></span></p></td>
+            <td style="width:500px;height:50px"><p>订单状态：<span id="s2"></span></p></td>
+            <td style="width:500px;height:50px"><p>贷款金额：<span id="s3"></span></p></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:50px"><p>还款方式：<span id="s4"></span></p></td>
+            <td style="width:500px;height:50px"><p>还款来源：<span id="s5"></span></p></td>
+            <td style="width:500px;height:50px"><p>还款期数：<span id="s6"></span></p></td>
+        </tr>
+    </table>
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">客户信息</h3>
     <hr style="color:gainsboro" />
     <table style="margin-top:30px;margin-left:30px">
@@ -70,28 +89,36 @@
     <div>
         <img style="width:300px;height:100px;margin-left:30px" id="img2" />
     </div>
-    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:900px;margin-top:30px" v-on:click="hei">拉黑</button>
-    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-top:30px" data-toggle="modal" data-target="#myModal">备注</button>
-
+    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:900px;margin-top:30px" data-toggle="modal" data-target="#myModal">编辑负责人</button>
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">添加备注</h4>
+                    <h4 class="modal-title" id="myModalLabel">编辑负责人</h4>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:100px">负责人：</label>
+                    <div class="layui-input-inline">
+                        <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px" id="a">
+                            <option value="0">-请选择-</option>
+                            <option value="1">张三</option>
+                            <option value="2">李四</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label" style="width:100px">备注:</label>
                         <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" class="layui-textarea" v-model="abei"></textarea>
+                            <textarea placeholder="请输入内容" class="layui-textarea" v-model="b.SBei"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" v-on:click="bei()">提交更改</button>
+                    <button type="button" class="btn btn-primary" v-on:click="fu()">提交更改</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -132,22 +159,39 @@
             JName:'admin',
             JNei:'1',
             JTime:new Date(),
-        },
-        abei:''
+        }
     };
     new Vue({
         el: '#app',
         data,
         mounted: function () {
-            this.Fan1(@ViewBag.id4);
+            this.Fan(@ViewBag.id5);
+            this.Fan1(@ViewBag.id5);
 
         },
         methods: {
+            Fan: function (id) {
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/User/XFan',
+                    params: { id: id }
+                })
+                    .then(
+                        function (i) {
+                            $("#s1").text(i.data.dNo);
+                            $("#s2").text(i.data.dSzt);
+                            $("#s3").text(i.data.dMoney);
+                            $("#s4").text(i.data.dNo);
+                            $("#s5").text("先本后息");
+                            $("#s6").text(i.data.dCount);
+                        }
+                    )
+            },
             Fan1:function(id) {
                 var n = this;
                 axios({
                     method: 'get',
-                    url: 'http://localhost:51166/api/User/XFan4',
+                    url: 'http://localhost:51166/api/User/XFan1',
                     params: { id: id }
                 })
                     .then(
@@ -211,19 +255,7 @@
                         }
                     )
             },
-            hei()
-            {
-                axios.post('http://localhost:51166/api/User/HeiAdd', 'id=' +@ViewBag.id4)
-                    .then(res => {
-                    if (res.data>0) {
-                        alert("操作成功");
-                        }
-                    else {
-                        alert("操作失败");
-                    }
-                    })
-            },
-            bei()
+            fu()
             {
                 @*axios.post('http://localhost:51166/api/User/BeiAdd', 'id=' +@ViewBag.id4,'&bei='+this.b.SBei)
                     .then(res => {
@@ -234,17 +266,26 @@
                         alert("操作失败");
                     }
                     })*@
-                var a = "@ViewBag.id4";
-                var t = this;
+                var a = "@ViewBag.id5";
+                var b = "";
+                if ($("#a").val()==0) {
+                    alert("请选择负责人");
+                    return;
+                }else if ($("#a").val() == 1) {
+                    b = "小安";
+                }
+                else {
+                    b = "小李";
+                }
                 axios({
-                    
                     method: 'get',
-                    url: 'http://localhost:51166/api/User/BeiAdd',
-                    params: {id:parseInt(a),bei:t.abei}
+                    url: 'http://localhost:51166/api/User/FuAdd',
+                    params: {id:parseInt(a),bei:this.b.SBei,fu:b}
                 })
-                    .then(res => {
+                    .then(res => { 
                     if (res.data > 0) {
                         alert("操作成功");
+                        location.href = '/User/DIndex1';
                     }
                     else {
                         alert("操作失败");
@@ -254,4 +295,6 @@
         }
     })
 </script>
+
+
 

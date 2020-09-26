@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "DIndex1";
+    ViewData["Title"] = "DIndex2";
 }
 
 <script src="~/js/vue.js"></script>
@@ -9,31 +9,14 @@
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 
-<h2 style="margin-bottom:50px;font-family:LiSu">初审列表</h2>
-
-<div style="margin-top:30px">  
-</div>
+<h2 style="margin-bottom:50px;font-family:LiSu">复审列表</h2>
 <div id="app">
     @*<input id="Button1" type="button" value="查询" v-on click="Search()" />*@
-    @*<table>
-            <tr>
-                <td>
-
-
-                </td>
-                <td style="width:400px">期数：<select id="Select1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select></td>
-                <td>申请时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
-            </tr>
-        </table>*@
     <table>
         <tr>
-            <td style="width:400px;height:80px">客户名称：<input id="a" v-model="input1" type="text" style="width:200px;height:30px" /></td>
-            <td style="width:400px">手机号码：<input id="b" type="text" style="width:200px;height:30px" /></td>
-            <td>身份证号：<input id="c" type="text" style="width:200px;height:30px" /></td>
+            <td style="width:400px">客户名称：<input id="Text1" type="text" v-model="input1" style="width:200px;height:30px" /></td>
+            <td style="width:400px">手机号码：<input id="Text2" type="text" v-model="input2" style="width:200px;height:30px" /></td>
+            <td>身份证号：<input id="Text3" type="text" v-model="input3" style="width:200px;height:30px" /></td>
         </tr>
         <tr>
             <td style="width:400px;height:80px">
@@ -55,8 +38,23 @@
             <td>身份证号：<input id="f" type="date" style="width:200px;height:30px" /></td>
         </tr>
     </table>
+    @*<table>
+            <tr>
+                <td>
 
-    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-left:1000px">查询</button>
+
+                </td>
+                <td style="width:400px">期数：<select id="Select1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select></td>
+                <td>申请时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
+            </tr>
+        </table>*@
+
+
+    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-top:20px;margin-left:1000px">查询</button>
     <table class="layui-table">
         @*<colgroup>
                 <col width="150">
@@ -84,7 +82,7 @@
                 <td>{{i.dMoney}}</td>
                 <td>{{i.dCount}}</td>
                 <td>{{i.dLi}}</td>
-                <td>{{i.dSzt==1?"初审中":""}}</td>
+                <td>{{i.dSzt==3?"初审驳回":"复审中"}}</td>
                 <td>{{i.sdTime}}</td>
                 <td>{{i.dTu}}</td>
                 <td>
@@ -109,6 +107,7 @@
 </div>
 
 <script>
+
     var vn = new Vue({
         el: '#app',
         data: {
@@ -138,12 +137,12 @@
                 var PageSize = 5;
                 axios({
                     method: "get",
-                    url: "http://localhost:51166/api/User/DShow1",
-                    params: { name:t.input1,PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent) }
+                    url: "http://localhost:51166/api/User/DShow2",
+                    params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent) }
                 })
                     .then(
                         function (i) {
-                            t.emps = i.data.lmS_Dings,
+                                t.emps = i.data.lmS_Dings,
                                 t.PageCurrent = i.data.pageCurrent,
                                 t.PageIndex = i.data.pageIndex,
                                 t.PageCount = i.data.pageCount
@@ -171,7 +170,6 @@
                 //alert(currentPage);
                 this.PageCurrent--;
                 if (this.PageCurrent < 1) {
-                    alert("已经是第一页了");
                     this.PageCurrent++;
                 }
                 this.Show();
@@ -180,7 +178,6 @@
                 //alert(currentPage);
                 this.PageCurrent++;
                 if (this.PageCurrent < this.PageIndex) {
-                    alert("已经是最后一页了");
                     this.PageCurrent++;
                 }
                 this.Show();
@@ -194,7 +191,7 @@
                 this.Show();
             },
             //Add() { location.href = "http://localhost:51490/User/AddIndex" },
-            Cha(id) { location.href = "/User/XIndex1?id=" + id },
+            Cha(id) { location.href = "/User/XIndex2?id="+id },
         }
     })
 
