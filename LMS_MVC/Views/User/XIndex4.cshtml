@@ -70,7 +70,7 @@
     <div>
         <img style="width:300px;height:100px;margin-left:30px" id="img2" />
     </div>
-    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:900px;margin-top:30px" data-toggle="modal" data-target="#myModal">黑名单</button>
+    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:900px;margin-top:30px" v-on:click="hei">拉黑</button>
     <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-top:30px" data-toggle="modal" data-target="#myModal">备注</button>
 
     <!-- 模态框（Modal） -->
@@ -79,29 +79,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">初审界面</h4>
+                    <h4 class="modal-title" id="myModalLabel">添加备注</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="layui-inline">
-                        <label class="layui-form-label" style="width:100px">审核结果:</label>
-                        <div class="layui-input-inline">
-                            <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px" id="a">
-                                <option value="0">审核结果</option>
-                                <option value="1">通过</option>
-                                <option value="2">驳回</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label" style="width:100px">审核意见:</label>
+                        <label class="layui-form-label" style="width:100px">备注:</label>
                         <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" class="layui-textarea" v-model="c.JNei"></textarea>
+                            <textarea placeholder="请输入内容" class="layui-textarea" v-model="abei"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" v-on:click="Xiu()">提交更改</button>
+                    <button type="button" class="btn btn-primary" v-on:click="bei()">提交更改</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -133,7 +123,8 @@
             SQFrom: "帅",
             SMonthly: "www",
             SQPhone: "www",
-            SKuan:''
+            SKuan: '',
+            SBei:''
         },
         name: '',
         c: {
@@ -141,7 +132,8 @@
             JName:'admin',
             JNei:'1',
             JTime:new Date(),
-        }
+        },
+        abei:''
     };
     new Vue({
         el: '#app',
@@ -160,21 +152,21 @@
                 })
                     .then(
                         function (i) {
-                            n.b.SEmail = i.data.sEmail;
-                            if (i.data.sNation==1) {
-                                n.b.SNation = "汉族";
-                            }
-                            else {
-                                n.b.SNation = "少数民族";
-                            }
+                            //n.b.SEmail = i.data.sEmail;
+                            //if (i.data.sNation==1) {
+                            //    n.b.SNation = "汉族";
+                            //}
+                            //else {
+                            //    n.b.SNation = "少数民族";
+                            //}
                             //n.b.SNation = i.data.sNation;
                             //n.b.SXueli = i.data.sXueli;
-                            if (i.data.sXueli==4) {
-                                n.b.SXueli = "大专";
-                            }
-                            else {
-                                n.b.SXueli = "本科";
-                            }
+                            //if (i.data.sXueli==4) {
+                            //    n.b.SXueli = "大专";
+                            //}
+                            //else {
+                            //    n.b.SXueli = "本科";
+                            //}
                             //n.b.SPhone = i.data.sPhone;
                             //n.b.SSFrom = i.data.sSfrom;
                             //n.b.SXFrom = i.data.sxFrom;
@@ -205,7 +197,7 @@
                             else {
                                 $("#SKuan").text("已还清");
                             }
-                            
+
                             $("#SJian").text(i.data.sJian);
                             $("#SBei").text(i.data.sBei);
                             if (i.data.sNation==1) {
@@ -219,6 +211,46 @@
                         }
                     )
             },
+            hei()
+            {
+                axios.post('http://localhost:51166/api/User/HeiAdd', 'id=' +@ViewBag.id4)
+                    .then(res => {
+                    if (res.data>0) {
+                        alert("操作成功");
+                        }
+                    else {
+                        alert("操作失败");
+                    }
+                    })
+            },
+            bei()
+            {
+                @*axios.post('http://localhost:51166/api/User/BeiAdd', 'id=' +@ViewBag.id4,'&bei='+this.b.SBei)
+                    .then(res => {
+                    if (res.data>0) {
+                        alert("操作成功");
+                        }
+                    else {
+                        alert("操作失败");
+                    }
+                    })*@
+                var a = "@ViewBag.id4";
+                var t = this;
+                axios({
+                    
+                    method: 'get',
+                    url: 'http://localhost:51166/api/User/BeiAdd',
+                    params: {id:parseInt(a),bei:t.abei}
+                })
+                    .then(res => {
+                    if (res.data > 0) {
+                        alert("操作成功");
+                    }
+                    else {
+                        alert("操作失败");
+                    }
+                })
+            }
         }
     })
 </script>

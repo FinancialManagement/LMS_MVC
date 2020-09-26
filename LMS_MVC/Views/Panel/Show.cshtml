@@ -6,6 +6,8 @@
 <h1>仪表盘</h1>
 
 <script src="~/echarts.min.js"></script>
+<script src="~/js/echarts.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +21,7 @@
             margin: 0;
             list-style: none;
             box-sizing: border-box;
-        } 
+        }
 
         .wrap {
             height: 180%;
@@ -272,21 +274,21 @@
                     <span>回款总金额（元）</span>
                     @*<b>&gt;</b>*@
                 </h5>
-                <p>￥1000000.00</p>
+                <p id="asd"></p>
             </li>
             <li>
                 <h5>
                     <span>资产总金额（元）</span>
                     @*<b>&gt;</b>*@
                 </h5>
-                <p>￥1000000.00</p>
+                <p id="zxc2"><span>￥</span></p>
             </li>
             <li>
                 <h5>
                     <span>总盈亏（元）</span>
                     @*<b>&gt;</b>*@
                 </h5>
-                <p>￥1000000.00</p>
+                <p id="zxc3"><span>￥</span></p>
             </li>
         </ul>
         @*<div class="input">
@@ -310,29 +312,29 @@
                         </li>
                         <li>
                             <p style="color: #53C282;">等待审核</p>
-                            <h6>1单</h6>
+                            <h6>2单</h6>
                         </li>
                         <li>
                             <p style="color: #36CBCB;">待签署合同</p>
-                            <h6>1单</h6>
+                            <h6>3单</h6>
                         </li>
                         <li>
                             <p style="color: #F2637B;">待放款</p>
-                            <h6>0单</h6>
+                            <h6>1单</h6>
                         </li>
                         <li>
                             <p>放款中</p>
-                            <h6>0单</h6>
+                            <h6>2单</h6>
                         </li>
                     </ul>
                 </div>
                 <div class="bottom">
                     <h3>
                         <span>账单</span>
-                        <p>
+                        <a>
                             昨日|<b>今日</b>
                             <input type="date">
-                        </p>
+                        </a>
                     </h3>
                     <div class="dls">
                         <dl>
@@ -349,8 +351,8 @@
                                 待回款
                             </dt>
                             <dd>
-                                <h6>1笔</h6>
-                                <p>￥100.00</p>
+                                <h6>2笔</h6>
+                                <p>￥200.00</p>
                             </dd>
                         </dl>
                         <dl>
@@ -368,20 +370,23 @@
             <div class="right">
                 <h6>
                     <span>回款统计</span>
-                    <p>
+                    <a>
                         昨日|<b>今日</b>
                         <input type="date">
-                    </p>
+                    </a>
                 </h6>
                 <dl>
                     <dt>
-                        <p>总回款金额</p>
-                        <h6>￥10000.00</h6>
+                        <a>总回款金额</a>
+                        <a id="asd4"></a>
                     </dt>
                     <dd>
-                        <p><b style="color: #3080FE;">♦</b>当日还款|18% ￥5000.00 4笔</p>
+                        <p id="zxc5"></p>
+                        <p id="zxc6"></p>
+                        <p id="zxc7"></p>
+                        @*<p><b style="color: #3080FE;">♦</b>当日还款|18% ￥5000.00 4笔</p>
                         <p><b style="color: #36CBCB;">♦</b>逾期还款|0% ￥0 0笔</p>
-                        <p><b style="color: #F2637B;">♦</b>提前还款|0% ￥0 0笔</p>
+                        <p><b style="color: #F2637B;">♦</b>提前还款|0% ￥0 0笔</p>*@
                     </dd>
                 </dl>
             </div>
@@ -395,74 +400,108 @@
             </h6>
             <div id="main" style="width: 800px;height:400px;"></div>
             <script type="text/javascript">
-                // 基于准备好的dom，初始化echarts实例
-                var myChart = echarts.init(document.getElementById('main'));
-
-                // 指定图表的配置项和数据
-                var option = {
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
-                    },
-                    legend: {
-                        data: ['放款订单笔数', '实际放款金额', '放款订单金额']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: [
-                        {
-                            type: 'value'
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'category',
-                            axisTick: {
-                                show: false
-                            },
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '放款订单笔数',
-                            type: 'bar',
-                            label: {
-                                show: true,
-                                position: 'inside'
-                            },
-                            data: [70000, 60000, 50000,40000, 30000, 20000, 10000]
-                        },
-                        {
-                            name: '实际放款金额',
-                            type: 'bar',
-                            stack: '总量',
-                            label: {
-                                show: true
-                            },
-                            data: [70000, 60000, 50000, 40000, 30000, 20000, 10000]
-                        },
-                        {
-                            name: '放款订单金额',
-                            type: 'bar',
-                            stack: '总量',
-                            label: {
-                                show: true,
-                                position: 'left'
-                            },
-                            data: [70000, 60000, 50000, 40000, 30000, 20000, 10000]
-                        }
-                    ]
-                };
-
-                // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
+                //$(function () {
+                //    shor();
+                //})
+                //function shor() {
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('main'));
+                    // 指定图表的配置项和数据
+                    //var mon = [];
+                    //var num1 = [];
+                    //var num2 = [];
+                    //var num3 = [];
+                    //$.ajax({
+                    //    url: 'http://localhost:51166/api/Panel/GetShow7',
+                   //     data:{},
+                    //    type: 'get',
+                    //    dataType: 'json',
+                    //    cache:false,
+                    //    success: function (d) {
+                    //        $(d).each(function () {
+                    //            for (var i = 0; i < d.length; i++) {
+                    //                mon.push(d[i].dMoney)
+                    //            }
+                    //            for (var i = 0; i < length; i++) {
+                    //                if (data[i].dSzt == 1) {
+                    //                    num1.push(data[i].dMoney);
+                    //                }
+                    //                if (data[i].dSzt == 1) {
+                    //                    num2.push(data[i].dMoney);
+                    //                }
+                    //                if (data[i].dSzt == 1) {
+                    //                    num3.push(data[i].dMoney);
+                    //                }
+                    //            }
+                    //        })
+                            var option = {
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                    }
+                                },
+                                legend: {
+                                    data: ['放款订单笔数', '实际放款金额', '放款订单金额']
+                                },
+                                grid: {
+                                    left: '3%',
+                                    right: '4%',
+                                    bottom: '3%',
+                                    containLabel: true
+                                },
+                                xAxis: [
+                                    {
+                                        type: 'value'
+                                    }
+                                ],
+                                yAxis: [
+                                    {
+                                        type: 'category',
+                                        axisTick: {
+                                            show: false
+                                        },
+                                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                                    }
+                                ],
+                                series: [
+                                    {
+                                        name: '放款订单笔数',
+                                        type: 'bar',
+                                        label: {
+                                            show: true,
+                                            position: 'inside'
+                                        },
+                                        data: [10000, 20000, 30000, 40000, 50000, 60000, 70000]
+                                    },
+                                    {
+                                        name: '实际放款金额',
+                                        type: 'bar',
+                                        stack: '总量',
+                                        label: {
+                                            show: true
+                                        },
+                                        data: [10000, 20000, 30000, 40000, 50000, 60000, 70000]
+                                    },
+                                    {
+                                        name: '放款订单金额',
+                                        type: 'bar',
+                                        stack: '总量',
+                                        label: {
+                                            show: true,
+                                            position: 'left'
+                                        },
+                                        data: [10000, 20000, 30000, 40000, 50000, 60000, 70000]
+                                    }
+                                ]
+                            };
+                            // 使用刚指定的配置项和数据显示图表。
+                            myChart.setOption(option);
+                //        }
+                //    })
+                //}
+                
+                                   
             </script>
         </div>
         <div>
@@ -520,7 +559,7 @@
                                     { value: 20, name: '放款完成' },
                                     { value: 40, name: '审核通过' },
                                     { value: 60, name: '提交申请' },
-                                    { value: 100, name: '提交申请' },
+                                    { value: 100, name:'提交申请' },
                                 ]
                             },
                             {
@@ -546,10 +585,10 @@
                                     }
                                 },
                                 data: [
-                                    { value: 0, name: '提交申请' },
-                                    { value: 0, name: '提交申请' },
-                                    { value: 0, name: '审核通过' },
-                                    { value: 100, name: '放款完成' },
+                                    { value: 20, name: '提交申请' },
+                                    { value: 40, name: '提交申请' },
+                                    { value: 60, name: '审核通过' },
+                                    { value: 100, name:'放款完成' },
                                 ]
                             }
                         ]
@@ -563,47 +602,71 @@
                 <h6 style="margin-top: 15px;margin-left: 20px">贷后</h6>
                 <div id="main2" style="width: 500px;height:400px;"></div>
                 <script type="text/javascript">
-                    var myChart = echarts.init(document.getElementById('main2'));
-                    var option = {
-                        tooltip: {
-                            trigger: 'item',
-                            formatter: '{a} <br/>{b}: {c} ({d}%)'
-                        },
-                        legend: {
-                            orient: 'vertical',
-                            left: 10,
-                            data: ['已还款', '还款中', '已逾期']
-                        },
-                        series: [
-                            {
-                                name: '访问来源',
-                                type: 'pie',
-                                radius: ['50%', '70%'],
-                                avoidLabelOverlap: false,
-                                label: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    label: {
-                                        show: true,
-                                        fontSize: '30',
-                                        fontWeight: 'bold'
-                                    }
-                                },
-                                labelLine: {
-                                    show: false
-                                },
-                                data: [
-                                    { value: 335, name: '还款中' },
-                                    { value: 310, name: '已还款' },
-                                    { value: 135, name: '已逾期' },
-                                ]
-                            }
-                        ]
-                    };
-                    // 使用刚指定的配置项和数据显示图表。
-                    myChart.setOption(option);
+
+                    //var myChart = echarts.init(document.getElementById('main2'));
+                    //var num1 = 0;
+                    //var num2 = 0;
+                    //var num3 = 0;
+                    //$.ajax({
+                    //    url: 'http://localhost:51166/api/Panel/GetShow6',
+                    //    type: 'get',
+                    //    dataType: 'json',
+                    //    success: function (data) {
+                    //        for (var i = 0; i < length; i++) {
+                    //            if (data[i].dSzt == 1) {
+                    //                num1+=data[i].dMoney;
+                    //            }
+                    //            if (data[i].dSzt == 10) {
+                    //                num2 += data[i].dMoney;
+                    //            }
+                    //            if (data[i].dSzt == 11) {
+                    //                num3 += data[i].dMoney;
+                    //            }
+                    //        }
+                    //        var option = {
+                    //            tooltip: {
+                    //                trigger: 'item',
+                    //                formatter: '{a} <br/>{b}: {c} ({d}%)'
+                    //            },
+                    //            legend: {
+                    //                orient: 'vertical',
+                    //                left: 10,
+                    //                data: ['还款中', '已还款', '已逾期']
+                    //            },
+                    //            series: [
+                    //                {
+                    //                    name: '访问来源',
+                    //                    type: 'pie',
+                    //                    radius: ['50%', '70%'],
+                    //                    avoidLabelOverlap: false,
+                    //                    label: {
+                    //                        show: false,
+                    //                        position: 'center'
+                    //                    },
+                    //                    emphasis: {
+                    //                        label: {
+                    //                            show: true,
+                    //                            fontSize: '30',
+                    //                            fontWeight: 'bold'
+                    //                        }
+                    //                    },
+                    //                    labelLine: {
+                    //                        show: false
+                    //                    },
+                    //                    data: [
+                    //                        { value: num1, name: '还款中' },
+                    //                        { value: num2, name: '已还款' },
+                    //                        { value: num3, name: '已逾期' },
+                    //                    ]
+                    //                }
+                    //            ]
+                    //        };
+                    //        // 使用刚指定的配置项和数据显示图表。
+                    //        myChart.setOption(option);
+                    //    }
+                    //})
+                    
+                    
                 </script>
             </div>
         </div>
@@ -626,17 +689,220 @@
                 type: 'get',
                 dataType: 'json',
                 success: function (d) {
-
                     $(d).each(function () {
-                        as += this.dFMoney;
-                    })
-                    $("#zxc").text(as);
+                        as += parseInt(this.dfMoney);                      
+                    });
+                    $("#zxc").text("￥"+as);
                 }
-            }
+            })
+        }
 
+        $(function () {
+            show1();
+        });
+        var as1 = 0;
+        function show1() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/Showget',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as1 += parseInt(this.capital);
+                    });
+                    $("#asd").text("￥" + as1);
+                }
+            })
+        }
 
+        $(function () {
+            show2();
+        });
+        var as2 = 0;
+        function show2() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow1',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as2 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc2").text("￥" + as2);
+                }
+            })
+        }
+
+        $(function () {
+            show3();
+        });
+        var as3 = 0;
+        function show3() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow2',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as3 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc3").text("￥" + as3);
+                }
+            })
+        }
+
+        $(function () {
+            show4();
+        });
+        var as4 = 0;
+        function show4() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/Showget1',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as4 += parseInt(this.capital);
+                    });
+                    $("#asd4").text("￥" + as4);
+                }
+            })
+        }
+
+        $(function () {
+            show5();
+        });
+        var as5 = 0;
+        function show5() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow3',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as5 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc5").text("当日还款|18% ￥" + as5);
+                }
+            })
+        }
+        $(function () {
+            show6();
+        });
+        var as6 = 0;
+        function show6() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow4',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as6 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc6").text("逾期还款 | ￥" + as6);
+                }
+            })
+        }
+        $(function () {
+            show7();
+        });
+        var as7 = 0;
+        function show7() {
+            $.ajax({
+                url: 'http://localhost:51166/api/Panel/GetShow5',
+                type: 'get',
+                dataType: 'json',
+                success: function (d) {
+                    $(d).each(function () {
+                        as7 += parseInt(this.dfMoney);
+                    });
+                    $("#zxc7").text("提前还款 | ￥" + as7);
+                }
+            })
+        }
+
+        $(function () {
+            show8();
+        })
+        function show8() {
+            var myChart = echarts.init(document.getElementById('main2'));
+
+             var num1 = 0;
+             var num2 = 0;
+             var num3 = 0;
+             $.ajax({
+                 url: 'http://localhost:51166/api/Panel/GetShow6',
+                 type: 'get',
+                 dataType: 'json',
+                 success: function (data) {
+                     $(data).each(function () {
+                         if (this.dSzt==1) {
+                             num1 += this.dMoney;
+                         }
+                         if (this.dSzt==10) {
+                             num2 += this.dMoney;
+                         }
+                         if (this.dSzt==11) {
+                             num3 += this.dMoney;
+                         }
+                     })
+                     //for (var i = 0; i < data.length; i++) {
+                     //    if (data[i].dSzt == 1) {
+                     //        num1+=data[i].dMoney;
+                     //    }
+                     //    if (data[i].dSzt == 10) {
+                     //        num2 += data[i].dMoney;
+                     //    }
+                     //    if (data[i].dSzt == 11) {
+                     //        num3 += data[i].dMoney;
+                     //    }
+                     //}
+                     var option = {
+                         tooltip: {
+                             trigger: 'item',
+                             formatter: '{a} <br/>{b}: {c} ({d}%)'
+                         },
+                         legend: {
+                             orient: 'vertical',
+                             left: 10,
+                             data: ['审核中', '还款中', '已结清']
+                         },
+                         series: [
+                             {
+                                 name: '访问来源',
+                                 type: 'pie',
+                                 radius: ['50%', '70%'],
+                                 avoidLabelOverlap: false,
+                                 label: {
+                                     show: false,
+                                     position: 'center'
+                                 },
+                                 emphasis: {
+                                     label: {
+                                         show: true,
+                                         fontSize: '30',
+                                         fontWeight: 'bold'
+                                     }
+                                 },
+                                 labelLine: {
+                                     show: false
+                                 },
+                                 data: [
+                                     { value: parseInt(num1), name: '审核中' },
+                                     { value: parseInt(num2), name: '还款中' },
+                                     { value: parseInt(num3), name: '已结清' },
+                                 ]
+                             }
+                         ]
+                     };
+                     // 使用刚指定的配置项和数据显示图表。
+                     myChart.setOption(option);
+                 }
+             })
+        }
     </script>
 }
+
 
 
 

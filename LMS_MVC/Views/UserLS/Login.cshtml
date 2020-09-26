@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<div id="div">
+    <table class="table table-bordered">
+        <tr>
+            <td>用户名：</td>
+            <td><input type="text" v-model="UName" /></td>
+        </tr>
+        <tr>
+            <td>密码：</td>
+            <td><input type="password" v-model="UPwd" /></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="button" value="登录" v-on:click="Login" /></td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    new Vue({
+        el: "#div",
+        data: {
+            UName: "",
+            UPwd: ""
+        },
+        methods: {
+            Login: function () {
+                axios({
+                    type: "get",
+                    url: "http://localhost:51166/api/UserLS/Login",
+                    params:
+                    {
+                        UName: this.UName,
+                        UPwd: this.UPwd
+                    }
+                }).then(response => {
+                    if (response.data > 0) {
+                        alert("登陆成功");
+                        location.href = "/System/GetUser";
+
+                    }
+                    else {
+                        alert("登录失败");
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        }
+    })
+</script>

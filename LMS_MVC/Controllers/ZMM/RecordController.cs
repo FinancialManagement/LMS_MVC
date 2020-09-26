@@ -11,6 +11,7 @@ namespace LMS_MVC.Controllers.ZMM
 
         public IActionResult Show()
         {
+            ViewBag.id4 = 2;
             return View();
         }
         public IActionResult Add()

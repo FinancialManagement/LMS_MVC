@@ -10,12 +10,12 @@
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 
-
-<div class="layui-form" id="app">
-    @*<input id="Button1" type="button" value="查询" v-on click="Search()" />*@
+<h2 style="margin-bottom:50px;font-family:LiSu">客户列表</h2>
+<div id="app">
+    @*<input id="Button1" type="button" value="查询" v-on click="Search()" 111/>*@
     <table>
         <tr>
-            <td style="width:400px">客户名称：<input id="Text1" type="text" v-model="input1" style="width:200px;height:30px" /></td>
+            <td style="width:400px">客户名称：<input id="Text1" type="text" v-model="input1" style="width:200px;height:30px" value="@ViewBag.a"/></td>
             <td style="width:400px">手机号码：<input id="Text2" type="text" v-model="input2" style="width:200px;height:30px" /></td>
             <td>身份证号：<input id="Text3" type="text" v-model="input3" style="width:200px;height:30px" /></td>
         </tr>
@@ -24,19 +24,19 @@
         <tr>
             <td style="width:400px">
                 贷款状态：
-                <select id="Select1">
-                        <option value="0">全部</option>
-                        <option value="1">贷款中</option>
-                        <option value="2">未贷款</option>
-                    </select><input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
+                <select id="Select1" style="width:200px;height:30px">
+                    <option value="0">全部</option>
+                    <option value="1">贷款中</option>
+                    <option value="2">未贷款</option>
+                </select>@*<input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />*@
             </td>
             <td style="width:400px">备注：<input id="Text6" type="text" v-model="input6" style="width:200px;height:30px;margin-left:28px" /></td>
             <td>注册时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
         </tr>
     </table>
 
-
-    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-top:20px;margin-left:1000px" >查询</button>
+    <button type="button" class="layui-btn layui-btn-normal" v-on:click="ff" style="margin-top:20px;margin-left:1000px">付款</button><br />
+    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-top:20px;margin-left:1000px">查询</button>
     <table class="layui-table">
         @*<colgroup>
                 <col width="150">
@@ -70,7 +70,7 @@
                 <td>
                     <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.sId)">查看</button>
                     @*<button type="button" class="layui-btn layui-btn-radius" v-on:click="Del(i.sId)">删除</button>
-        <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
+                        <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
                 </td>
             </tr>
         </tbody>
@@ -172,9 +172,6 @@
                                 t.PageCount = i.data.pageCount
                         }
                     )
-                    .catch(function () {
-                        console.log(error);
-                    });
             },
             a: function () {
                 //alert(currentPage);
@@ -206,6 +203,9 @@
             },
             Search() {
                 this.Show();
+            },
+            ff() {
+                location.href = '/Pay/Index?a='+99;
             },
             //Add() { location.href = "http://localhost:51490/User/AddIndex" },
             Cha(id) { location.href = "/User/XIndex4?id="+id },

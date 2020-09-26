@@ -1,0 +1,254 @@
+{
+    "data": {
+        "id": 1,
+        "name": "风险评测",
+        "code": "risk",
+        "questionList": [
+            {
+                "seq": 1,
+                "question": "您的年龄是？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "18-30"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "31-50"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "51-60"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "高于60岁"
+                    }
+                ]
+            },
+            {
+                "seq": 2,
+                "question": "您的家庭年收入为（折合人民币）？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "5万元以下"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "5-20万元"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "20-50万元"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "50-100万元"
+                    },
+                    {
+                        "seq": 5,
+                        "optionContent": "100万元以上"
+                    }
+                ]
+            },
+            {
+                "seq": 3,
+                "question": "在您每年的家庭收入中，可用于金融投资（储蓄存款除外）的比例为？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "小于10% "
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "10%至25%"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "25%至50%"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "大于50%"
+                    }
+                ]
+            },
+            {
+                "seq": 4,
+                "question": "以下哪项最能说明您的投资经验？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "除存款、国债外，我几乎不投资其他金融产品"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "大部分投资于存款、国债等，较少投资于股票、基金等风险产品"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "资产均衡地分布于存款、国债、银行理财产品、信托产品、股票、基金等"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "大部分投资于股票、基金、外汇等高风险产品，较少投资于存款、国债"
+                    }
+                ]
+            },
+            {
+                "seq": 5,
+                "question": "您有多少年投资股票、基金、外汇、金融衍生产品等风险投资品的经验？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "没有经验"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "少于2年"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "2至5年"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "5至8年"
+                    },
+                    {
+                        "seq": 5,
+                        "optionContent": "8年以上"
+                    }
+                ]
+            },
+            {
+                "seq": 6,
+                "question": "以下哪项描述最符合您的投资态度？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "厌恶风险，不希望本金损失，希望获得稳定回报"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "保守投资，不希望本金损失，愿意承担一定幅度的收益波动"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "寻求资金的较高收益和成长性，愿意为此承担有限本金损失"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "希望赚取高回报，愿意为此承担较大本金损失"
+                    }
+                ]
+            },
+            {
+                "seq": 7,
+                "question": "以下情况，您会选择哪一种？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "有100%的机会赢取1000元现金"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "有50%的机会赢取5万元现金"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "有25%的机会赢取50万元现金"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "有10%的机会赢取100万元现金"
+                    }
+                ]
+            },
+            {
+                "seq": 8,
+                "question": "您计划的投资期限是多久？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "1年以下"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "1 - 3年"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "3 - 5年"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "5年以上"
+                    }
+                ]
+            },
+            {
+                "seq": 9,
+                "question": "您的投资目的是？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "资产保值"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "资产稳健增长"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "资产迅速增长"
+                    }
+                ]
+            },
+            {
+                "seq": 10,
+                "question": "您的投资出现何种程度的波动时，您会呈现明显的焦虑？",
+                "type": "radio",
+                "option": [
+                    {
+                        "seq": 1,
+                        "optionContent": "本金无损失，但收益未达预期"
+                    },
+                    {
+                        "seq": 2,
+                        "optionContent": "出现轻微本金损失"
+                    },
+                    {
+                        "seq": 3,
+                        "optionContent": "本金10％以内的损失"
+                    },
+                    {
+                        "seq": 4,
+                        "optionContent": "本金20-50％的损失"
+                    },
+                    {
+                        "seq": 5,
+                        "optionContent": "本金50％以上损失"
+                    }
+                ]
+            }
+        ]
+    },
+    "isSuccess": true,
+    "message": "",
+    "messageCode": 0,
+    "page": 1,
+    "size": 5,
+    "status": 200,
+    "totalCount": 0
+}

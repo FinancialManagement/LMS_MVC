@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewData["Title"] = "UpdShengQ";
+}
+
+<h1>请填写详细的信息</h1>
+<div id="divUpd">
+    <div>
+        <label>客户姓名:</label><input id="Text1" type="text"  v-model="obj.SName"/>
+        <label>客户手机号:</label><input id="Text2" type="text"  v-model="obj.SPhone"/>
+        <label>省份证号码:</label><input id="Text3" type="text" v-model="obj.SCard"/>
+        <label>出生日期:</label><input id="Text4" type="text"   v-model="obj.Shengri"/>
+        <div>
+        </div>
+    </div>
+    <script>
+        var 
+    </script>
+    <table>
+        <thead>
+            <tr>
+                <td>民族</td>
+                <td>
+                    <select v-model="obj.SNation">
+                        <option v-for='(item,index) in LMS_Nation' :key="index" :value="item.id">{{item.name}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>学历</td>
+                <td>
+                    <select v-model="obj.SXueli">
+                        <option v-for='(item,index) in Lms_Education' :key="index" :value="item.id">{{item.name}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>所在地区;</td>
+                <td>
+                    <input id="SSfrom" type="text" v-model="obj.SSfrom" />
+                </td>
+            </tr>
+            <tr>
+                <td>详细地址;</td>
+                <td>
+                    <input type="text" v-model="obj.SXFrom" />
+                </td>
+            </tr>
+            <tr>
+                <td>身份证正面</td>
+                <td>
+                    <input type="text" v-model="obj.SImg1" />
+                </td>
+            </tr>
+            <tr>
+                <td>身份证反面</td>
+                <td>
+                    <input type="text" v-model="obj.SImg2" />
+                </td>
+            </tr>
+            <tr>
+                <td>工作单位</td>
+                <td>
+                    <input type="text" v-model="obj.SWorks" />
+                </td>
+            </tr>
+            <tr>
+                <td>月薪</td>
+                <td>
+                    <input type="text" v-model="obj.SMonthly" />
+                </td>
+            </tr>
+            <tr>
+                <td>企业地址</td>
+                <td>
+                    <input type="text" v-model="obj.SQFrom" />
+                </td>
+            </tr>
+            <tr>
+                <td>单位电话</td>
+                <td>
+                    <input type="text" v-model="obj.SQPhone" />
+                </td>
+            </tr>
+            <tr>
+                <td>健康情况</td>
+                <td>
+                    <input type="text" v-model="obj.SJian" />
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td>
+                    <input type="text" v-model="obj.SBei" />
+                </td>
+            </tr>
+            <tr>
+                <td>银行卡号</td>
+                <td>
+                    <input type="text" v-model="obj.SYin" />
+                </td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td>
+                    <input type="text" v-model="obj.SMm" />
+                </td>
+            </tr>
+            <tr>
+                <td>有无贷款</td>
+                <td>
+                    <input type="text" v-model="obj.SKuan" />
+                </td>
+            </tr>
+            <tr>
+                <td>黑名单</td>
+                <td>
+                    <input type="text" v-model="obj.SHei" />
+                </td>
+            </tr>
+            <tr>
+                <td>注册时间</td>
+                <td>
+                    <input type="text" v-model="obj.STime" />
+                </td>
+            </tr>
+            <tr>
+                <td>邮箱</td>
+                <td>
+                    <input type="text" v-model="obj.SEmail" />
+                </td>
+            </tr>
+            <tr>
+                <td><input id="Button1" type="button" v-on:click="Add" value="保存信息" /></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/javascript">
+    //添加
+    var vm = new Vue({
+        el: '#divUpd',
+        data: {
+            obj: {
+                SName:'@ViewBag.a',
+                SPhone:'@ViewBag.b',
+                SCard:'@ViewBag.c',
+                Shengri: '@ViewBag.d',
+                SNation: 1,
+                SXueli: 1,
+                SSfrom: '',
+                SXFrom: '',
+                SImg1: '',
+                SImg2: '',
+                SWorks:'',
+                SMonthly:'',
+                SQFrom: '',
+                SQPhone: '',
+                SJian: '',
+                SBei: '',
+                SYin: '',
+                SMm: '',
+                SKuan: '',
+                SHei: '',
+                STime: new Date(),
+                SEmail: '',
+            },
+            LMS_Nation: '',
+            Lms_Education: ''
+        },
+        methods: {
+            BindMinZu: function () {
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/UserLS/XiaMinZu',
+
+                }).then(res => {
+                    this.LMS_Nation = res.data
+                })
+
+            },
+            BindXueli: function () {
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/UserLS/XiaXueLi',
+
+                }).then(res => {
+                    this.Lms_Education = res.data
+                })
+
+            },
+            Add: function () {
+                var b = JSON.stringify(this.obj);
+                axios({
+                     method: "post",
+                     url: "http://localhost:51166/api/UserLS/UpdShengQ",
+                     params: { s:b }
+                })
+                    .then(response=> {
+                    if (response.data > 0) {
+                        alert("申请成功");
+                        location.href = '/UserLS/Show';
+                    }
+                    else {
+                        alert('申请失败!');
+                        return;
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        },
+        mounted: function () {
+            this.BindMinZu();
+            this.BindXueli();
+        }
+  })
+</script>

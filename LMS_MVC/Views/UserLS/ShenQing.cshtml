@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "ShenQing";
+}
+
+<h1>申请贷款</h1>
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<div id="DivShen">
+    <table class="table-bordered">
+        <tr>
+            <td>客户姓名:</td>
+            <td><input type="text" v-model="obj.SName" /></td>
+        </tr>
+        <tr>
+            <td>客户手机号:</td>
+            <td><input type="text" v-model="obj.SPhone" /></td>
+        </tr>
+        <tr>
+            <td>客户身份证号:</td>
+            <td><input type="text" v-model="obj.SCard" /></td>
+        </tr>
+        <tr>
+            <td>出生日期:</td>
+            <td><input type="text" v-model="obj.Shengri" /></td>
+        </tr>
+        <tr>
+            <td><input id="Button1" type="button" v-on:click="Add" value="保存信息" /></td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    //申请贷款
+    var vm = new Vue({
+        el: '#DivShen',
+        data: {
+            obj: {
+                SName: '',
+                SPhone: '',
+                SCard: '',
+                Shengri:'',
+            }
+        },
+        methods: {
+            Add: function () {
+                //var a = this;
+                //axios({
+                //    method: "post",
+                //    url: "http://localhost:51166/api/UserLS/ShenQing",
+                //    params: { SName: a.obj.SName, SPhone: a.obj.SPhone, SCard: a.obj.SCard ,Shengri:a.Shengri }
+                //}).then(function (response) {
+                //    if (response.data > 0) {
+                //        alert("申请成功");
+                //        location.href = '/UserLS/Show';
+                //    }
+                //    else {
+                //        alert('申请失败!');
+                //        return;
+                //    }
+                //}).catch(error => {
+                //    console.log(error);
+                //})
+                var a = this.obj.SName;
+                var b = this.obj.SPhone;
+                var c = this.obj.SCard;
+                var d = this.obj.Shengri;
+
+                location.href = '/UserLS/UpdShengQ?a=' + a + '&b=' + b + '&c=' + c + '&d=' + d ;
+            }
+        },
+
+    })
+</script>

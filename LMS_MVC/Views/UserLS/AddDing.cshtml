@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "AddDing";
+}
+
+<h11s>AddDing</h11s>
+<div id="AddDiv">
+    <table>
+        <tr>
+            <td>贷款金额:</td>
+            <td><input type="text" v-model="obj.DMoney" /></td>
+        </tr>
+        <tr>
+           
+            <td><input type="text" v-model="obj.DCount" /></td>
+        </tr>
+        <tr>
+            <td>贷款用途:</td>
+            <td><input type="text" v-model="obj.DTu" /></td>
+        </tr>
+        <tr>
+            <td>还款来源:</td>
+            <td><input type="text" v-model="obj.DHuan" /></td>
+        </tr>
+        <tr>
+            <td><input id="Button1" type="button" v-on:click="Add" value="添加" /></td>
+            
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el: '#AddDiv',
+        data: {
+            obj: {
+                DMoney: '',
+                DCount: '',
+                DTu: '',
+                DHuan: '',
+            }
+        },
+        methods: {
+            Add: function () {
+                axios({
+                    method: "post",
+                    url: "http://localhost:51166/api/UserLS/AddDing",
+                    params: { DMoney: this.obj.DMoney, DCount: this.obj.DCount, DTu: this.obj.DTu, DHuan: this.obj.DHuan }
+                })
+                    .then(response => {
+                        if (response.data > 0) {
+                            alert("申请成功");
+                            location.href = '/UserLS/Show';
+                        }
+                        else {
+                            alert('申请失败!');
+                            return;
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    })
+            }
+        }
+    })
+</script>

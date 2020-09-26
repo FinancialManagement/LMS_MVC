@@ -3,7 +3,7 @@
     ViewData["Title"] = "Show";
 }
 
-<h3>催收显示列表</h3>
+<h3 style="margin-top:25px">催收显示列表</h3>
 
 <script src="~/js/vue.js"></script>
 <script src="~/js/axios.min.js"></script>
@@ -15,14 +15,19 @@
 
 
 
-<div id="app" class="layui-form">
-    客户姓名:<input id="Text1" type="text" v-model="input1" />
-    催收人员:<input id="Text1" type="text" v-model="input2" />
+<div id="app" style="margin-top:25px">
+    客户姓名:<input id="Text1" type="text" v-model="input1" style="margin-right:10px"/>
+    催收人员:<input id="Text1" type="text" v-model="input2" style="margin-right:10px"/>
+   催收状态:<select id="Select1" style="margin-right:10px">
+        <option value="">--请选择--</option>
+        <option value="0">催收中</option>
+        <option value="1">已完成</option>
+    </select>
     <button class="btn-primary" v-on:click="Search">查询</button>
 
-    <button class="btn-primary" v-on:click="Add()">添加</button>
-    <div class="layui-form">
-        <table class="layui-table">
+    @*<button class="btn-primary" v-on:click="Add()">添加</button>*@
+    <div class="layui-form" style="margin-top:30px">
+        <table class="layui-table" style="text-align:center">
             <thead>
                 <tr>
                     <td>借款订单编号</td>
@@ -44,7 +49,7 @@
                     <td>{{item.collector}}</td>
                     <td>
                         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" v-on:click="Asdf">查看</a>
-                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail"  data-toggle="modal" data-target="#myModal">添加记录</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" data-toggle="modal" data-target="#myModal" @*v-on:click="Qwe(item.id)"*@>添加记录</a>
                         @*<a class="layui-btn layui-btn-danger layui-btn-xs" v-on:click="Dele(item.id)">删除</a>*@
                         @*<a class="layui-btn layui-btn-xs" v-on:click="Upda(item)">编辑</a>*@
                     </td>
@@ -95,7 +100,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" data-dismiss="modal">关 闭</button>
-                    @*<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>*@
                     <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" v-on:click="Xiu">确 定</button>
                 </div>
             </div><!-- /.modal-content -->
@@ -166,7 +170,7 @@
                 b: function () {
                     this.currentPage--;
                     if (this.currentPage < 1) {
-                        alert("已经是第一页了");
+                        //alert("已经是第一页了");
                         this.currentPage++;
                     }
                     this.Show();
@@ -174,7 +178,7 @@
                 c: function () {
                     this.currentPage++;
                     if (this.currentPage < this.totalPage) {
-                        alert("已经是最后一页了");
+                        //alert("已经是最后一页了");
                         this.currentPage++;
                     }
                     this.Show();
@@ -185,7 +189,7 @@
                 },
                 Search() {
                     this.Show(this.input1, this.input2);
-                },//查询
+                },//查询             
                 Xiu() {
                     var m = JSON.stringify(this.a);
                     axios.post("http://localhost:51166/api/Record/Add", "m=" + m)
@@ -199,9 +203,8 @@
                             }
                         })
                 },
-                Add() { location.href = "/Collection/Add" },//催收添加
-                Asdf() { location.href = "/Record/Show" },//记录
-                //Sdf() { location.href = "/Record/Add" },//催收记录添加
+                //Add() { location.href = "/Collection/Add" },//催收添加
+                Asdf() { location.href = "/Record/Show"},//记录
             },
             //删除
             Dele(id) {
