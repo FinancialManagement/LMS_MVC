@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewData["Title"] = "FTDing";
+}
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<h3>订单详情</h3>
+<div id="app">
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">订单状态</h3>
+    <hr style="color:gainsboro" />
+    <table style="margin-top:30px">
+        <tr>
+            <td style="width:500px;height:50px"><p>交易编号：<span style="margin-left:20px" id="dId"></span></p></td>
+            <td style="width:500px;height:50px"><p>订单编号：<span style="color:orange" id="dNo"></span></p></td>
+            <td style="width:500px;height:50px"><p>订单状态：<span style="color:orange" id="dSzt"></span></p></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:50px"><p>审核时间：<span id="sdTime"></span></p></td>
+            <td style="width:500px;height:50px"><p>申请金额：<span id="dMoney"></span></p></td>
+            <td style="width:500px;height:50px"><p>利率/年：<span id="dLi"></span><span>%</span></p></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:50px"><p>应放款金额：<span id="dfMoney"></span></p></td>
+            <td style="width:500px;height:50px"><p>手续费：<span>0.00%</span></p></td>
+            <td style="width:500px;height:50px"><p>居间服务费：<span>0.00%</span></p></td>
+        </tr>
+    </table>
+
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">产品信息</h3>
+    <hr style="color:gainsboro" />
+    <table style="margin-top:30px">
+        <tr>
+            <td style="width:500px;height:50px"><p>产品名：<span style="margin-left:20px" id="dTu"></span></p></td>
+            <td style="width:500px;height:50px"><p>还款方式：<span id="dHuan"></span></p></td>
+            <td style="width:500px;height:50px"><p>贷款支付给：<span>贷款人</span></p></td>
+        </tr>
+        <tr>
+            <td style="width:900px;height:50px"><p>提前还款：<span>支持提前还款,按当前还款周期利息就算,违约金:100%,最少还款期数:0期</span></p></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:50px"><p>罚息：<span>按日复利，日利率:0.1%,按月计算:无;罚息上限:无</span></p></td>
+        </tr>
+    </table>
+
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">客户信息</h3>
+    <hr style="color:gainsboro" />
+    <table style="margin-top:30px">
+        <tr>
+            <td style="width:500px;height:50px"><p>客户姓名：<span style="margin-left:20px" id="sName"></span></p></td>
+            <td style="width:500px;height:50px"><p>手机号码：<span id="sPhone"></span></p></td>
+            <td style="width:500px;height:50px"><p>还款方式：<span>等额本金</span></p></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:50px"><p>银行卡号：<span id="sYin"></span></p></td>
+            <td style="width:500px;height:50px"><p>客户备注：<span id="sBei"></span></p></td>
+            <td style="width:500px;height:50px"><p>贷款金额：<span id="DFMoney"></span></p></td>
+        </tr>
+    </table>
+
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">还款计划</h3>
+    <hr style="color:gainsboro" />
+    <table class="layui-table" style="margin-top:30px">
+        <thead>
+            <tr>
+                <th>期数</th>
+                <th>账单日期</th>
+                <th>本金</th>
+                <th>利息</th>
+                <th>罚息</th>
+                <th>还款状态</th>
+                <th>还款时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        @*<tbody>
+                <tr v-for="i in emps">
+                    <td>{{i.dCount}}</td>
+                    <td>{{i.bullDate}}</td>
+                    <td>{{i.capital}}</td>
+                    <td>{{i.interest}}</td>
+                    <td>{{i.defaultInterest}}</td>
+                    <td>{{i.amountMoney}}</td>
+                    <td>{{i.repaymentMoney}}</td>
+                    <td>{{i.repaymentDate}}</td>
+                    <td></td>
+                </tr>
+            </tbody>*@
+    </table>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">授信历史</h3>
+    <hr style="color:gainsboro" />
+    <table class="layui-table" style="margin-top:30px">
+        <thead>
+            <tr>
+                <th>期数</th>
+                <th>账单日期</th>
+                <th>本金</th>
+                <th>利息</th>
+            </tr>
+        </thead>
+        <!--<tbody>-->
+        @*<tr v-for="i in emps">
+                <td>A-00{{i.dCount}}</td>
+                <td>{{i.bullDate}}</td>
+                <td>{{i.capital}}</td>
+                <td>{{i.interest}}</td>
+            </tr>*@
+        <!--</tbody>-->
+    </table>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:1000px;margin-top:30px" data-toggle="modal" data-target="#myModal">放款</button>
+
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">放款操作确认</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <table style="margin-top:30px">
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>申请产品：<span style="margin-left:20px"  id="dtu"></span></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>授信金额：<span style="margin-left:20px" id="dfmoney"></span></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>贷款期限：<span style="margin-left:20px" id="dCount"></span></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>还款方式：<span style="margin-left:20px">等额本金</span></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>服务费：<span style="margin-left:20px">12%</span></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>放款通道：<span style="margin-left:20px">银行放款通道</span></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="Xiu()">确认</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+<script>
+    var data = {
+        a: {
+            DMoney: '王则波',
+            DCount: "帅",
+            DLi: "www",
+            DTu: '王则波',
+            DHuan: "帅",
+            DDan: "www",
+            DName:''
+        },
+        b: {
+            SEmail: '王则波',
+            SNation: "帅",
+            SXueli: "www",
+            SPhone: '王则波',
+            SSFrom: "帅",
+            SXFrom: "www",
+            SJian: '王则波',
+            SImg1: "帅",
+            SImg2: "www",
+            SWorks: '王则波',
+            SQFrom: "帅",
+            SMonthly: "www",
+            SQPhone: "www",
+            SKuan:''
+        },
+        name: '',
+        c: {
+            SJId:'',
+            JName:'admin',
+            JNei:'1',
+            JTime:new Date(),
+        }
+    };
+    new Vue({
+        el: '#app',
+        data,
+        mounted: function () {
+            this.Fan(@ViewBag.id);
+            this.Fan1(@ViewBag.id);
+
+        },
+        methods: {
+            Fan: function (id) {
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/Loanorders/FTClient',
+                    params: { id:id }
+                })
+                    .then(
+                        function (i) {
+                            if (i.data.dSzt==10) {
+                                i.data.dSzt = "放款中";
+                            }
+                            if (i.data.dSzt == 11) {
+                                i.data.dSzt = "还款中";
+                            }
+                            if (i.data.dSzt==12) {
+                                i.data.dSzt="逾期中"
+                            }
+                            if (i.data.dSzt == 13) {
+                                i.data.dSzt = "已还清"
+                            }
+                            if (i.data.dSzt == 14) {
+                                i.data.dSzt = "合同签订"
+                            }
+                            if (i.data.dSzt == 15) {
+                                i.data.dSzt = "等待放款"
+                            }
+                            if (i.data.dSzt == 16) {
+                                i.data.dSzt = "未还款"
+                            }
+                            $("#dId").text(i.data.dId);
+                            $("#dNo").text(i.data.dNo);
+                            $("#dSzt").text(i.data.dSzt);
+                            $("#sdTime").text(i.data.sdTime);
+                            $("#dMoney").text(i.data.dMoney);
+                            $("#dLi").text(i.data.dLi);
+                            $("#dfMoney").text(i.data.dfMoney);
+                            $("#dTu").text(i.data.dTu);
+                            $("#dHuan").text(i.data.dHuan);
+                            $("#DFMoney").text(i.data.dfMoney);
+
+                            $("#dtu").text(i.data.dTu);
+                            $("#dfmoney").text(i.data.dfMoney);
+                            $("#dCount").text(i.data.dCount);
+                        }
+                )
+            },
+            Fan1:function(id) {
+                var n = this;
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/Loanorders/FTDing',
+                    params: { id: id }
+                })
+                    .then(
+                        function (i) {
+                            $("#sName").text(i.data.sName);
+                            $("#sPhone").text(i.data.sPhone);
+                            $("#dMoney").text(i.data.dMoney);
+                            $("#sYin").text(i.data.sYin);
+                            $("#sBei").text(i.data.sBei);
+                        }
+                    )
+            },
+            Xiu() {
+                var a = $("#a").val();
+                this.c.SJId=@ViewBag.id;
+                var m = JSON.stringify(this.c);
+                if (a==1) {
+                    axios.post("http://localhost:51166/api/Loanorders/UpdDState", "m=" + m)
+                        .then(res => {
+                            if (res.data > 0) {
+                                alert("操作完成");
+                                location.href = '/Loanorders/GetLonOrders';
+                            }
+                            else {
+                                alert("操作失败");
+                            }
+                        })
+                }
+                else {
+                    axios.post("http://localhost:51166/api/Loanorders/UpdDState", "m=" + m)
+                        .then(res => {
+                            if (res.data > 0) {
+                                alert("操作完成");
+                                location.href = '/Loanorders/GetLonOrders';
+                            }
+                            else {
+                                alert("操作失败");
+                            }
+                        })
+                }
+            },
+            show: function () {
+                axios({
+                    method: "get",
+                    url:""
+                })
+            }
+        }
+    })
+</script>
+
