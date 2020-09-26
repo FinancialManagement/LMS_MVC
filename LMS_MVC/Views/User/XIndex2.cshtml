@@ -3,72 +3,77 @@
     ViewData["Title"] = "XIndex2";
 }
 
+
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
-<h3>申请资料详情单</h3>
+<h3>借贷审核</h3>
 <div id="app">
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">审核状态</h3>
+    <hr style="color:gainsboro" />
+    <table style="margin-top:30px">
+        <tr>
+            <td style="width:500px;height:50px"><p>贷款编号：<span style="margin-left:20px" id="dno"></span></p></td>
+            <td style="width:500px;height:50px"><p>当前进度：<span style="color:orange">复审</span></p></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:500px;height:50px"><p>操作员：admin</p></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:500px;height:50px"><p>初审意见：初审审核无误，请风控审核</p></td>
+        </tr>
+    </table>
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">申请信息</h3>
-    <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
         <tr>
-            <td style="width:500px;height:50px"><p>申请编号：<span style="margin-left:20px" id="dno"></span></p></td>
-            <td style="width:500px;height:50px"><p>当前进度：<span style="color:orange" id="SKuan"></span></p></td>
-            <td style="width:500px;height:50px"><p>申请产品：<span style="color:orange">车贷（001）</span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">产品名称</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:28px">贷款金额</span><input id="Text2" type="text" v-model="a.DMoney" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
         <tr>
-            <td style="width:500px;height:50px"><p>客户名称：<span id="SName"></span></p></td>
-            <td style="width:500px;height:50px"><p>手机电话：<span id="SPhone"></span></p></td>
-            <td style="width:500px;height:50px"><p>身份证号：<span id="SCard"></span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">还款方式</span><input value="先息后本" id="Text1" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:52px">期数</span><input id="Text2" type="text" v-model="a.DCount" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">借款利率</span><input id="Text1" type="text" v-model="a.DLi" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">罚息计算方式</span><input value="无罚息费" id="Text2" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
     </table>
-
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">借款信息</h3>
-    <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
         <tr>
-            <td style="width:500px;height:50px"><p>贷款金额：<span style="margin-left:20px" id="DFMoney"></span></p></td>
-            <td style="width:500px;height:50px"><p>还款方式：<span>先本后息</span></p></td>
-            <td style="width:500px;height:50px"><p>还款期数：<span>车贷（001）</span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">贷款金额</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" v-model="a.DMoney" /></td>
+            <td style="width:500px"><span style="margin-left:50px">还款方式</span><input id="Text2" type="text" value="先本后息" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
         <tr>
-            <td style="width:500px;height:50px"><p>贷款用途：<span id="DTu"></span></p></td>
-            <td style="width:500px;height:50px"><p>还款来源：<span id="DHuan"></span></p></td>
-            <td style="width:500px;height:50px"><p>还款保障：<span id="DDan"></span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">分期期数</span><input id="Text1" type="text" v-model="a.DCount" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">贷款用途</span><input id="Text2" type="text" v-model="a.DTu" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">还款来源</span><input id="Text1" type="text" v-model="a.DHuan" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">还款保障</span><input id="Text2" type="text" v-model="a.DDan" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
     </table>
-
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">个人信息</h3>
-    <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
         <tr>
-            <td style="width:500px;height:50px"><p>电子邮箱：<span style="margin-left:20px" id="SEmail"></span></p></td>
-            <td style="width:500px;height:50px"><p>民族：<span id="SNation"></span></p></td>
-            <td style="width:500px;height:50px"><p>学历：<span id="SXueli">车贷（001）</span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px;margin-right:30px">电子邮箱</span><input v-model="b.SEmail" id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:74px">民族</span><input id="Text2" type="text" v-model="b.SNation" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
         <tr>
-            <td style="width:500px;height:50px"><p>手机电话：<span id="SPhone1"></span></p></td>
-            <td style="width:500px;height:50px"><p>健康状况：<span id="SJian"></span></p></td>
-            <td style="width:500px;height:50px"><p>户口类型：<span>城市户口</span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;margin-right:60px">学历</span><input id="Text1" type="text" v-model="b.SXueli" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px;margin-right:50px">移动电话</span><input id="Text2" type="text" v-model="b.SPhone" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
         <tr>
-            <td style="width:500px;height:50px"><p>所在地区：<span id="SSFrom"></span></p></td>
-            <td style="width:500px;height:50px"><p>详细地址：<span id="SXFrom"></span></p></td>
-            <td style="width:500px;height:50px"><p><span></span></p></td>
-        </tr>
-    </table>
-
-    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
-    <hr style="color:gainsboro" />
-    <table style="margin-top:30px">
-        <tr>
-            <td style="width:500px;height:50px"><p>工作单位：<span style="margin-left:20px" id="SWorks"></span></p></td>
-            <td style="width:500px;height:50px"><p>公司性质：<span>外资企业</span></p></td>
-            <td style="width:500px;height:50px"><p>月薪：<span id="SMonthly"></span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px">户口所在地区</span><input id="Text1" type="text" v-model="b.SSFrom" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">户口所在详细地址</span><input id="Text2" type="text" v-model="b.SXFrom" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
         <tr>
-            <td style="width:500px;height:50px"><p>公司地址：<span>上海浦东</span></p></td>
-            <td style="width:500px;height:50px"><p>详细地址：<span id="SQFrom"></span></p></td>
-            <td style="width:500px;height:50px"><p>公司电话：<span id="SQPhone"></span></p></td>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;margin-right:30px">健康状况</span><input id="Text1" type="text" v-model="b.SJian" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
         </tr>
     </table>
     <h3 style="margin-top:30px;font-size:20px;margin-left:30px">身份证正面照</h3>
@@ -81,13 +86,50 @@
     <div>
         <img style="width:300px;height:100px;margin-left:30px" id="img2" />
     </div>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table style="margin-top:30px" @*frame="hsides" rules="rows"*@>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">工作单位</span><input v-model="b.SWorks" id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">企业地址</span><input id="Text2" type="text" v-model="b.SQFrom" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td style="width:500px;height:80px"><span style="margin-left:50px;margin-right:30px">月薪</span><input v-model="b.SMonthly" id="Text1" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+            <td style="width:500px"><span style="margin-left:50px">单位电话</span><input id="Text2" type="text" v-model="b.SQPhone" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+        </tr>
+    </table>
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">审核记录</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
+    <table class="layui-table">
+        @*<colgroup>
+                <col width="150">
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>*@
+        <thead>
+            <tr>
+                <th>操作人</th>
+                <th>内容</th>
+                <th>时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="i in emps">
+                <td>{{i.jName}}</td>
+                <td>{{i.jNei}}</td>
+                <td>{{i.jTime}}</td>
+            </tr>
+        </tbody>
+    </table>
     <button type="button" class="layui-btn layui-btn-normal" style="margin-bottom:50px;margin-left:1000px;margin-top:30px" data-toggle="modal" data-target="#myModal">进行复审</button>
-
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
+    <hr style="color:gainsboro;margin-left:30px" />
 
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-right:800px">
+        <div class="modal-dialog" style="margin-right:800px">
+            <div class="modal-content" style="width:1000px">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">初审界面</h4>
@@ -96,13 +138,27 @@
                     <div class="layui-inline">
                         <label class="layui-form-label" style="width:100px">审核结果:</label>
                         <div class="layui-input-inline">
-                            <select name="modules" lay-verify="required" lay-search="" style="height:30px;width:200px" id="a">
+                            <select name="modules" lay-verify="required" lay-search="" style="height:35px;width:250px" id="a">
                                 <option value="0">审核结果</option>
                                 <option value="1">通过</option>
                                 <option value="2">驳回</option>
                             </select>
                         </div>
                     </div>
+                    <table style="margin-top:20px" @*frame="hsides" rules="rows"*@>
+                        <tr>
+                            <td style="width:500px;height:80px"><span style="margin-left:50px;font-size:15px">产品名称</span><input id="Text1" type="text" value="信贷XD914" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                            <td style="width:500px"><span style="margin-left:50px;margin-right:28px">贷款金额</span><input id="Text2" type="text" v-model="a.DMoney" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width:500px;height:80px"><span style="margin-left:50px">还款方式</span><input value="先息后本" id="Text1" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                            <td style="width:500px"><span style="margin-left:50px;margin-right:52px">期数</span><input id="Text2" type="text" v-model="a.DCount" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width:500px;height:80px"><span style="margin-left:50px">借款利率</span><input id="Text1" type="text" v-model="a.DLi" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                            <td style="width:500px"><span style="margin-left:50px">罚息计算方式</span><input value="无罚息费" id="Text2" type="text" style="width:300px;height:40px;margin-left:30px" readonly="readonly" /></td>
+                        </tr>
+                    </table>
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label" style="width:100px">审核意见:</label>
                         <div class="layui-input-block">
@@ -144,7 +200,6 @@
             SQFrom: "帅",
             SMonthly: "www",
             SQPhone: "www",
-            SKuan:''
         },
         name: '',
         c: {
@@ -152,18 +207,21 @@
             JName:'admin',
             JNei:'1',
             JTime:new Date(),
-        }
+        },
+        emps: ''
     };
     new Vue({
         el: '#app',
         data,
         mounted: function () {
-            this.Fan(2);
-            this.Fan1(2);
+            this.Fan(@ViewBag.id2);
+            this.Fan1(@ViewBag.id2);
+            this.Show(@ViewBag.id2);
 
         },
         methods: {
             Fan: function (id) {
+                var t = this;
                 axios({
                     method: 'get',
                     url: 'http://localhost:51166/api/User/XFan',
@@ -171,19 +229,14 @@
                 })
                     .then(
                     function (i) {
-                            //t.a.DMoney = i.data.dMoney;
-                            //t.a.DCount = i.data.dCount;
-                            //t.a.DLi = i.data.dLi+"%";
-                            //t.a.DTu = i.data.dTu;
-                            //t.a.DHuan = i.data.dHuan;
-                            //t.a.DDan = i.data.dDan;
-                            //t.a.DName = i.data.dName;
-
+                            t.a.DMoney = i.data.dMoney;
+                            t.a.DCount = i.data.dCount;
+                            t.a.DLi = i.data.dLi+"%";
+                            t.a.DTu = i.data.dTu;
+                            t.a.DHuan = i.data.dHuan;
+                            t.a.DDan = i.data.dDan;
+                            t.a.DName = i.data.dName;
                             $("#dno").text(i.data.dNo);
-                            $("#DFMoney").text(i.data.dMoney);
-                            $("#DTu").text(i.data.dTu);
-                            $("#DHuan").text(i.data.dHuan);
-                            $("#DDan").text(i.data.dDan);
                         }
                 )
             },
@@ -203,57 +256,51 @@
                             else {
                                 n.b.SNation = "少数民族";
                             }
+                            //n.b.SNation = i.data.sNation;
+                            //n.b.SXueli = i.data.sXueli;‘
                             if (i.data.sXueli==4) {
                                 n.b.SXueli = "大专";
                             }
                             else {
                                 n.b.SXueli = "本科";
                             }
-                            //n.b.SPhone = i.data.sPhone;
-                            //n.b.SSFrom = i.data.sSfrom;
-                            //n.b.SXFrom = i.data.sxFrom;
-                            //n.b.SJian = i.data.sJian;
-                            //n.b.SWorks = i.data.sWorks;
-                            //n.b.SQFrom = i.data.sqFrom;
-                            //n.b.SMonthly = i.data.sMonthly;
-                            //n.b.SQPhone = i.data.sqPhone;
-                            //n.b.SKuan = i.data.sKuan;
-                            $("#SKuan").text(i.data.sWorks);
-                            $("#SName").text(i.data.sName);
-                            $("#SPhone").text(i.data.sPhone);
-                            $("#SCard").text(i.data.sCard);
-                            $("#SEmail").text(i.data.sEmail);
-                            $("#SNation").text(i.data.dNo);
-                            $("#SXueli").text(i.data.sXueli);
-                            $("#SPhone1").text(i.data.sPhone);
-                            $("#SSFrom").text(i.data.sSfrom);
-                            $("#SXFrom").text(i.data.sxFrom);
-                            $("#SWorks").text(i.data.sWorks);
-                            $("#SMonthly").text(i.data.sMonthly);
-                            $("#SQFrom").text(i.data.sqFrom);
-                            $("#SQPhone").text(i.data.sqPhone);
-                            $("#SJian").text(i.data.sJian);
-                            if (i.data.sNation==1) {
-                                $("#SNation").text("汉族");
-                            }
-                            else {
-                                $("#SNation").text("少数民族");
-                            }
+                            n.b.SPhone = i.data.sPhone;
+                            n.b.SSFrom = i.data.sSfrom;
+                            n.b.SXFrom = i.data.sxFrom;
+                            n.b.SJian = i.data.sJian;
+                            n.b.SWorks = i.data.sWorks;
+                            n.b.SQFrom = i.data.sqFrom;
+                            n.b.SMonthly = i.data.sMonthly;
+                            n.b.SQPhone = i.data.sqPhone;
+
                             $("#img1").attr("src",i.data.sImg1);
                             $("#img2").attr("src", i.data.sImg2);
                         }
                     )
             },
+            Show: function (id) {
+                var t = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:51166/api/User/ShouShow",
+                    params: { id: id }
+                })
+                    .then(
+                        function (i) {
+                            t.emps = i.data
+                        }
+                    )
+            },
             Xiu() {
                 var a = $("#a").val();
-                this.c.SJId=@ViewBag.id;
+                this.c.SJId=@ViewBag.id2;
                 var m = JSON.stringify(this.c);
                 if (a==1) {
                     axios.post("http://localhost:51166/api/User/Xiu1", "m=" + m)
                         .then(res => {
                             if (res.data > 0) {
                                 alert("操作完成");
-                                location.href = '/User/DIndex1';
+                                location.href = '/User/DIndex3';
                             }
                             else {
                                 alert("操作失败");
@@ -265,7 +312,7 @@
                         .then(res => {
                             if (res.data > 0) {
                                 alert("操作完成");
-                                location.href = '/User/DIndex1';
+                                location.href = '/User/DIndex3';
                             }
                             else {
                                 alert("操作失败");
@@ -276,3 +323,4 @@
         }
     })
 </script>
+
