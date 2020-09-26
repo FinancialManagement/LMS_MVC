@@ -3,7 +3,7 @@
     ViewData["Title"] = "Show";
 }
 
-<h3>催收显示列表</h3>
+<h3 style="margin-top:25px">催收显示列表</h3>
 
 <script src="~/js/vue.js"></script>
 <script src="~/js/axios.min.js"></script>
@@ -15,13 +15,18 @@
 
 
 
-<div id="app" class="layui-form">
-    客户姓名:<input id="Text1" type="text" v-model="input1" />
-    催收人员:<input id="Text1" type="text" v-model="input2" />
+<div id="app" style="margin-top:25px">
+    客户姓名:<input id="Text1" type="text" v-model="input1" style="margin-right:10px"/>
+    催收人员:<input id="Text1" type="text" v-model="input2" style="margin-right:10px"/>
+   催收状态:<select id="Select1" style="margin-right:10px">
+        <option value="">--请选择--</option>
+        <option value="0">催收中</option>
+        <option value="1">已完成</option>
+    </select>
     <button class="btn-primary" v-on:click="Search">查询</button>
 
     @*<button class="btn-primary" v-on:click="Add()">添加</button>*@
-    <div class="layui-form">
+    <div class="layui-form" style="margin-top:30px">
         <table class="layui-table" style="text-align:center">
             <thead>
                 <tr>
@@ -44,7 +49,7 @@
                     <td>{{item.collector}}</td>
                     <td>
                         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" v-on:click="Asdf">查看</a>
-                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail"  data-toggle="modal" data-target="#myModal" @*v-on:click="Qwe(item.id)"*@>添加记录</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" data-toggle="modal" data-target="#myModal" @*v-on:click="Qwe(item.id)"*@>添加记录</a>
                         @*<a class="layui-btn layui-btn-danger layui-btn-xs" v-on:click="Dele(item.id)">删除</a>*@
                         @*<a class="layui-btn layui-btn-xs" v-on:click="Upda(item)">编辑</a>*@
                     </td>
@@ -165,7 +170,7 @@
                 b: function () {
                     this.currentPage--;
                     if (this.currentPage < 1) {
-                        alert("已经是第一页了");
+                        //alert("已经是第一页了");
                         this.currentPage++;
                     }
                     this.Show();
@@ -173,7 +178,7 @@
                 c: function () {
                     this.currentPage++;
                     if (this.currentPage < this.totalPage) {
-                        alert("已经是最后一页了");
+                        //alert("已经是最后一页了");
                         this.currentPage++;
                     }
                     this.Show();
@@ -199,7 +204,6 @@
                         })
                 },
                 //Add() { location.href = "/Collection/Add" },//催收添加
-                //Asdf() { location.href = "/User/XIndex1"},
                 Asdf() { location.href = "/Record/Show"},//记录
             },
             //删除

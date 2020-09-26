@@ -26,7 +26,7 @@
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 
 <div id="app">
-    <h6>催收记录</h6>
+    <h6 style="margin-left:30px;margin-top:25px">催收记录</h6>
     <div class="layui-form">
         <table class="layui-table">
             <thead>
@@ -46,7 +46,58 @@
         </table>
     </div>
 
-    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">客户信息</h3>
+    <h6 style="margin-left:30px;margin-top:25px">帐单信息</h6>
+    <div class="layui-form">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <td>期数</td>
+                    <td>待还金额</td>
+                    <td>罚息</td>
+                    <td>还款状态</td>
+                    <td>逾期天数</td>
+                    <td>应还款日期</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <th>1000.00</th>
+                    <th>50.00</th>
+                    <th>未还款</th>
+                    <th>5</th>
+                    <th>2019-05-01</th>
+                </tr>
+                @*<tr v-for="item in emps">
+                <td>{{item.content}}</td>
+                <td>{{(item.recordTime||'').split(' ')[0]}}</td>
+                <td>{{item.operator}}</td>
+            </tr>*@
+            </tbody>
+            <tbody>
+                <tr>
+                    <th>2</th>
+                    <th>1000.00</th>
+                    <th>0.00</th>
+                    <th>未还款</th>
+                    <th></th>
+                    <th>2019-06-02</th>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <th>3</th>
+                    <th>1000.00</th>
+                    <th>0.00</th>
+                    <th>未还款</th>
+                    <th></th>
+                    <th>2019-07-03</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h6 style="margin-top:30px;margin-left:30px">客户信息</h6>
     <hr style="color:gainsboro" />
     <table style="margin-top:30px;margin-left:30px">
         <tr>
@@ -60,7 +111,7 @@
         </tr>
     </table>
 
-    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">个人信息</h3>
+    <h6 style="margin-top:30px;margin-left:30px">客户个人信息</h6>
     <hr style="color:gainsboro" />
     <table style="margin-top:30px;margin-left:30px">
         <tr>
@@ -80,7 +131,7 @@
         </tr>
     </table>
 
-    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">职业信息</h3>
+    <h6 style="margin-top:30px;margin-left:30px">职业信息</h6>
     <hr style="color:gainsboro" />
     <table style="margin-top:30px;margin-left:30px">
         <tr>
@@ -120,7 +171,7 @@
                     <div class="layui-form-item layui-form-text">
                         @*<label class="layui-form-label" style="width:100px">审核意见:</label>*@
                         @*<div class="layui-input-block">*@
-                            <textarea placeholder="请输入内容" class="layui-textarea" style="margin-right:500px" v-model="d.Content"></textarea>
+                        <textarea placeholder="请输入内容" class="layui-textarea" style="margin-right:500px" v-model="d.Content"></textarea>
                         @*</div>*@
                     </div>
                 </div>
