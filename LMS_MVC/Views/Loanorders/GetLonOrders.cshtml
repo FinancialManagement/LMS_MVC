@@ -20,7 +20,9 @@
     <table style="margin-top:30px">
         <tr>
             <td style="width:400px">
-                订单状态：<input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
+                订单状态：<select v-model="role" style="width:200px;height:30px">
+                    <option v-for="(item,index) in LMS_DState" :key="index" :value="item.id">{{item.name}}</option>
+                </select>
             </td>
             <td style="width:400px">资金方：<input id="Text6" type="text" v-model="input6" style="width:200px;height:30px;margin-left:28px" /></td>
             <td>下单时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
@@ -119,27 +121,31 @@
             SCard: "www"
         },
     };
-    var vn=new Vue({
+    var vn = new Vue({
         el: '#app',
         data: {
             emps: '',
             input1: '',
             PageCurrent: 1,
             PageIndex: 1,
-            PageCount:1
+            PageCount: 1,
+
+            LMS_DState: "",
+            role: 1
         },
         mounted: function () {
             this.Show();
+            this.BindPosition();
         },
         methods: {
             Show: function () {
                 var t = this;
-                var PageSize = 4;
+                var PageSize = 6;
                 axios({
                     method: "get",
                     url: "http://localhost:51166/api/Loanorders/GetLoanorders",
-                    params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent)}
-                    })
+                    params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent) }
+                })
                     .then(
                         function (i) {
                             t.emps = i.data.list1,
@@ -177,6 +183,16 @@
             Cha(id) { location.href = "/Loanorders/FTFang?id=" + id },
             Search() {
                 this.Show();
+            },
+            BindPosition: function () {
+                axios({
+                    method: "get",
+                    url: "http://localhost:51166/api/Loanorders/LMS_DState",
+                }).then(response => {
+                    this.LMS_DState = response.data
+                }).catch(error => {
+                    console.log(error);
+                })
             }
         }
     })

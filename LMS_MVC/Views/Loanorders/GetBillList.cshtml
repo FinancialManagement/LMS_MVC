@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "GetBillList";
 }
 <script src="~/js/vue.js"></script>
@@ -32,6 +31,7 @@
     <table class="layui-table">
         <thead>
             <tr>
+                <th><input v-model="all_checked" type="checkbox" v-on:click="allClick()" /></th>
                 <th>订单号</th>
                 <th>客户姓名</th>
                 <th>手机号</th>
@@ -40,22 +40,19 @@
                 <th>账单状态</th>
                 <th>应还款日期</th>
                 <th>实际还款日期</th>
-                <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="i in emps">
+                <td> <input v-model="i.checked" v-onclick="check_one()" type="checkbox" /></td>
                 <td>A-00{{i.sId}}</td>
                 <td>{{i.sName}}</td>
                 <td>{{i.sPhone}}</td>
                 <td>{{i.dMoney}}</td>
                 <td>{{i.dfMoney}}</td>
-                <td>{{i.dSzt==1?"贷款中":"无贷款"}}</td>
+                <td>{{i.dSzt==10?"放款中":i.dSzt==11?"还款中":i.dSzt==12?"逾期中":i.dSzt==13?"已还清":i.dSzt==14?"合同签订":i.dSzt==15?"等待放款":i.dSzt==16?"未放款":"催收中"}}</td>
                 <td>{{i.bullDate}}</td>
                 <td>{{i.repaymentDate}}</td>
-                <td>
-                    <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha()">查看</button>
-                </td>
             </tr>
         </tbody>
     </table>
@@ -70,42 +67,40 @@
             <td><a href="#" v-on:click="d">尾页</a></td>
         </tr>
     </table>
-
-    <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">修改界面</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">数字</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SName">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">操作人</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SPhone">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">内容</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SCard">
-                        </div>
+@*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改界面</h4>
+            </div>
+            <div class="modal-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">数字</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SName">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" v-on:click="Xiu()">提交更改</button>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">操作人</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SPhone">
+                    </div>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内容</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" v-model="a.SCard">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" v-on:click="Xiu()">提交更改</button>
+            </div>
+        </div>*@
+@*</div>
+</div>*@
 </div>
 
 
@@ -119,14 +114,36 @@
             SCard: "www"
         },
     };
-    var vn=new Vue({
+    var vn = new Vue({
         el: '#app',
         data: {
             emps: '',
             input1: '',
             PageCurrent: 1,
             PageIndex: 1,
-            PageCount:1
+            PageCount: 1,
+            all_checked: false,
+            lists: [{
+                title: "FORD黑管金边",
+                price: "599",
+                checked: true,
+            }, {
+                title: "YSL圆管",
+                price: "320",
+                checked: false,
+            }, {
+                title: "阿玛尼",
+                price: "420",
+                checked: false,
+            }, {
+                title: "娇兰kisskiss",
+                price: "400",
+                checked: true,
+            }, {
+                title: "香奈儿",
+                price: "360",
+                checked: false,
+            },]
         },
         mounted: function () {
             this.Show();
@@ -134,12 +151,12 @@
         methods: {
             Show: function () {
                 var t = this;
-                var PageSize = 4;
+                var PageSize = 6;
                 axios({
                     method: "get",
                     url: "http://localhost:51166/api/Loanorders/GetBilllist",
-                    params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent)}
-                    })
+                    params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent) }
+                })
                     .then(
                         function (i) {
                             t.emps = i.data.list1,
@@ -180,10 +197,41 @@
                 this.PageCurrent = this.PageIndex;
                 this.Show();
             },
+            allClick: function () {
+                this.lists.forEach((item, index, array) => {
+                    if (!this.all_checked) item.checked = true;
+                    else item.checked = false;
+                });
+            },
+            check_one: function () {
+                var to = setTimeout(function () {
+                    var checked_num = 0;
+                    my_vue.lists.forEach((item, index, array) => {
+                        if (item.checked) checked_num++;
+                    });
+                    console.log(checked_num);
+
+                    if (checked_num == my_vue.lists.length) my_vue.all_checked = true;
+                    else my_vue.all_checked = false;
+                }, 300);
+                //clearTimeout(to);
+            },
+            check_one: function () {
+                var to = setTimeout(function () {
+                    var checked_num = 0;
+                    my_vue.lists.forEach((item, index, array) => {
+                        if (item.checked) checked_num++;
+                    });
+                    console.log(checked_num);
+
+                    if (checked_num == my_vue.lists.length) my_vue.all_checked = true;
+                    else my_vue.all_checked = false;
+                }, 300);
+                //clearTimeout(to);
+            },
             Search() {
                 this.Show();
             }
         }
     })
-
 </script>
