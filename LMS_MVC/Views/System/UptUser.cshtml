@@ -127,7 +127,7 @@
             EditRole: function () {
                 axios({
                     method: "get",
-                    url: "http://localhost:51166/api/System/EditRole",
+                    url: "http://localhost:51166/api/System/EditRole",//11
                     params: { id:@ViewBag.id}
                 }).then(res => {
                     this.rid = res.data.rId
