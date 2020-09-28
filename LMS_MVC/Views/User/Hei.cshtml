@@ -1,21 +1,20 @@
 ﻿
 @{
-    ViewData["Title"] = "KeIndex";
+    ViewData["Title"] = "Hei";
 }
-
 
 <script src="~/js/vue.js"></script>
 <script src="~/js/axios.min.js"></script>
 
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
-<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />@*111*@
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 
-<h2 style="margin-bottom:50px;font-family:LiSu">客户列表</h2>
+<h2 style="margin-bottom:50px;font-family:LiSu">黑名单客户</h2>
 <div id="app">
     @*<input id="Button1" type="button" value="查询" v-on click="Search()" 111/>*@
     <table>
         <tr>
-            <td style="width:400px">客户名称：<input id="Text1" type="text" v-model="input1" style="width:200px;height:30px" value="@ViewBag.a"/></td>
+            <td style="width:400px">客户名称：<input id="Text1" type="text" v-model="input1" style="width:200px;height:30px" value="@ViewBag.a" /></td>
             <td style="width:400px">手机号码：<input id="Text2" type="text" v-model="input2" style="width:200px;height:30px" /></td>
             <td>身份证号：<input id="Text3" type="text" v-model="input3" style="width:200px;height:30px" /></td>
         </tr>
@@ -69,8 +68,9 @@
                 <td>{{i.sBei}}</td>
                 <td>
                     <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.sId)">查看</button>
+                    <button type="button" class="layui-btn layui-btn-radius" v-on:click="Yi(i.sId)">移出</button>
                     @*<button type="button" class="layui-btn layui-btn-radius" v-on:click="Del(i.sId)">删除</button>
-                        <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
+        <button class="layui-btn layui-btn-radius" data-toggle="modal" data-target="#myModal" v-on:click="Fan(i)">修改</button>*@
                 </td>
             </tr>
         </tbody>
@@ -161,7 +161,7 @@
                 var PageSize = 5;
                 axios({
                     method: "get",
-                    url: "http://localhost:51166/api/User/KeShow",
+                    url: "http://localhost:51166/api/User/HeiShow",
                     params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent)}
                     })
                     .then(
@@ -209,18 +209,19 @@
             },
             //Add() { location.href = "http://localhost:51490/User/AddIndex" },
             Cha(id) { location.href = "/User/XIndex4?id="+id },
-            Del(id) {
+            Yi(id) {
                 axios({
                     method: "post",
-                    url: "http://localhost:51166/api/User/Del",
+                    url: "http://localhost:51166/api/User/Yi",
                     params: { id: id }
                 })
                     .then(res => {
                         if (res.data > 0) {
-                            alert("删除成功");
+                            alert("移出成功");
+                            this.Show();
                         }
                         else {
-                            alert("删除失败");
+                            alert("移出失败");
                         }
                     })
             },
@@ -233,3 +234,4 @@
     })
 
 </script>
+

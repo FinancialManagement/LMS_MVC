@@ -69,5 +69,12 @@ namespace LMS_MVC.Controllers.Wzb
         {
             return View();
         }
+        public IActionResult Hei()
+        {
+            return View();
+        }
+
+
+
     }
 }
