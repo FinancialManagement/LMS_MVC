@@ -30,5 +30,15 @@ namespace LMS_MVC.Controllers.Hwc
             ViewBag.id1 = id;
             return View();
         }
+        public IActionResult Yuqi(int id)
+        {
+            ViewBag.id2 = id;
+            return View();
+        }
+        public IActionResult GetBillListFan(int id)
+        {
+            ViewBag.id3=id;
+            return View();
+        }
     }
 }

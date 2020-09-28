@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "GetBillList";
+    ViewData["Title"] = "Yuqi";
 }
 <script src="~/js/vue.js"></script>
 <script src="~/js/axios.min.js"></script>
@@ -20,9 +20,7 @@
     <table style="margin-top:30px">
         <tr>
             <td style="width:400px">
-                账单状态：<select v-model="role" style="width:200px;height:30px">
-                    <option v-for="(item,index) in LMS_DState" :key="index" :value="item.id">{{item.name}}</option>
-                </select>
+                账单状态：<input id="Text5" type="text" v-model="input4" style="width:200px;height:30px" />
             </td>
             <td style="width:400px">手机号：<input id="Text6" type="text" v-model="input6" style="width:200px;height:30px;margin-left:28px" /></td>
             <td>下单时间:<input id="Text4" type="date" v-model="input5" style="width:200px;height:30px;margin-left:10px" /></td>
@@ -42,7 +40,7 @@
                 <th>账单状态</th>
                 <th>应还款日期</th>
                 <th>实际还款日期</th>
-                <th>操作</th>
+                <td>操作</td>
             </tr>
         </thead>
         <tbody>
@@ -55,7 +53,7 @@
                 <td>{{i.dSzt==10?"放款中":i.dSzt==11?"还款中":i.dSzt==12?"逾期中":i.dSzt==13?"已还清":i.dSzt==14?"合同签订":i.dSzt==15?"等待放款":i.dSzt==16?"未放款":"催收中"}}</td>
                 <td>{{i.bullDate}}</td>
                 <td>{{i.repaymentDate}}</td>
-                <td><button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.dId)">放款详情</button></td>
+                <td><button type="button" class="btn btn-primary" v-on:click="Settle(i.dId)">催收</button></td>
             </tr>
         </tbody>
     </table>
@@ -116,7 +114,7 @@
         a: {
             SName: 'www',
             SPhone: "www",
-            SCard: "www",
+            SCard: "www"
         },
     };
     var vn = new Vue({
@@ -126,14 +124,10 @@
             input1: '',
             PageCurrent: 1,
             PageIndex: 1,
-            PageCount: 1,
-
-            LMS_DState: "",
-            role: 1
+            PageCount: 1
         },
         mounted: function () {
             this.Show();
-            this.BindPosition();
         },
         methods: {
             Show: function () {
@@ -141,7 +135,7 @@
                 var PageSize = 6;
                 axios({
                     method: "get",
-                    url: "http://localhost:51166/api/Loanorders/GetBilllist",
+                    url: "http://localhost:51166/api/Loanorders/Yuqi",
                     params: { name: t.input1, PageSize: parseInt(PageSize), PageCurrent: parseInt(t.PageCurrent) }
                 })
                     .then(
@@ -184,21 +178,26 @@
                 this.PageCurrent = this.PageIndex;
                 this.Show();
             },
-            Search() {
-                this.Show();
-            },
-            Cha(id) { location.href = "/Loanorders/GetBillListFan?id=" + id },
-            BindPosition: function () {
+            Settle(id){
                 axios({
-                    method: "get",
-                    url: "http://localhost:51166/api/Loanorders/LMS_DState",
-                }).then(response => {
-                    this.LMS_DState = response.data
-                }).catch(error => {
-                    console.log(error);
+                    method: "put",
+                    url: "http://localhost:51166/api/Loanorders/CuiShou",
+                    params: { id:id},
+                }).then(res => {
+                    if (res.data>0) {
+                        alert('操作成功');
+                        location.href = '/Loanorders/Yuqi';
+                    }
+                    else {
+                        alert('操作失败');
+                        location.href = '/Loanorders/Yuqi';
+                    }
                 })
             },
+            Search() {
+                this.Show();
+            }
         }
     })
-
 </script>
+
