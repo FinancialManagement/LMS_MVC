@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>登录系统</h1>
+
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<div id="div">
+    <table class="table table-bordered">
+        <tr>
+            <td>用户名：</td>
+            <td><input type="text" id="uname" v-model="UserName" /><span id="a" style="color:red"></span></td>
+        </tr>
+        <tr>
+            <td>密码：</td>
+            <td><input type="password" id="upwd" v-model="UserPwd" /><span id="b" style="color:red"></span></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="button" value="登录" v-on:click="Login" /></td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    new Vue({
+        el: "#div",
+        data: {
+            UserName: "",
+            UserPwd: ""
+        },
+        methods: {
+            Login: function () {
+                var name = this.UserName;
+                sessionStorage.setItem("name", name);
+
+                if (this.UserName == "") {
+                    $("#a").text("用户名不能为空");
+                    return;
+                }
+
+                if (this.UserPwd == "") {
+                    $("#b").text("密码不能为空");
+                    return;
+                }
+
+                axios({
+                    type: "get",
+                    url: "http://localhost:51166/api/System/Login",
+                    params:
+                    {
+                        UserName: this.UserName,
+                        UserPwd: this.UserPwd
+                    }
+                }).then(response => {
+                    if (response.data > 0) {
+                        alert("登陆成功");
+                        location.href = "/System/LMS_LayUI?name=" + name;
+
+                    }
+                    else {
+                        alert("用户名或密码不正确");
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        }
+    })
+</script>
+

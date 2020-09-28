@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["Title"] = "UptUser";
+}
+
+<h1>编辑账户</h1>
+
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<table class="layui-table" id="upt">
+    <tr>
+        <td style="text-align:right">用户名：</td>
+        <td><input type="text" v-model="obj.username" readonly="readonly" /></td>
+    </tr>
+    <tr>
+        <td style="text-align:right">密码：</td>
+        <td><input type="password" v-model="obj.userpwd" readonly="readonly" /></td>
+    </tr>
+    <tr>
+        <td style="text-align:right">角色：</td>
+        <td>
+            <select v-model="rid" >
+                <option v-for='(item,index) in RoleInfo' :key='index' :value='item.id'>{{item.roleName}}</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:right">职位：</td>
+        <td>
+            <select v-model="obj.pid" >
+                <option v-for='(item,index) in Position' :key='index' :value='item.id'>{{item.pName}}</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:right">状态：</td>
+        <td>
+            <select v-model="obj.states" disabled="disabled">
+                <option value="-1">==请选择==</option>
+                <option value="0">禁用</option>
+                <option value="1">启用</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:right">手机号：</td>
+        <td><input type="text" v-model="obj.phone" readonly="readonly" /></td>
+    </tr>
+    <tr>
+        <td style="text-align:right">创建时间：</td>
+        <td><input type="text" v-model="obj.createtime" readonly="readonly" /></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <button class="layui-btn layui-btn-normal layui-btn-radius" type="button" onclick="location.href='/System/GetUser'">取消</button>
+            <button class="layui-btn layui-btn-normal layui-btn-radius" type="button" v-on:click="UptUser">保存</button>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    new Vue({
+        el: "#upt",
+        data: {
+            obj: {
+                id:@ViewBag.id,
+                username: "",
+                userpwd: "",
+                pid: "",
+                states: "",
+                phone: "",
+                createtime: ""
+            },
+
+            rid: "",
+            RoleInfo: "",
+            Position:""
+        },
+        mounted: function () {
+            this.BindRole();
+            this.BindPosition();
+            this.EditUser();
+            this.EditRole();
+        },
+        methods: {
+            BindRole: function () {
+                axios({
+                    type: "get",
+                    url: "http://localhost:51166/api/System/BindRole",
+                }).then(response => {
+                    this.RoleInfo = response.data
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            BindPosition: function () {
+                axios({
+                    type: "get",
+                    url: "http://localhost:51166/api/System/BindPosition",
+                }).then(response => {
+                    this.Position = response.data
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            EditUser: function () {
+                axios({
+                    method: "get",
+                    url: "http://localhost:51166/api/System/EditUser",
+                    params: { id:@ViewBag.id}
+                }).then(res=>{
+                    this.obj.username = res.data.userName,
+                        this.obj.userpwd = res.data.userPwd,
+                        this.obj.pid = res.data.pId,
+                        this.obj.states = res.data.states,
+                        this.obj.phone = res.data.phone,
+                        this.obj.createtime = res.data.createTime
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            EditRole: function () {
+                axios({
+                    method: "get",
+                    url: "http://localhost:51166/api/System/EditRole",
+                    params: { id:@ViewBag.id}
+                }).then(res => {
+                    this.rid = res.data.rId
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            UptUser: function () {
+                var model = JSON.stringify(this.obj);
+                axios({
+                    method: "put",
+                    url: "http://localhost:51166/api/System/UptUser",
+                    params:
+                    {
+                        user: model,
+                        uid:@ViewBag.id,
+                        rid: this.rid
+                    }
+                }).then(res => {
+                    if (res.data > 0) {
+                        alert("保存成功");
+                        location.href = "/System/GetUser";
+                    }
+                    else {
+                        alert("保存失败");
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        }
+    })
+</script>
+
