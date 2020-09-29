@@ -33,11 +33,12 @@
                 <td>{{i.repaymentMoney==1?"已还款":"未还款"}}</td>
                 <td>{{i.repaymentDate}}</td>
                 <td>
-                    <input id="Button1" type="button" value="还款" class="btn btn-primary" v-if="i.repaymentMoney==0" data-toggle="modal" data-target="#mModal" v-on:click="Repayment(i.id)" />
+                    <input id="Button1" type="button" value="还款" class="btn btn-primary" v-if="i.repaymentMoney==0" @*data-toggle="modal" data-target="#mModal"*@ v-on:click="Fu(i.interest,i.periods)" />
                 </td>
             </tr>
         </tbody>
     </table>
+    @*  *@/
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="mModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -126,6 +127,10 @@
                     }
                 })
             },
+            Fu(a, b)
+            {
+                location.href = '/Pay/Index?a='+a+"&b="+b;
+            }
         }
     })
 
