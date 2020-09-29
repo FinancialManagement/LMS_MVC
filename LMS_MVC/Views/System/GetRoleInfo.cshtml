@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewData["Title"] = "GetRoleInfo";
+}
+
+<h1>角色管理</h1>
+
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.min.js"></script>
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<div id="div">
+    <table class="layui-table">
+        <tr>
+            <td style="text-align:center">
+                <span style="margin-right:80px">
+                    角色名称：<input type="text" v-model="roleName" placeholder="请输入角色名称" />
+                </span>
+                <span style="margin-left:40px">
+                    状态:
+                    <select v-model="States">
+                        <option value="-1">==请选择==</option>
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </span>
+            </td>
+            <td>
+                <button class="layui-btn layui-btn-danger layui-btn-radius" type="button" v-on:click="Show(1)" style="margin-left:10px">查询</button>
+                <button class="layui-btn layui-btn-normal layui-btn-radius" type="button" data-toggle="modal" data-target="#Add">新增角色</button>
+            </td>
+        </tr>
+    </table>
+    <table class="layui-table">
+        <thead>
+            <tr>
+                <td>角色名称</td>
+                <td>状态</td>
+                <td>创建人</td>
+                <td>创建时间</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in RoleInfos">
+                <td>{{item.roleName}}</td>
+                <td>{{item.states==0?"禁用":"启用"}}</td>
+                <td>{{item.creator}}</td>
+                <td>{{item.createTime}}</td>
+                <td>
+                    <button class="layui-btn layui-btn-radius" v-if="item.states==0" type="button" v-on:click="UptRoleState(item.id)">启用</button>
+                    <button class="layui-btn layui-btn-radius" v-if="item.states==1" type="button" v-on:click="UptRoleState(item.id)">禁用</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="layui-table">
+        <tr>
+            <td style="text-align:center">当前第<span>{{CurrentPage}}/{{PageIndex}}</span>页</td>
+            <td style="text-align:center">
+                <a href="#" v-on:click="Show(1)">首页</a>
+                <a href="#" v-on:click="Show(CurrentPage-1)">上一页</a>
+                <a href="#" v-on:click="Show(CurrentPage+1)">下一页</a>
+                <a href="#" v-on:click="Show(PageIndex)">尾页</a>
+            </td>
+            <td style="text-align:center">
+                到第<input type="text" style="width:50px" v-model="tiao" />页
+                <button class="layui-btn layui-btn-radius" type="button" v-on:click="Show(1)">确定</button>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 模态框新增（Modal） -->
+    <div class="modal fade" id="Add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">新增角色</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <label class="layui-form-label">角色名</label>
+                            <input type="text" name="title" style="width:200px" lay-verify="title" autocomplete="off" class="layui-input" v-model="obj.RoleName">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on:click="Add">保存</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    new Vue({
+        el: "#div",
+        data: {
+            tiao:1,
+            roleName: "",
+            States: -1,
+            RoleInfos: "",
+            PageIndex: 1,
+            CurrentPage: 1,
+            TotalCount: 1,
+
+            obj: {
+                RoleName: "",
+                States: 1,
+                Creator: "管理员",
+                CreateTime: new Date()
+            }
+        },
+        mounted: function () {
+            this.Show(1);
+        },
+        methods: {
+            Show: function(page) {
+                var PageSize = 5;
+                this.CurrentPage = page;
+
+                var current = this.tiao;
+                if (current != 1) {
+                    this.CurrentPage = current;
+                    this.tiao = 1;
+                }
+                axios({
+                    type: "get",
+                    url: "http://localhost:51166/api/System/GetRoleInfo",
+                    params:
+                    {
+                        RoleName: this.roleName,
+                        States: this.States,
+                        PageSize: parseInt(PageSize),
+                        CurrentPage: parseInt(this.CurrentPage)
+                    }
+                }).then(response => (
+                    this.RoleInfos = response.data.roleInfos,
+                    this.PageIndex = response.data.pageIndex,
+                    this.CurrentPage = response.data.currentPage,
+                    this.TotalCount = response.data.totalCount
+                )).catch(error => {
+                    console.log(error);
+                })
+            },
+            UptRoleState: function (id) {
+                axios({
+                    method: "put",
+                    url: "http://localhost:51166/api/System/UptRoleState",
+                    params: {
+                        id: id
+                    }
+                }).then(res => {
+                    if (res.data > 0) {
+                        this.Show(this.CurrentPage);
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            Add: function () {
+                var model = JSON.stringify(this.obj);
+                axios({
+                    method: "post",
+                    url: "http://localhost:51166/api/System/AddRole",
+                    params:
+                    {
+                        role: model
+                    }
+                }).then(res => {
+                    if (res.data > 0) {
+                        alert("保存成功")
+                        location.href = "/System/GetRoleInfo";
+                    }
+                    else {
+                        alert("保存失败");
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        }
+    })
+</script>
+
