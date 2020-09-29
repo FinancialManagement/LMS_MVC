@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Widget\ueditor\1.4.3\net\net.sln" />
+    <None Include="Widget\ueditor\1.4.3\net\Web.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Alipay.AopSdk.F2FPay" Version="2.2.7" />
     <PackageReference Include="Alipay.AopSdk.F2FPay.AspnetCore" Version="2.2.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
