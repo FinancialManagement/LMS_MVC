@@ -6,6 +6,7 @@ using Alipay.AopSdk.AspnetCore;
 using Alipay.AopSdk.F2FPay.AspnetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,13 +60,27 @@ namespace LMS_MVC
 
             app.UseRouting();
 
+            app.UseExceptionHandler(errorApp =>
+            {
+                errorApp.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    if (context.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                    {
+                        context.Response.ContentType = "text/html";
+                        await context.Response.SendFileAsync($@"{env.WebRootPath}/errors/500.html");
+                    }
+                });
+            });
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Collection}/{action=Show}/{id?}");
+                    pattern: "{controller=Collection}/{action=Index}/{id?}");
             });
         }
     }

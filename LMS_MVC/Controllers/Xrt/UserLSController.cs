@@ -33,5 +33,17 @@ namespace LMS_MVC.Controllers.Xrt
         {
             return View();
         }
+        public IActionResult ShowZhu(string name)
+        {
+            ViewBag.name = name;
+            return View();
+        }
+
+        public IActionResult HunKuan(int id)
+        {
+            ViewBag.id1 = id;
+            return View();
+        }
+   
     }
 }

@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewData["Title"] = "HunKuan";
+}
+
+<h1>HunKuan</h1>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+
+<div id="app">
+    <h3 style="margin-top:30px;font-size:20px;margin-left:30px">还款计划</h3>
+    <hr style="color:gainsboro" />
+    <table class="layui-table" style="margin-top:30px">
+        <thead>
+            <tr>
+                <th>期数</th>
+                <th>账单日期</th>
+                <th>本金</th>
+                <th>利息</th>
+                <th>罚息</th>
+                <th>还款状态</th>
+                <th>还款时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="i in emps">
+                <td>{{i.periods}}</td>
+                <td>{{i.bullDate}}</td>
+                <td>{{i.capital}}</td>
+                <td>{{i.interest}}</td>
+                <td>{{i.defaultInterest}}</td>
+                <td>{{i.repaymentMoney==1?"已还款":"未还款"}}</td>
+                <td>{{i.repaymentDate}}</td>
+                <td>
+                    <input id="Button1" type="button" value="还款" class="btn btn-primary" v-if="i.repaymentMoney==0" data-toggle="modal" data-target="#mModal" v-on:click="Repayment(i.id)" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="mModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">贷款本期结清</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <table style="margin-top:30px">
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>最晚还款日期(元)：<span style="margin-left:20px" id="repaymentDate"></span></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>本次结清本金(元)：<span style="margin-left:20px" id="capital"></span></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:500px;height:50px"><p>本次结清利息(元)：<span style="margin-left:20px" id="interest"></span></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" v-on:click="Settle()">确认</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+<script>
+    var data = {
+        emps:''
+    }
+    new Vue({
+        el: '#app',
+        data,
+        mounted: function () {
+            this.Jihua();
+        },
+        methods: {
+            Jihua: function () {
+                axios({
+                    method: "get",
+                    url: "http://localhost:51166/api/UserLS/HuanKuan",
+                    params: { id: @ViewBag.id1 }
+                }).then(response => {
+                    this.emps = response.data
+                }).catch(error => {
+                    console.log(error);
+                })
+            },
+            Repayment: function (id) {
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:51166/api/UserLS/JieQing',
+                    params: { id: id }
+                })
+                    .then(
+                        function (i) {
+                            $("#repaymentDate").text(i.data.repaymentDate);
+                            $("#interest").text(i.data.interest);
+                            $("#capital").text(i.data.capital);
+                        }
+                    )
+            },
+            Settle:function(){
+                axios({
+                    method: "put",
+                    url: "http://localhost:51166/api/UserLS/JieCaoZuo",
+                    params: { id: @ViewBag.id1 },
+                }).then(res => {
+                    if (res.data>0) {
+                        alert('操作成功');
+                        location.href = '/UserLS/ShowZhu';
+                    }
+                    else {
+                        alert('操作失败');
+                        location.href = '/UserLS/ShowZhu';
+                    }
+                })
+            },
+        }
+    })
+
+</script>
