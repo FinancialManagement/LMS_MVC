@@ -36,6 +36,9 @@ namespace LMS_MVC.Controllers.ADFinanl
             return View();
         }
 
-
+        public IActionResult aaaa()
+        {
+            return View();
+        }
     }
 }
