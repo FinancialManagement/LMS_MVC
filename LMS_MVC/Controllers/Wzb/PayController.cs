@@ -14,9 +14,10 @@ namespace LMS_MVC.Controllers.Wzb
 {
     public class PayController : Controller
     {
-        public IActionResult Index(int a)
+        public IActionResult Index(int a,int b)
         {
             ViewBag.a = a;
+            ViewBag.b = b;
             return View();
         }
 
@@ -134,15 +135,11 @@ namespace LMS_MVC.Controllers.Wzb
                 {
                     Console.WriteLine($"同步验证通过，订单号：{sArray["out_trade_no"]}");
                     ViewData["PayResult"] = "同步验证通过";
-                    UserController user = new UserController();
-                    user.KeIndex(10);
                 }
                 else
                 {
                     Console.WriteLine($"同步验证失败，订单号：{sArray["out_trade_no"]}");
                     ViewData["PayResult"] = "同步验证失败";
-                    UserController user = new UserController();
-                    user.KeIndex(10);
 
                 }
             }
