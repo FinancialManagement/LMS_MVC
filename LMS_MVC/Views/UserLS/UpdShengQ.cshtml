@@ -3,20 +3,19 @@
     ViewData["Title"] = "UpdShengQ";
 }
 
+<script src="~/area.js"></script>
+
 <h1>请填写详细的信息</h1>
 <div id="divUpd">
     <div>
-        <label>客户姓名:</label><input id="Text1" type="text"  v-model="obj.SName"/>
-        <label>客户手机号:</label><input id="Text2" type="text"  v-model="obj.SPhone"/>
-        <label>省份证号码:</label><input id="Text3" type="text" v-model="obj.SCard"/>
-        <label>出生日期:</label><input id="Text4" type="text"   v-model="obj.Shengri"/>
+        <label>客户姓名:</label><input id="Text1" type="text" v-model="obj.SName" />
+        <label>客户手机号:</label><input id="Text2" type="text" v-model="obj.SPhone" />
+        <label>省份证号码:</label><input id="Text3" type="text" v-model="obj.SCard" />
+        <label>出生日期:</label><input id="Text4" type="text" v-model="obj.Shengri" />
         <div>
         </div>
     </div>
-    <script>
-        var 
-    </script>
-    <table>
+    <table class="table-bordered">
         <thead>
             <tr>
                 <td>民族</td>
@@ -25,8 +24,6 @@
                         <option v-for='(item,index) in LMS_Nation' :key="index" :value="item.id">{{item.name}}</option>
                     </select>
                 </td>
-            </tr>
-            <tr>
                 <td>学历</td>
                 <td>
                     <select v-model="obj.SXueli">
@@ -34,10 +31,12 @@
                     </select>
                 </td>
             </tr>
+
             <tr>
-                <td>所在地区;</td>
+                <td>所在地区</td>
                 <td>
                     <input id="SSfrom" type="text" v-model="obj.SSfrom" />
+
                 </td>
             </tr>
             <tr>
@@ -45,32 +44,31 @@
                 <td>
                     <input type="text" v-model="obj.SXFrom" />
                 </td>
-            </tr>
-            <tr>
+
                 <td>身份证正面</td>
                 <td>
                     <input type="text" v-model="obj.SImg1" />
                 </td>
+
             </tr>
             <tr>
                 <td>身份证反面</td>
                 <td>
                     <input type="text" v-model="obj.SImg2" />
                 </td>
-            </tr>
-            <tr>
+
                 <td>工作单位</td>
                 <td>
                     <input type="text" v-model="obj.SWorks" />
                 </td>
             </tr>
+
             <tr>
                 <td>月薪</td>
                 <td>
                     <input type="text" v-model="obj.SMonthly" />
                 </td>
-            </tr>
-            <tr>
+
                 <td>企业地址</td>
                 <td>
                     <input type="text" v-model="obj.SQFrom" />
@@ -81,8 +79,7 @@
                 <td>
                     <input type="text" v-model="obj.SQPhone" />
                 </td>
-            </tr>
-            <tr>
+
                 <td>健康情况</td>
                 <td>
                     <input type="text" v-model="obj.SJian" />
@@ -93,8 +90,7 @@
                 <td>
                     <input type="text" v-model="obj.SBei" />
                 </td>
-            </tr>
-            <tr>
+
                 <td>银行卡号</td>
                 <td>
                     <input type="text" v-model="obj.SYin" />
@@ -105,8 +101,7 @@
                 <td>
                     <input type="text" v-model="obj.SMm" />
                 </td>
-            </tr>
-            <tr>
+
                 <td>有无贷款</td>
                 <td>
                     <input type="text" v-model="obj.SKuan" />
@@ -116,9 +111,9 @@
                 <td>黑名单</td>
                 <td>
                     <input type="text" v-model="obj.SHei" />
+
                 </td>
-            </tr>
-            <tr>
+
                 <td>注册时间</td>
                 <td>
                     <input type="text" v-model="obj.STime" />
@@ -131,12 +126,13 @@
                 </td>
             </tr>
             <tr>
-                <td><input id="Button1" type="button" v-on:click="Add" value="保存信息" /></td>
+                <td><input id="Button1" type="button" v-on:click="Add" value="提交信息" class="btn btn-outline-info" style="text-align: center" /></td>
             </tr>
         </thead>
     </table>
 </div>
 <script type="text/javascript">
+
     //添加
     var vm = new Vue({
         el: '#divUpd',
@@ -168,6 +164,7 @@
             LMS_Nation: '',
             Lms_Education: ''
         },
+
         methods: {
             BindMinZu: function () {
                 axios({
@@ -190,6 +187,7 @@
 
             },
             Add: function () {
+                this.obj.SSfrom = $("#s_province").val() + $("#s_city").val() + $("#s_county").val();
                 var b = JSON.stringify(this.obj);
                 axios({
                      method: "post",
@@ -208,11 +206,21 @@
                 }).catch(error => {
                     console.log(error);
                 })
-            }
+            },
+            handleChange(value) {
+                this.form.city = this.form.selectedOptions[0];
+                this.form.erae = this.form.selectedOptions[1]
+                this.form.minerae = this.form.selectedOptions[2]
+            },
         },
         mounted: function () {
             this.BindMinZu();
             this.BindXueli();
-        }
-  })
+        },
+
+
+    })
+    
+
+
 </script>
