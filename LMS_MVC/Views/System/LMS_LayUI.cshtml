@@ -73,7 +73,7 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <iframe id="ifrMain"  height="100%" width="100%"></iframe>
+            <iframe id="ifrMain" src="/Panel/Show"  height="100%" width="100%"></iframe>
         </div>
 
         <div class="layui-footer">
@@ -108,7 +108,9 @@
                 $.ajax({
                     url: "http://localhost:51166/api/System/GetMenu?rid=" + rid,
                     type: "get",
+                    async: false,
                     dataType: "json",
+                    contentType:"application/json;charset=UTF-8",
                     success: function (d) {
                         $("#menu").empty();
                         $(d).each(function () {
@@ -143,55 +145,55 @@
             function w(a)
             {
                 if (a==8) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/User/KeIndex';
                 }
                 if (a == 9) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/User/DIndex4';
                 }
                 if (a == 10) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/User/DIndex1';
                 }
                 if (a == 11) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/User/DIndex2';
                 }
                 if (a == 12) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/User/DIndex3';
                 }
                 if (a == 13) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/Loanorders/GetDing';
                 }
                 if (a == 14) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/Loanorders/GetLonOrders';
                 }
                 if (a == 15) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/Loanorders/GetBillList';
                 }
                 if (a == 16) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/Loanorders/Yuqi';
                 }
                 if (a == 17) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/Collection/Show';
                 }
                 if (a == 18) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/AD/FangMoeny';
                 }
                 if (a == 19) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/AD/HuiMoeny';
                 }
                 if (a == 20) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '';
                 }
                 if (a == 21) {
                     document.getElementById("ifrMain").src = '/System/GetUser';
                 }
                 if (a == 22) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/System/GetRoleInfo';
                 }
                 if (a == 23) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/System/GetLog';
                 }
                 if (a == 24) {
-                    document.getElementById("ifrMain").src = '/System/GetUser';
+                    document.getElementById("ifrMain").src = '/User/Hei';
                 }
             }
 
