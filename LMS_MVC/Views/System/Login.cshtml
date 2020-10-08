@@ -3,7 +3,6 @@
     ViewData["Title"] = "Login";
 }
 
-<h1>登录系统</h1>
 
 <script src="~/js/vue.js"></script>
 <script src="~/js/axios.min.js"></script>
@@ -11,67 +10,198 @@
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
-<div id="div">
-    <table class="table table-bordered">
-        <tr>
-            <td>用户名：</td>
-            <td><input type="text" id="uname" v-model="UserName" /><span id="a" style="color:red"></span></td>
-        </tr>
-        <tr>
-            <td>密码：</td>
-            <td><input type="password" id="upwd" v-model="UserPwd" /><span id="b" style="color:red"></span></td>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+        <!--[if IE 7]>
+          <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+        <![endif]-->
+        <link href="~/denglu/assets/css/ace.min.css" rel="stylesheet" />
+        <link href="~/denglu/assets/css/ace-ie.min.css" rel="stylesheet" />
+        <link href="~/denglu/assets/css/ace-rtl.min.css" rel="stylesheet" />
+        <link href="~/denglu/css/style.css" rel="stylesheet" />
+        <!--[if lte IE 8]>
+          <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+        <![endif]-->
+        <script src="~/denglu/assets/js/ace-extra.min.js"></script>
 
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="button" value="登录" v-on:click="Login" /></td>
-        </tr>
-    </table>
-</div>
-<script type="text/javascript">
-    new Vue({
-        el: "#div",
-        data: {
-            UserName: "",
-            UserPwd: ""
-        },
-        methods: {
-            Login: function () {
-                var name = this.UserName;
-                sessionStorage.setItem("name", name);
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+        <script src="~/denglu/js/jquery-1.9.1.min.js"></script>
+        <script src="~/denglu/assets/layer/layer.js" type="text/javascript"></script>
+        <title>登陆</title>
+    </head>
 
-                if (this.UserName == "") {
-                    $("#a").text("用户名不能为空");
-                    return;
+<html>
+    <body class="login-layout Reg_log_style" style="margin-right:4999px">
+        <div class="logintop">
+            <span>欢迎后台管理界面平台</span>
+            <ul>
+                <li><a href="http://www.erdangjiade.com">返回首页</a></li>
+                <li><a href="http://www.erdangjiade.com">帮助</a></li>
+                <li><a href="http://www.erdangjiade.com">关于</a></li>
+            </ul>
+        </div>
+        <div class="loginbody" id="div">
+            <div class="login-container">
+                <div class="center">
+                    <img src="" />
+                </div>
+
+                <div class="space-6"></div>
+
+                <div class="position-relative">
+                    <div id="login-box" class="login-box widget-box no-border visible">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <h4 class="header blue lighter bigger">
+                                    <i class="icon-coffee green"></i>
+                                    管理员登陆
+                                </h4>
+
+                                <div class="login_icon"><img src="~/denglu/images/login.png" /></div>
+
+                                <form class="">
+                                    <fieldset>
+                                        <ul>
+                                            <li class="frame_style form_error"><label class="user_icon"></label><input name="用户名" type="text" v-model="UserName" /><i>用户名</i></li>
+                                            <li class="frame_style form_error"><label class="password_icon"></label><input name="密码" type="password" v-model="UserPwd"  /><i>密码</i></li>
+                                            <li class="frame_style form_error"><label class="Codes_icon"></label><input name="验证码" type="text" id="Codes_text" /><i>验证码</i><div class="Codes_region"></div></li>
+
+                                        </ul>
+                                        <div class="space"></div>
+
+                                        <div class="clearfix">
+                                            <label class="inline">
+                                                <input type="checkbox" class="ace">
+                                                <span class="lbl">保存密码</span>
+                                            </label>
+
+                                            <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="login_btn" v-on:click="Login">
+                                                <i class="icon-key"></i>
+                                                登录
+                                            </button>
+                                        </div>
+
+                                        <div class="space-4"></div>
+                                    </fieldset>
+                                </form>
+
+                                <div class="social-or-login center">
+                                    <span class="bigger-110">中国人民银行</span>
+                                </div>
+
+                                <div class="social-login center">
+                                    欢迎访问金融后台管理登录页面
+                                </div>
+                            </div><!-- /widget-main -->
+
+                            <div class="toolbar clearfix">
+
+
+
+                            </div>
+                        </div><!-- /widget-body -->
+                    </div><!-- /login-box -->
+                </div><!-- /position-relative -->
+            </div>
+        </div>
+        <div class="loginbm">版权所有2020<a>开发五组</a> </div><strong></strong>
+    </body>
+    </html>
+    <script type="text/javascript">
+        $('#login_btn').on('click', function () {
+            var num = 0;
+            var str = "";
+            $("input[type$='text'],input[type$='password']").each(function (n) {
+                if ($(this).val() == "") {
+
+                    layer.alert(str += "" + $(this).attr("name") + "不能为空！\r\n", {
+                        title: '提示框',
+                        icon: 0,
+                    });
+                    num++;
+                    return false;
                 }
-
-                if (this.UserPwd == "") {
-                    $("#b").text("密码不能为空");
-                    return;
-                }
-
-                axios({
-                    type: "get",
-                    url: "http://localhost:51166/api/System/Login",
-                    params:
-                    {
-                        UserName: this.UserName,
-                        UserPwd: this.UserPwd
-                    }
-                }).then(response => {
-                    if (response.data > 0) {
-                        alert("登陆成功");
-                        location.href = "/System/LMS_LayUI?name=" + name;
-
-                    }
-                    else {
-                        alert("用户名或密码不正确");
-                    }
-                }).catch(error => {
-                    console.log(error);
-                })
+            });
+            if (num > 0) { return false; }
+            else {
+                layer.alert('登陆成功！', {
+                    title: '提示框',
+                    icon: 1,
+                });
+                location.href = "index.html";
+                layer.close(index);
             }
-        }
-    })
-</script>
+
+        });
+        $(document).ready(function () {
+            $("input[type='text'],input[type='password']").blur(function () {
+                var $el = $(this);
+                var $parent = $el.parent();
+                $parent.attr('class', 'frame_style').removeClass(' form_error');
+                if ($el.val() == '') {
+                    $parent.attr('class', 'frame_style').addClass(' form_error');
+                }
+            });
+            $("input[type='text'],input[type='password']").focus(function () {
+                var $el = $(this);
+                var $parent = $el.parent();
+                $parent.attr('class', 'frame_style').removeClass(' form_errors');
+                if ($el.val() == '') {
+                    $parent.attr('class', 'frame_style').addClass(' form_errors');
+                } else {
+                    $parent.attr('class', 'frame_style').removeClass(' form_errors');
+                }
+            });
+        })
+
+        new Vue({
+            el: "#div",
+            data: {
+                UserName: "",
+                UserPwd: ""
+            },
+            methods: {
+                Login: function () {
+                    var name = this.UserName;
+                    sessionStorage.setItem("name", name);
+
+                    if (this.UserName == "") {
+                        $("#a").text("用户名不能为空");
+                        return;
+                    }
+
+                    if (this.UserPwd == "") {
+                        $("#b").text("密码不能为空");
+                        return;
+                    }
+
+                    axios({
+                        type: "get",
+                        url: "http://localhost:51166/api/System/Login",
+                        params:
+                        {
+                            UserName: this.UserName,
+                            UserPwd: this.UserPwd
+                        }
+                    }).then(response => {
+                        if (response.data > 0) {
+                            alert("登录成功");
+                            location.href = "/System/LMS_LayUI?name=" + name;
+
+                        }
+                        else {
+                            alert("用户名或密码不正确");
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    })
+                }
+            }
+        })
+    </script>
 

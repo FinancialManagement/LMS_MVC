@@ -26,10 +26,12 @@ namespace LMS_MVC.Controllers
             ViewBag.id = id;
             return View();
         }
-
-        public IActionResult LMS_UI()
+        public IActionResult GetRoleInfo()
         {
-            
+            return View();
+        }
+        public IActionResult GetLog()
+        {
             return View();
         }
     }

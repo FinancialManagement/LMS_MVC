@@ -1,293 +1,289 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<table>
+<div style="background-color:#f0fbff">
+    <table>
 
-    <tr>
-        <td style="position:relative;">
-            <img style="margin-left:290px" width="500" height="360" src="~/Img/zhu.jpg" />
-            <img style="position:absolute; top:160px; margin-left:-310px; z-index:2;width:110px;height:50px" id="a" src="~/Img/30.jpg" />
-        </td>
-    </tr>
+        <tr>
+            <td style="position:relative;">
+                <img style="margin-left:290px" width="500" height="360" src="~/Img/zhu.jpg" />
+                <img style="position:absolute; top:160px; margin-left:480px; z-index:2;width:110px;height:50px" id="a" src="~/Img/30.jpg" />
+            </td>
+        </tr>
 
-</table>
+    </table>
 
-<h5 style="color:darkorange ;margin-left:440px">—算算我能贷多少—</h5>
-<a style=" color:cornflowerblue;font-size:13px; margin-left:290px">请根据实际情况填写真实资料，系统联网查询如信息有误将直接影响贷款进度！</a>
-<script src="~/XiaLa/jquery.selectlist.js"></script>
-<script src="~/XiaLa/jquery-1.9.1.min.js"></script>
-<link href="~/XiaLa/jquery.selectlist.css" rel="stylesheet" />
-<script src="~/Dizhi/js/city.json.js"></script>
-<script src="~/Dizhi/js/citySet.js"></script>
-<script src="~/Dizhi/js/jquery.min.js"></script>
-<script src="~/Dizhi/js/Popt.js"></script>
-<script type="text/javascript">
-    function Shuan()
-    {
-        var sum = 0;
-        var select = $("#edu").val(); //学历
-        //计数模型
-        if (select == 8) {
-            sum += 2;
-        }
-        if (select == 1) {
-            sum += 4;
-        }
-        if (select == 3) {
-            sum += 6;
-        }
-        if (select == 4) {
+    <h5 style="color:darkorange ;margin-left:440px">—算算我能贷多少—</h5>
+    <a style=" color:cornflowerblue;font-size:13px; margin-left:290px">请根据实际情况填写真实资料，系统联网查询如信息有误将直接影响贷款进度！</a>
+    <script src="~/XiaLa/jquery.selectlist.js"></script>
+    <script src="~/XiaLa/jquery-1.9.1.min.js"></script>
+    <link href="~/XiaLa/jquery.selectlist.css" rel="stylesheet" />
+    <script src="~/Dizhi/js/city.json.js"></script>
+    <script src="~/Dizhi/js/citySet.js"></script>
+    <script src="~/Dizhi/js/jquery.min.js"></script>
+    <script src="~/Dizhi/js/Popt.js"></script>
+    <script type="text/javascript">
+        function Shuan() {
+            var sum = 0;
+            var select = $("#edu").val(); //学历
+            //计数模型
+            if (select == 8) {
+                sum += 2;
+            }
+            if (select == 1) {
+                sum += 4;
+            }
+            if (select == 3) {
+                sum += 6;
+            }
+            if (select == 4) {
 
-            sum += 6;
-        }
-        if (select == 5) {
-            sum += 10;
-        }
-        if (select == 6) {
-            sum += 10;
-        }
-        if (select == 7) {
-            sum += 10;
-        }
-        var Di = $("#salary").val(); //月薪
-        var moth = 0;
-        //月薪打分
-        if (Di == 2) {
-            moth += 2;
-        }
-        if (Di == 3) {
-            moth += 4;
-        }
-        if (Di == 4) {
-            moth += 5;
-        }
-        if (Di == 4) {
-            moth += 6;
-        }
-        if (Di == 5) {
-            moth += 6;
-        }
-        if (Di == 6) {
-            moth += 6;
-        }
-        if (Di == 10) {
-            moth += 10;
-        }
-        var x = $("#city").val(); //月薪  //住址
-        var x = 0;
-        if (Di == '北京') {
-            x += 10;
-        }
-        else if (Di == '上海') {
-            x += 10;
-        }
-        else if (Di == '广州') {
-            x += 10;
-        }
-        else if (Di == '深圳') {
-            x += 10;
-        }
-        else {
-            x += 5;
-        }
-
-        var Di = $("b").val();
-        var duo = 0;
-        //多选框
-        if (Checkbox7 != "") {
-            duo += 0;
-        }
-        else {
-            duo += 10;
-        }
-        var s =parseInt(sum + moth + x + duo);
-        if (s ==7)
-        {
-        
-            $("#a").attr("src", "/Img/5wan.jpg");
-        }
-       if (s == 8||9)
-       {
-          
-            $("#a").attr("src", "/Img/10wan.jpg");
-        }
-       if (s == 11)
-       {
-       
-            $("#a").attr("src", "/Img/15.jpg");
-        }
-         if (s == 15)
-        {
-            $("#a").attr("src", "/Img/25.jpg");
-        }
-       if (s == 17)
-        {
-            $("#a").attr("src", "/Img/30.jpg");
-        }
-    }
-
-
-</script>
-
-<style type="text/css">
-    * {
-        -ms-word-wrap: break-word;
-        word-wrap: break-word;
-    }
-
-    html {
-        -webkit-text-size-adjust: none;
-        text-size-adjust: none;
-    }
-
-    html, body {
-        height: 99%;
-        width: 99%;
-    }
-
-    .wrap {
-        width: 464px;
-        height: 34px;
-        margin: 20px auto;
-        border: 0;
-        position: relative;
-    }
-
-    .input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 457px;
-        margin: 0;
-        height: 30px;
-        line-height: 30px;
-        font-size: 12px;
-        border: 2px solid #c9cacb;
-    }
-
-    s {
-        position: absolute;
-        top: 1px;
-        right: 0;
-        width: 32px;
-        height: 32px;
-        background: url("img/arrow.png") no-repeat;
-    }
-
-    ._citys {
-        width: 450px;
-        display: inline-block;
-        border: 2px solid #eee;
-        padding: 5px;
-        position: relative;
-    }
-
-        ._citys span {
-            color: #05920a;
-            height: 15px;
-            width: 15px;
-            line-height: 15px;
-            text-align: center;
-            border-radius: 3px;
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            border: 1px solid #05920a;
-            cursor: pointer;
-        }
-
-    ._citys0 {
-        width: 95%;
-        height: 34px;
-        line-height: 34px;
-        display: inline-block;
-        border-bottom: 2px solid #05920a;
-        padding: 0px 5px;
-        font-size: 14px;
-        font-weight: bold;
-        margin-left: 6px;
-    }
-
-        ._citys0 li {
-            display: inline-block;
-            line-height: 34px;
-            font-size: 15px;
-            color: #888;
-            width: 80px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-    ._citys1 {
-        width: 100%;
-        display: inline-block;
-        padding: 10px 0;
-    }
-
-        ._citys1 a {
-            width: 83px;
-            height: 35px;
-            display: inline-block;
-            background-color: #f5f5f5;
-            color: #666;
-            margin-left: 6px;
-            margin-top: 3px;
-            line-height: 35px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 12px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-            ._citys1 a:hover {
-                color: #fff;
-                background-color: #05920a;
+                sum += 6;
+            }
+            if (select == 5) {
+                sum += 10;
+            }
+            if (select == 6) {
+                sum += 10;
+            }
+            if (select == 7) {
+                sum += 10;
+            }
+            var Di = $("#salary").val(); //月薪
+            var moth = 0;
+            //月薪打分
+            if (Di == 2) {
+                moth += 2;
+            }
+            if (Di == 3) {
+                moth += 4;
+            }
+            if (Di == 4) {
+                moth += 5;
+            }
+            if (Di == 4) {
+                moth += 6;
+            }
+            if (Di == 5) {
+                moth += 6;
+            }
+            if (Di == 6) {
+                moth += 6;
+            }
+            if (Di == 10) {
+                moth += 10;
+            }
+            var x = $("#city").val(); //月薪  //住址
+            var x = 0;
+            if (Di == '北京') {
+                x += 10;
+            }
+            else if (Di == '上海') {
+                x += 10;
+            }
+            else if (Di == '广州') {
+                x += 10;
+            }
+            else if (Di == '深圳') {
+                x += 10;
+            }
+            else {
+                x += 5;
             }
 
-    .AreaS {
-        background-color: #05920a !important;
-        color: #fff !important;
-    }
-</style>
-<div id="main_demo" style="margin-left:290px">
-    <a style="margin-left:5px">学历:</a>
-    <select id="edu" name="edu">
-        <option value="0">--请选择--</option>
-        <option value="8">初中</option>
-        <option value="1">高中</option>
-        <option value="3">中专</option>
-        <option value="4">大专</option>
-        <option value="5">本科</option>
-        <option value="6">硕士</option>
-        <option value="7">博士</option>
-    </select>
-    <br>
-    <br>
+            var Di = $("b").val();
+            var duo = 0;
+            //多选框
+            if (Checkbox7 != "") {
+                duo += 0;
+            }
+            else {
+                duo += 10;
+            }
+            var s = parseInt(sum + moth + x + duo);
+            if (s == 7) {
 
-    <a style="margin-left:5px">月薪:</a>
-    <select id="salary" name="salary">
-        <option value="0">--请选择--</option>
-        <option value="2">1000-3000</option>
-        <option value="4">3000-6000</option>
-        <option value="7">6000-10000</option>
-        <option value="8">10000-20000</option>
-        <option value="9">20000以上</option>
-    </select>
+                $("#a").attr("src", "/Img/5wan.jpg");
+            }
+            if (s == 8 || 9) {
+
+                $("#a").attr("src", "/Img/10wan.jpg");
+            }
+            if (s == 11) {
+
+                $("#a").attr("src", "/Img/15.jpg");
+            }
+            if (s == 15) {
+                $("#a").attr("src", "/Img/25.jpg");
+            }
+            if (s == 17) {
+                $("#a").attr("src", "/Img/30.jpg");
+            }
+        }
+
+
+    </script>
+
+    <style type="text/css">
+        * {
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        html {
+            -webkit-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+
+        html, body {
+            height: 99%;
+            width: 99%;
+        }
+
+        .wrap {
+            width: 464px;
+            height: 34px;
+            margin: 20px auto;
+            border: 0;
+            position: relative;
+        }
+
+        .input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 457px;
+            margin: 0;
+            height: 30px;
+            line-height: 30px;
+            font-size: 12px;
+            border: 2px solid #c9cacb;
+        }
+
+        s {
+            position: absolute;
+            top: 1px;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            background: url("img/arrow.png") no-repeat;
+        }
+
+        ._citys {
+            width: 450px;
+            display: inline-block;
+            border: 2px solid #eee;
+            padding: 5px;
+            position: relative;
+        }
+
+            ._citys span {
+                color: #05920a;
+                height: 15px;
+                width: 15px;
+                line-height: 15px;
+                text-align: center;
+                border-radius: 3px;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                border: 1px solid #05920a;
+                cursor: pointer;
+            }
+
+        ._citys0 {
+            width: 95%;
+            height: 34px;
+            line-height: 34px;
+            display: inline-block;
+            border-bottom: 2px solid #05920a;
+            padding: 0px 5px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+
+            ._citys0 li {
+                display: inline-block;
+                line-height: 34px;
+                font-size: 15px;
+                color: #888;
+                width: 80px;
+                text-align: center;
+                cursor: pointer;
+            }
+
+        ._citys1 {
+            width: 100%;
+            display: inline-block;
+            padding: 10px 0;
+        }
+
+            ._citys1 a {
+                width: 83px;
+                height: 35px;
+                display: inline-block;
+                background-color: #f5f5f5;
+                color: #666;
+                margin-left: 6px;
+                margin-top: 3px;
+                line-height: 35px;
+                text-align: center;
+                cursor: pointer;
+                font-size: 12px;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+
+                ._citys1 a:hover {
+                    color: #fff;
+                    background-color: #05920a;
+                }
+
+        .AreaS {
+            background-color: #05920a !important;
+            color: #fff !important;
+        }
+    </style>
+    <div id="main_demo" style="margin-left:290px">
+        <a style="margin-left:5px">学历:</a>
+        <select id="edu" name="edu">
+            <option value="0">--请选择--</option>
+            <option value="8">初中</option>
+            <option value="1">高中</option>
+            <option value="3">中专</option>
+            <option value="4">大专</option>
+            <option value="5">本科</option>
+            <option value="6">硕士</option>
+            <option value="7">博士</option>
+        </select>
+        <br>
+        <br>
+
+        <a style="margin-left:5px">月薪:</a>
+        <select id="salary" name="salary">
+            <option value="0">--请选择--</option>
+            <option value="2">1000-3000</option>
+            <option value="4">3000-6000</option>
+            <option value="7">6000-10000</option>
+            <option value="8">10000-20000</option>
+            <option value="9">20000以上</option>
+        </select>
+    </div>
+    <table style="margin-left:290px">
+
+        <tr style="color:darkorange;font-size:15px; line-height:40px"><td>——职业类型——</td></tr>
+        <tr><td><input id="Radio1" type="radio" name="1" />上班族 &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Radio2" type="radio" name="1" />企业主 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Radio3" type="radio" name="1" />自由职业</td></tr>
+        <tr><td style=" color:cornflowerblue;font-size:13px;line-height:40px">选择附属信息可提高您的贷款成功率(可多选)</td></tr>
+        <tr><td style="line-height:30px" id="b"><input id="Checkbox1" type="checkbox" />本地房 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox2" type="checkbox" />我有车 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox3" type="checkbox" />我有社保 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><input id="Checkbox4" type="checkbox" />有公积金 &nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox5" type="checkbox" />有工资卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox6" type="checkbox" />有保单&nbsp;&nbsp;&nbsp;&nbsp;<br><input id="Checkbox7" type="checkbox" />有业执照&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox8" type="checkbox" />以上均无</td></tr>
+
+
+    </table>
+    <div class="wrap"><input class="input" name="" id="city" value="请选择现居住地" type="text" placeholder="请选择" autocomplete="off" readonly="true"><s></s></div>
+
+    <input id="Button1" type="button" value="查看我能借多少" class="btn btn-outline-info" onclick="Shuan()" style="margin-left:340px" />
+    <input id="Button1" type="button" value=" 立即申请额度" class="btn btn-outline-info" onclick="location.href = '/UserLS/UpdShengQ'" style="margin-left:110px" />
 </div>
-<table style="margin-left:290px">
-
-    <tr style="color:darkorange;font-size:15px; line-height:40px"><td>——职业类型——</td></tr>
-    <tr><td><input id="Radio1" type="radio" name="1" />上班族 &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Radio2" type="radio" name="1" />企业主 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Radio3" type="radio" name="1" />自由职业</td></tr>
-    <tr><td style=" color:cornflowerblue;font-size:13px;line-height:40px">选择附属信息可提高您的贷款成功率(可多选)</td></tr>
-    <tr><td style="line-height:30px" id="b"><input id="Checkbox1" type="checkbox" />本地房 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox2" type="checkbox" />我有车 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox3" type="checkbox" />我有社保 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><input id="Checkbox4" type="checkbox" />有公积金 &nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox5" type="checkbox" />有工资卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox6" type="checkbox" />有保单&nbsp;&nbsp;&nbsp;&nbsp;<br><input id="Checkbox7" type="checkbox" />有业执照&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Checkbox8" type="checkbox" />以上均无</td></tr>
-
-
-</table>
-<div class="wrap"><input class="input" name="" id="city" value="请选择现居住地" type="text" placeholder="请选择" autocomplete="off" readonly="true"><s></s></div>
-
-<input id="Button1" type="button" value="查看我能借多少" class="btn btn-outline-info" onclick="Shuan()" style="margin-left:340px" />
-<input id="Button1" type="button" value=" 立即申请额度" class="btn btn-outline-info" onclick="" style="margin-left:110px" />
 <script type="text/javascript">
     $(function () {
         $('select').selectlist({
