@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "ShenQDai";
+}
+
+<h1>申请贷款</h1>
+
+<div id="DivDai">
+    <table>
+        <tr>
+            <td>借款金额;</td>
+            <td>
+                <input type="text" v-model="obj.DMoney" />
+            </td>
+        </tr>
+        <tr>
+            <td>期数:</td>
+            <td>
+                <select>
+                    <option>3期</option>
+                    <option>6期</option>
+                    <option>12期</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>借款用途:</td>
+            <td>
+                <input type="text" v-model="obj.DTu" />
+            </td>
+        </tr>
+        <tr>
+            <td><input id="Button1" type="button" v-on:click="Add" value="提交信息" class="btn btn-outline-info" style="text-align: center" /></td>
+        </tr>
+    </table>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#DivDai',
+        data: {
+            obj: {
+                DMoney: '',
+                DCount: '',
+                DTu: '',
+            },
+
+        },
+        methods: {
+            Add: function () {
+                var b = JSON.stringify(this.obj);
+                axios({
+                    method: "post",
+                    url: "http://localhost:51166/api/UserLS/ShenQDai",
+                    params: { s: b }
+                })
+                    .then(response => {
+                        if (response.data > 0) {
+                            alert("申请成功");
+                            location.href = '/UserLS/Login';
+                        }
+                        else {
+                            alert('申请失败!');
+                            return;
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    })
+            },
+        }
+    })
+</script>

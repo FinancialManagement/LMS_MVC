@@ -30,65 +30,101 @@
                         </tr>
                     </table>
                 </div>
-               
-            </div>
+
             </div>
         </div>
     </div>
+</div>
 
-    @*<div id="addDiv">
-            <table class="table table-bordered">
-                <tr>
-                    <td>用户名：</td>
-                    <td><input type="text" v-model="obj.UName" /></td>
-                </tr>
-                <tr>
-                    <td>密码：</td>
-                    <td><input type="password" v-model="obj.UPwd" /></td>
+@*<div id="addDiv">
+        <table class="table table-bordered">
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" v-model="obj.UName" /></td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input type="password" v-model="obj.UPwd" /></td>
 
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input id="Button1" type="button" v-on:click="Add" value="注册" /></td>
-                </tr>
-            </table>
-        </div>*@
+            </tr>
+            <tr>
+                <td></td>
+                <td><input id="Button1" type="button" v-on:click="Add" value="注册" /></td>
+            </tr>
+        </table>
+    </div>*@
 
-    <script type="text/javascript">
-        //添加
+<script type="text/javascript">
+    //添加
 
-        var vm = new Vue({
-            el: '#addDiv',
-            data: {
-                obj: {
-                    UName: "",
-                    UPwd: ""
-                }
-            },
-            methods: {
-                Add: function () {
-                    var m = JSON.stringify(this.obj);
-                    axios({
-                        method: "post",
-                        url: "http://localhost:51166/api/UserLS/Regin",
-                        params:
-                        {
-                            s: m
-                        }
-                    }).then(response => {
-                        if (response.data > 0) {
-                            alert("注册成功");
-                            location.href = '/UserLS/Login';
-                        }
-                        else {
-                            alert('注册失败!');
-                        }
-                    }).catch(error => {
-                        console.log(error);
-                    })
-                }
-            },
+    var vm = new Vue({
+        el: '#addDiv',
+        data: {
+            obj: {
+                UName: "",
+                UPwd: ""
+            }
+        },
+        methods: {
+            Add: function () {
+                var m = JSON.stringify(this.obj);
+                axios({
+                    method: "post",
+                    url: "http://localhost:51166/api/UserLS/Regin",
+                    params:
+                    {
+                        s: m
+                    }
+                }).then(response => {
+                    if (response.data > 0) {
+                        alert("注册成功");
+                        location.href = '/UserLS/Login';
+                    }
+                    else {
+                        alert('注册失败!');
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        },
 
 
-        })
-    </script>
+    })
+</script>
+<!--<tr>
+    <td>所在地区:</td>
+    <td>
+        <select id="a">-->
+            @*<option v-for='(item,index) in Lms_Education' :key="index" :value="item.id">{{item.name}}</option>*@
+            <!--<option value="0">--全部--</option>
+            <option>河南省</option>
+            <option>河北省</option>
+            <option>安徽省</option>
+            <option>山西省</option>
+            <option>陕西省</option>
+            <option>上海市</option>
+            <option>北京市</option>
+            <option>福建省</option>
+            <option>海南省</option>
+            <option>广东省</option>
+            <option>广西省</option>
+        </select>
+        <select id="b">
+            <option value="0">--全部--</option>
+            <option>洛阳市</option>
+            <option>郑州市</option>
+            <option>开封市</option>
+            <option>信阳市</option>
+            <option>南阳市</option>
+            <option>安阳市</option>
+            <option>许昌市</option>
+            <option>洛阳市</option>
+            <option>三门峡市</option>
+            <option>济源市</option>
+            <option>漯河市</option>
+            <option>焦作市</option>
+            <option>鹤壁市</option>
+            <option>驻马店市</option>
+        </select>
+    </td>-->

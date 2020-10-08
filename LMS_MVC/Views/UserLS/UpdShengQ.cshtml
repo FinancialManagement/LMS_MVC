@@ -11,7 +11,7 @@
         <label>客户姓名:</label><input id="Text1" type="text" v-model="obj.SName" />
         <label>客户手机号:</label><input id="Text2" type="text" v-model="obj.SPhone" />
         <label>身份证号码:</label><input id="Text3" type="text" v-model="obj.SCard" />
-        <label>出生日期:</label><input id="Text4" type="text" v-model="obj.Shengri" />
+        <label>出生日期:</label><input id="Text4" type="date" v-model="obj.Shengri" />
         <div>
         </div>
     </div>
@@ -31,18 +31,50 @@
                     </select>
                 </td>
             </tr>
-            
+
             <tr>
-                <td>所在地区:</td>
-                <td>
-                    <input id="SSfrom" type="text" v-model="obj.SSfrom" />
-                </td>
-            
+                
+    <td>所在地区:</td>
+    <td>
+        <select id="a">
+                @*<option v-for='(item,index) in Lms_Education' :key="index" :value="item.id">{{item.name}}</option>*@
+                <option value="0">--全部--</option>
+            <option>河南省</option>
+            <option>河北省</option>
+            <option>安徽省</option>
+            <option>山西省</option>
+            <option>陕西省</option>
+            <option>上海市</option>
+            <option>北京市</option>
+            <option>福建省</option>
+            <option>海南省</option>
+            <option>广东省</option>
+            <option>广西省</option>
+        </select>
+        <select id="b">
+            <option value="0">--全部--</option>
+            <option>洛阳市</option>
+            <option>郑州市</option>
+            <option>开封市</option>
+            <option>信阳市</option>
+            <option>南阳市</option>
+            <option>安阳市</option>
+            <option>许昌市</option>
+            <option>洛阳市</option>
+            <option>三门峡市</option>
+            <option>济源市</option>
+            <option>漯河市</option>
+            <option>焦作市</option>
+            <option>鹤壁市</option>
+            <option>驻马店市</option>
+        </select>
+    </td>
+
                 <td>详细地址;</td>
                 <td>
                     <input type="text" v-model="obj.SXFrom" />
                 </td>
-                </tr>
+            </tr>
             <tr>
                 <td>身份证号码:</td>
                 <td>
@@ -82,17 +114,14 @@
                     <input type="text" v-model="obj.SJian" />
                 </td>
 
-                <td>备注:</td>
-                <td>
-                    <input type="text" v-model="obj.SBei" />
-                </td>
-            </tr>
-            <tr>
+        
+           
                 <td>银行卡号:</td>
                 <td>
                     <input type="text" v-model="obj.SYin" />
                 </td>
-
+                </tr>
+            <tr>
                 <td>密码:</td>
                 <td>
                     <input type="text" v-model="obj.SMm" />
@@ -104,17 +133,7 @@
                     <input type="text" v-model="obj.SKuan" />
                 </td>
 
-                <td>黑名单:</td>
-                <td>
-                    <input type="text" v-model="obj.SHei" />
-
-                </td>
-            </tr>
-            <tr>
-                <td>注册时间:</td>
-                <td>
-                    <input type="text" v-model="obj.STime" />
-                </td>
+                          
             
                 <td>邮箱:</td>
                 <td>
@@ -140,7 +159,7 @@
                 Shengri: '@ViewBag.d',
                 SNation: 1,
                 SXueli: 1,
-                SSfrom: '',
+                SSfrom: '河南省洛阳市',
                 SXFrom: '',
                 SImg1: '',
                 SImg2: '',
@@ -149,11 +168,11 @@
                 SQFrom: '',
                 SQPhone: '',
                 SJian: '',
-                SBei: '',
+                SBei: '1',
                 SYin: '',
                 SMm: '',
                 SKuan: '',
-                SHei: '',
+                SHei: '1',
                 STime: new Date(),
                 SEmail: '',
             },
@@ -183,7 +202,7 @@
 
             },
             Add: function () {
-                this.obj.SSfrom = $("#s_province").val() + $("#s_city").val() + $("#s_county").val();
+                this.obj.SSfrom = $("#a").val() + $("#b").val();
                 var b = JSON.stringify(this.obj);
                 axios({
                      method: "post",

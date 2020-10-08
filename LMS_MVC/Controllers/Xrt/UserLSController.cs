@@ -44,6 +44,11 @@ namespace LMS_MVC.Controllers.Xrt
             ViewBag.id1 = id;
             return View();
         }
-   
+
+        public IActionResult ShenQDai()
+        {
+            return View();
+        }
+
     }
 }
