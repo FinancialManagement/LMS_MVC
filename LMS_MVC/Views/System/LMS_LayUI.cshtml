@@ -20,28 +20,28 @@
             <div class="layui-logo">LMS后台管理系统</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             @*<ul class="layui-nav layui-layout-left">
-                    <li class="layui-nav-item"><a href="">控制台</a></li>
-                    <li class="layui-nav-item"><a href="">商品管理</a></li>
-                    <li class="layui-nav-item"><a href="">用户</a></li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">其它系统</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="">邮件管理</a></dd>
-                            <dd><a href="">消息管理</a></dd>
-                            <dd><a href="">授权管理</a></dd>
-                        </dl>
-                    </li>
-                </ul>*@
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    当前用户：@ViewBag.name
-                </a>
-            </li>
-            <li class="layui-nav-item"><select id="role" onchange="GetMenu(this.value)"></select></li>
-            <li class="layui-nav-item"><a href="/System/Login">个人信息</a></li>
-            <li class="layui-nav-item"><a href="/System/Login">退出</a></li>
-        </ul>
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">消息管理</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>*@
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        当前用户：@ViewBag.name
+                    </a>
+                </li>
+                <li class="layui-nav-item"><select id="role" onchange="GetMenu(this.value)"></select></li>
+                <li class="layui-nav-item"><a href="/System/Login">个人信息</a></li>
+                <li class="layui-nav-item"><a href="/System/Login">退出</a></li>
+            </ul>
         </div>
 
         <div class="layui-side layui-bg-black">
@@ -73,7 +73,7 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <iframe id="ifrMain" src="/Panel/Show"  height="100%" width="100%"></iframe>
+            <iframe id="ifrMain" src="/Panel/Show" height="100%" width="100%"></iframe>
         </div>
 
         <div class="layui-footer">
@@ -144,7 +144,8 @@
 
             function w(a)
             {
-                if (a==8) {
+                if (a == 8)
+                {
                     document.getElementById("ifrMain").src = '/User/KeIndex';
                 }
                 if (a == 9) {

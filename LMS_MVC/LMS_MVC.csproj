@@ -162,6 +162,9 @@
     <None Include="wwwroot\plugins\sideshow\js\html5.js" />
     <None Include="wwwroot\plugins\sideshow\js\rAF.js" />
     <None Include="wwwroot\plugins\sideshow\js\TweenLite.min.js" />
+    <None Include="wwwroot\Secret\Barrett.js" />
+    <None Include="wwwroot\Secret\BigInt.js" />
+    <None Include="wwwroot\Secret\RSA.js" />
   </ItemGroup>
 
   <ItemGroup>
