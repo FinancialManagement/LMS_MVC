@@ -39,7 +39,7 @@
             <tbody>
                 <tr v-for="item in emps">
                     <td>{{item.content}}</td>
-                    <td>{{(item.recordTime||'').split(' ')[0]}}</td>
+                    <td>{{(item.recordTime||'').split('T')[0]}}</td>
                     <td>{{item.operator}}</td>
                 </tr>
             </tbody>

@@ -54,7 +54,7 @@
         </table>*@
 
 
-    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-top:20px;margin-left:1000px">查询</button>
+    <button type="button" class="layui-btn layui-btn-normal" v-on:click="Search" style="margin-left:1000px">查询</button>
     <table class="layui-table">
         @*<colgroup>
                 <col width="150">
@@ -83,7 +83,7 @@
                 <td>{{i.dCount}}</td>
                 <td>{{i.dLi}}</td>
                 <td>{{i.dSzt==3?"初审驳回":"复审中"}}</td>
-                <td>{{i.sdTime}}</td>
+                <td>{{(i.sdTime||'').split('T')[0]}}</td>
                 <td>{{i.dTu}}</td>
                 <td>
                     <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.dId)">查看</button>
@@ -159,6 +159,7 @@
                     url: "http://localhost:51166/api/User/Zt",
                 }).then(function (i) {
                     a.Zt = i.data;
+                    
                 })
             },
             a: function () {

@@ -55,7 +55,7 @@
                 <td>{{i.dMoney}}</td>
                 <td>{{i.dfMoney}}</td>
                 <td>{{i.id==10?"放款中":i.id==14?"合同签订":i.id==15?"待放款":"未还款"}}</td>
-                <td>{{i.sTime}}</td>
+                <td>{{(i.sTime||'').split('T')[0]}}</td>
                 <td>{{i.dFu}}</td>
                 <td>
                     <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.dId)">查看</button>

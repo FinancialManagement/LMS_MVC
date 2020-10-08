@@ -48,7 +48,7 @@
                 <td>{{item.roleName}}</td>
                 <td>{{item.states==0?"禁用":"启用"}}</td>
                 <td>{{item.creator}}</td>
-                <td>{{item.createTime}}</td>
+                <td>{{(item.createTime||'').split('T')[0]}}</td>
                 <td>
                     <button class="layui-btn layui-btn-radius" v-if="item.states==0" type="button" v-on:click="UptRoleState(item.id)">启用</button>
                     <button class="layui-btn layui-btn-radius" v-if="item.states==1" type="button" v-on:click="UptRoleState(item.id)">禁用</button>

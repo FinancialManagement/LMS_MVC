@@ -9,6 +9,7 @@
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 
+
 <h2 style="margin-bottom:50px;font-family:LiSu">初审列表</h2>
 
 <div style="margin-top:30px">  
@@ -85,7 +86,7 @@
                 <td>{{i.dCount}}</td>
                 <td>{{i.dLi}}</td>
                 <td>{{i.dSzt==1?"初审中":""}}</td>
-                <td>{{i.sdTime}}</td>
+                <td>{{(i.sdTime||'').split('T')[0]}}</td>
                 <td>{{i.dTu}}</td>
                 <td>
                     <button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.dId)">查看</button>

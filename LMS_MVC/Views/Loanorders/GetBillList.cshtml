@@ -9,7 +9,7 @@
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 
 
-<div class="layui-form" id="app">
+<div id="app">
     <table>
         <tr>
             <td style="width:400px">客户名称：<input id="Text1" type="text" v-model="input1" style="width:200px;height:30px" /></td>
@@ -40,8 +40,7 @@
                 <th>账单金额</th>
                 <th>实际还款金额</th>
                 <th>账单状态</th>
-                <th>应还款日期</th>
-                <th>实际还款日期</th>
+                <th>还款日期</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -53,8 +52,7 @@
                 <td>{{i.dMoney}}</td>
                 <td>{{i.dfMoney}}</td>
                 <td>{{i.dSzt==10?"放款中":i.dSzt==11?"还款中":i.dSzt==12?"逾期中":i.dSzt==13?"已还清":i.dSzt==14?"合同签订":i.dSzt==15?"等待放款":i.dSzt==16?"未放款":"催收中"}}</td>
-                <td>{{i.bullDate}}</td>
-                <td>{{i.repaymentDate}}</td>
+                <td>{{(i.repaymentDate||'').split('T')[0]}}</td>
                 <td><button type="button" class="layui-btn layui-btn-radius" v-on:click="Cha(i.dId)">放款详情</button></td>
             </tr>
         </tbody>

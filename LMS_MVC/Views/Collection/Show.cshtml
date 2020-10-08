@@ -16,11 +16,11 @@
 
 
 <div id="app" style="margin-top:25px">
-    客户姓名:<input id="Text1" type="text" v-model="input1" style="margin-right:10px"/>
-    催收人员:<input id="Text1" type="text" v-model="input2" style="margin-right:10px"/>
-   催收状态:<select id="Select1" style="margin-right:10px">
+    客户姓名:<input id="Text1" type="text" v-model="input1" style="margin-right:100px"/>
+    催收人员:<input id="Text1" type="text" v-model="input2" style="margin-right:100px"/>
+   催收状态:<select id="Select1" style="margin-right:100px">
         <option value="">--请选择--</option>
-        <option value="0">催收中</option>
+        <option value="0">催收中</option> 
         <option value="1">已完成</option>
     </select>
     <button class="btn-primary" v-on:click="Search">查询</button>
@@ -45,7 +45,7 @@
                     <td>{{item.name}}</td>
                     <td>{{item.status==0?"催收中":"已完成"}}</td>
                     <td>{{item.record}}</td>
-                    <td>{{item.recordTime}}</td>
+                    <td>{{(item.recordTime||'').split('T')[0]}}</td>
                     <td>{{item.collector}}</td>
                     <td>
                         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" v-on:click="Asdf">查看</a>
@@ -149,7 +149,7 @@
                         params: {
                             name: this.input1,
                             collector: this.input2,
-                            pageSize: 4,
+                            pageSize: 8,
                             currentPage: dqy
                         }
                     })

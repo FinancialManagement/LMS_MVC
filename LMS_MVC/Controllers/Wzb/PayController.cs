@@ -140,7 +140,6 @@ namespace LMS_MVC.Controllers.Wzb
                 {
                     Console.WriteLine($"同步验证失败，订单号：{sArray["out_trade_no"]}");
                     ViewData["PayResult"] = "同步验证失败";
-
                 }
             }
             return View();

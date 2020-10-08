@@ -118,7 +118,7 @@
             <tr v-for="i in emps">
                 <td>{{i.jName}}</td>
                 <td>{{i.jNei}}</td>
-                <td>{{i.jTime}}</td>
+                <td>{{(i.jTime||'').split('T')[0]}}</td>
             </tr>
         </tbody>
     </table>

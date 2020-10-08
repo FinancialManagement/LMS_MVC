@@ -15,7 +15,7 @@
         <div>
         </div>
     </div>
-    <table class="table-bordered">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <td>民族:</td>
@@ -33,42 +33,42 @@
             </tr>
 
             <tr>
-                
-    <td>所在地区:</td>
-    <td>
-        <select id="a">
-                @*<option v-for='(item,index) in Lms_Education' :key="index" :value="item.id">{{item.name}}</option>*@
-                <option value="0">--全部--</option>
-            <option>河南省</option>
-            <option>河北省</option>
-            <option>安徽省</option>
-            <option>山西省</option>
-            <option>陕西省</option>
-            <option>上海市</option>
-            <option>北京市</option>
-            <option>福建省</option>
-            <option>海南省</option>
-            <option>广东省</option>
-            <option>广西省</option>
-        </select>
-        <select id="b">
-            <option value="0">--全部--</option>
-            <option>洛阳市</option>
-            <option>郑州市</option>
-            <option>开封市</option>
-            <option>信阳市</option>
-            <option>南阳市</option>
-            <option>安阳市</option>
-            <option>许昌市</option>
-            <option>洛阳市</option>
-            <option>三门峡市</option>
-            <option>济源市</option>
-            <option>漯河市</option>
-            <option>焦作市</option>
-            <option>鹤壁市</option>
-            <option>驻马店市</option>
-        </select>
-    </td>
+
+                <td>所在地区:</td>
+                <td>
+                    <select id="a">
+                        @*<option v-for='(item,index) in Lms_Education' :key="index" :value="item.id">{{item.name}}</option>*@
+                        <option value="0">--全部--</option>
+                        <option>河南省</option>
+                        <option>河北省</option>
+                        <option>安徽省</option>
+                        <option>山西省</option>
+                        <option>陕西省</option>
+                        <option>上海市</option>
+                        <option>北京市</option>
+                        <option>福建省</option>
+                        <option>海南省</option>
+                        <option>广东省</option>
+                        <option>广西省</option>
+                    </select>
+                    <select id="b">
+                        <option value="0">--全部--</option>
+                        <option>洛阳市</option>
+                        <option>郑州市</option>
+                        <option>开封市</option>
+                        <option>信阳市</option>
+                        <option>南阳市</option>
+                        <option>安阳市</option>
+                        <option>许昌市</option>
+                        <option>洛阳市</option>
+                        <option>三门峡市</option>
+                        <option>济源市</option>
+                        <option>漯河市</option>
+                        <option>焦作市</option>
+                        <option>鹤壁市</option>
+                        <option>驻马店市</option>
+                    </select>
+                </td>
 
                 <td>详细地址;</td>
                 <td>
@@ -76,14 +76,16 @@
                 </td>
             </tr>
             <tr>
-                <td>身份证号码:</td>
+                <td>身份证正面:</td>
                 <td>
-                    <input type="text" v-model="obj.SImg1" />
+                    @*<input type="text" v-model="obj.SImg1" />*@
+                    <input id="imgth" type="file" placeholder="请选择图片" v-model="obj.SImg1"/>
                 </td>
-                
-                <td>婚姻情况:</td>
+
+                <td>身份证反面:</td>
                 <td>
-                    <input type="text" v-model="obj.SImg2" />
+                    @*<input type="text" v-model="obj.SImg2" />*@
+                    <input id="imgth" type="file" placeholder="请选择图片" v-model="obj.SImg2" />
                 </td>
             </tr>
             <tr>
@@ -114,13 +116,13 @@
                     <input type="text" v-model="obj.SJian" />
                 </td>
 
-        
-           
+
+
                 <td>银行卡号:</td>
                 <td>
                     <input type="text" v-model="obj.SYin" />
                 </td>
-                </tr>
+            </tr>
             <tr>
                 <td>密码:</td>
                 <td>
@@ -133,8 +135,8 @@
                     <input type="text" v-model="obj.SKuan" />
                 </td>
 
-                          
-            
+
+
                 <td>邮箱:</td>
                 <td>
                     <input type="text" v-model="obj.SEmail" />
@@ -145,6 +147,7 @@
             </tr>
         </thead>
     </table>
+
 </div>
 <script type="text/javascript">
 
