@@ -24,19 +24,9 @@ namespace LMS_MVC.Controllers.ADFinanl
         }
 
 
-        public IActionResult UserLogin()
-        {
-            return View();
-        }
-
 
 
         public IActionResult ShenQing()
-        {
-            return View();
-        }
-
-        public IActionResult aaaa()
         {
             return View();
         }
